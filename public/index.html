@@ -4,133 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LoRa y LoRaWAN - RCM</title>
+    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-
-        body {
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
-            background-color: #f8fafc; /* Slate 50 */
-            color: #0f172a; /* Slate 900 */
-        }
-
-        /* Paleta de colores personalizada basada en Azul Oscuro */
-        :root {
-            --primary: #1e3a8a; /* Blue 900 */
-            --secondary: #3b82f6; /* Blue 500 */
-            --accent: #0ea5e9; /* Sky 500 */
-            --dark: #020617; /* Slate 950 */
-        }
-
-        .slide-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .slide {
-            min-width: 100%;
-            height: 100%;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slide.active {
-            opacity: 1;
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            border-radius: 1.5rem;
-        }
-
-        /* Animaciones Específicas */
-        .chirp-wave {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: dash 3s linear infinite;
-        }
-
-        @keyframes dash {
-            to { stroke-dashoffset: 0; }
-        }
-
-        .pulse-ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 2px solid var(--secondary);
-            animation: ripple 2s infinite;
-        }
-
-        @keyframes ripple {
-            0% { transform: scale(0.1); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        /* Packet Animation */
-        .packet {
-            width: 12px;
-            height: 12px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            position: absolute;
-            display: none;
-            box-shadow: 0 0 10px var(--accent);
-            z-index: 50;
-        }
-
-        .packet-animate {
-            display: block;
-            animation: transmitPath 2s forwards ease-in-out;
-        }
-
-        @keyframes transmitPath {
-            0% { left: 10%; top: 50%; opacity: 1; }
-            40% { left: 40%; top: 20%; } /* Gateway */
-            70% { left: 60%; top: 50%; } /* Network Server */
-            100% { left: 90%; top: 50%; opacity: 0; transform: scale(1.5); } /* App Server */
-        }
-
-        .bg-tech-grid {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 40px 40px;
-        }
-
-        .frame-byte {
-            transition: all 0.3s ease;
-        }
-        .frame-byte:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-        }
-
-    </style>
+    <!-- Hoja de estilos personalizada externa -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- Background Decoration -->
+    <!-- Decoración de fondo -->
     <div class="fixed inset-0 z-0 bg-tech-grid opacity-40 pointer-events-none"></div>
-    
-    <!-- Canvas for subtle particles -->
     <canvas id="bgCanvas" class="fixed inset-0 z-0 opacity-30 pointer-events-none"></canvas>
 
-    <!-- Main Slide Container -->
+    <!-- Contenedor Principal de Diapositivas -->
     <div class="slide-container" id="slider">
 
         <!-- SLIDE 1: PORTADA -->
@@ -154,13 +39,6 @@
                         <p class="text-lg font-semibold text-slate-800">Roberto Domínguez Sarmiento</p>
                     </div>
                 </div>
-
-                <!-- Animated Icon -->
-                <div class="absolute -bottom-12 -right-12 text-blue-100 opacity-50">
-                    <svg width="200" height="200" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-1.07 3.97-2.9 5.4z"/>
-                    </svg>
-                </div>
             </div>
         </div>
 
@@ -175,15 +53,11 @@
                     <ul class="space-y-4">
                         <li class="flex items-start">
                             <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">1</span>
-                            <span>Necesidad de <strong>eficiencia energética</strong> (baterías que duren años).</span>
+                            <span>Necesidad de <strong>eficiencia energética</strong>.</span>
                         </li>
                         <li class="flex items-start">
                             <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">2</span>
-                            <span>Requisito de <strong>gran cobertura</strong> geográfica.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">3</span>
-                            <span>Baja dependencia de infraestructuras costosas.</span>
+                            <span>Requisito de <strong>gran cobertura</strong>.</span>
                         </li>
                     </ul>
                 </div>
@@ -191,11 +65,6 @@
                     <div class="relative w-80 h-80 bg-blue-50 rounded-full flex items-center justify-center border-4 border-blue-100 shadow-xl">
                         <div class="absolute inset-0 rounded-full border border-blue-200 animate-[spin_10s_linear_infinite]"></div>
                         <div class="text-6xl text-blue-600">IoT</div>
-                        <!-- Satellites -->
-                        <div class="absolute -top-4 left-1/2 bg-white p-3 rounded-lg shadow-md transform -translate-x-1/2 hover:scale-110 transition cursor-pointer">🏭</div>
-                        <div class="absolute -bottom-4 left-1/2 bg-white p-3 rounded-lg shadow-md transform -translate-x-1/2 hover:scale-110 transition cursor-pointer">🏙️</div>
-                        <div class="absolute top-1/2 -left-4 bg-white p-3 rounded-lg shadow-md transform -translate-y-1/2 hover:scale-110 transition cursor-pointer">🚜</div>
-                        <div class="absolute top-1/2 -right-4 bg-white p-3 rounded-lg shadow-md transform -translate-y-1/2 hover:scale-110 transition cursor-pointer">💡</div>
                     </div>
                 </div>
             </div>
@@ -205,24 +74,21 @@
         <div class="slide">
             <h2 class="text-4xl font-bold text-blue-900 mb-12">La Necesidad de Nuevas Redes</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
-                <!-- Traditional -->
                 <div class="glass-panel p-8 text-center border-b-4 border-red-400">
                     <div class="text-5xl mb-4">📶</div>
                     <h3 class="text-xl font-bold mb-2">WiFi / Bluetooth</h3>
-                    <p class="text-slate-600 text-sm">Alto ancho de banda, pero <strong>muy corto alcance</strong> y alto consumo para sensores remotos.</p>
+                    <p class="text-slate-600 text-sm">Corto alcance.</p>
                 </div>
-                <!-- Cellular -->
                 <div class="glass-panel p-8 text-center border-b-4 border-orange-400">
                     <div class="text-5xl mb-4">📱</div>
                     <h3 class="text-xl font-bold mb-2">3G / 4G / 5G</h3>
-                    <p class="text-slate-600 text-sm">Gran cobertura, pero <strong>excesivo consumo de energía</strong> y costes elevados para enviar pocos bytes.</p>
+                    <p class="text-slate-600 text-sm">Alto consumo y coste.</p>
                 </div>
-                <!-- LPWAN -->
                 <div class="glass-panel p-8 text-center border-b-4 border-green-500 transform scale-105 shadow-2xl relative">
                     <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-3 py-1 rounded text-xs font-bold">SOLUCIÓN</div>
                     <div class="text-5xl mb-4 text-green-600">🌐</div>
                     <h3 class="text-xl font-bold mb-2">LPWAN</h3>
-                    <p class="text-slate-600 text-sm">Low Power Wide Area Network. El equilibrio perfecto: <strong>Largo alcance + Bajo Consumo</strong>.</p>
+                    <p class="text-slate-600 text-sm">Largo alcance + Bajo Consumo.</p>
                 </div>
             </div>
         </div>
@@ -233,592 +99,298 @@
                 <div class="flex-1">
                     <h2 class="text-4xl font-bold text-blue-900 mb-6">¿Qué es LoRa?</h2>
                     <p class="mb-4 text-slate-700"><strong>LoRa (Long Range)</strong> es la modulación de la capa física.</p>
-                    <ul class="list-disc pl-5 space-y-2 text-slate-600 mb-6">
-                        <li>Origen: Desarrollado por <strong>Cycleo</strong> (Francia).</li>
-                        <li>Adquisición: Comprada por <strong>Semtech</strong> en 2012.</li>
-                        <li>Técnica: Espectro ensanchado por chirps (CSS).</li>
-                        <li>Ventaja: Inmune al ruido y efecto Doppler.</li>
-                    </ul>
                     <div class="bg-blue-900 text-white p-4 rounded-lg shadow-lg">
-                        <p class="font-mono text-sm">> Modulación robusta capaz de demodular señales 20dB por debajo del ruido.</p>
+                        <p class="font-mono text-sm">> Modulación robusta (CSS) inmune al ruido.</p>
                     </div>
                 </div>
                 <div class="flex-1 relative h-64 w-full bg-slate-900 rounded-xl overflow-hidden shadow-inner flex items-center justify-center">
-                    <!-- Chirp Animation Canvas -->
                     <canvas id="chirpCanvas" width="400" height="200"></canvas>
-                    <p class="absolute bottom-2 right-4 text-xs text-blue-400 font-mono">Chirp Spread Spectrum Visualizer</p>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 5: LORAWAN -->
+        <!-- SLIDE 5: LORA VS LORAWAN -->
         <div class="slide">
-            <div class="text-center max-w-4xl">
-                <h2 class="text-5xl font-bold text-blue-900 mb-4">LoRa vs LoRaWAN</h2>
-                <p class="text-xl text-slate-500 mb-12">La distinción fundamental entre la radio y la red.</p>
-                
-                <div class="relative h-64 w-full mx-auto">
-                    <!-- Stack Block Animation -->
-                    <div class="absolute bottom-0 left-0 w-full h-20 bg-blue-900 text-white flex items-center justify-center rounded-b-xl shadow-lg z-30">
-                        <span class="text-2xl font-bold">LoRa (Física)</span>
-                    </div>
-                    <div class="absolute bottom-24 left-10 right-10 h-20 bg-blue-600 text-white flex items-center justify-center rounded-xl shadow-lg z-20 animate-bounce" style="animation-duration: 3s;">
-                        <span class="text-2xl font-bold">LoRaWAN (MAC / Red)</span>
-                    </div>
-                    <div class="absolute bottom-48 left-20 right-20 h-20 bg-cyan-400 text-blue-900 flex items-center justify-center rounded-t-xl shadow-lg z-10 animate-pulse">
+            <h2 class="text-5xl font-bold text-blue-900 mb-2">LoRa vs LoRaWAN</h2>
+            <p class="text-slate-500 mb-8">Pasa el ratón sobre los bloques para entender la diferencia.</p>
+            
+            <div class="flex flex-row items-center justify-center gap-12 w-full max-w-6xl">
+                <!-- Stack -->
+                <div class="relative w-80 h-96 flex flex-col justify-end">
+                    
+                    <!-- App Layer -->
+                    <div onmouseenter="showStackInfo('app')" class="layer-block w-full h-20 bg-cyan-400 text-blue-900 flex items-center justify-center rounded-t-xl shadow-lg mb-1 animate-pulse border-2 border-white">
                         <span class="text-2xl font-bold">Aplicación</span>
                     </div>
+                    
+                    <!-- LoRaWAN Layer -->
+                    <div onmouseenter="showStackInfo('lorawan')" class="layer-block w-full h-24 bg-blue-600 text-white flex items-center justify-center rounded-xl shadow-lg mb-4 border-2 border-white animate-bounce" style="animation-duration: 3s;">
+                        <span class="text-2xl font-bold">LoRaWAN (MAC)</span>
+                    </div>
+                    
+                    <!-- LoRa Layer -->
+                    <div onmouseenter="showStackInfo('lora')" class="layer-block w-full h-24 bg-blue-900 text-white flex items-center justify-center rounded-b-xl shadow-lg border-2 border-white">
+                        <span class="text-2xl font-bold">LoRa (Física)</span>
+                    </div>
                 </div>
-                
-                <div class="mt-8 text-left bg-white p-6 rounded-lg shadow-sm border border-slate-200">
-                    <p><strong>LoRa Alliance (2015):</strong> Creó el estándar LoRaWAN para gestionar la comunicación entre dispositivos, pasarelas y servidores, definiendo seguridad, tramas y gestión de red.</p>
+
+                <!-- Info Panel -->
+                <div class="w-96 h-64 relative perspective-1000">
+                    <div id="stack-info-panel" class="glass-panel w-full h-full p-6 flex flex-col justify-center transition-all duration-300 transform">
+                        <h3 id="stack-title" class="text-2xl font-bold text-blue-800 mb-4">Arquitectura por Capas</h3>
+                        <p id="stack-desc" class="text-slate-600 leading-relaxed">
+                            Interactúa con la pila para ver los detalles específicos de cada tecnología.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- SLIDE 6: ESTADO ACTUAL -->
         <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-8">Estado Actual y Crecimiento</h2>
+            <h2 class="text-4xl font-bold text-blue-900 mb-8">Estado Actual</h2>
             <div class="grid grid-cols-2 gap-8 max-w-6xl w-full">
                 <div class="glass-panel p-6">
                     <h3 class="text-lg font-bold text-blue-700 mb-2">Adopción Global</h3>
-                    <div class="h-48 bg-slate-200 rounded flex items-center justify-center relative overflow-hidden group">
-                        <!-- Simple Map Abstract -->
-                        <div class="absolute inset-0 opacity-20 bg-[url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg')] bg-cover bg-center"></div>
-                        <div class="z-10 text-center">
-                            <span class="text-4xl font-extrabold text-blue-800">170+</span>
-                            <p class="text-sm font-semibold">Países con despliegues</p>
-                        </div>
-                        <!-- Hotspots animation -->
-                        <div class="absolute top-1/3 left-1/4 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
-                        <div class="absolute top-1/4 right-1/4 w-3 h-3 bg-red-500 rounded-full animate-ping delay-75"></div>
-                        <div class="absolute bottom-1/3 left-1/3 w-3 h-3 bg-red-500 rounded-full animate-ping delay-150"></div>
+                    <div class="h-48 bg-slate-200 rounded flex items-center justify-center text-4xl font-extrabold text-blue-800">
+                        170+ Países
                     </div>
                 </div>
                 <div class="glass-panel p-6">
-                    <h3 class="text-lg font-bold text-blue-700 mb-2">Sectores Clave</h3>
-                    <div class="grid grid-cols-2 gap-4 mt-4">
-                        <div class="bg-blue-50 p-3 rounded text-center hover:bg-blue-100 transition"><span class="text-2xl block">🏙️</span>Smart Cities</div>
-                        <div class="bg-blue-50 p-3 rounded text-center hover:bg-blue-100 transition"><span class="text-2xl block">🌾</span>Agricultura</div>
-                        <div class="bg-blue-50 p-3 rounded text-center hover:bg-blue-100 transition"><span class="text-2xl block">🏭</span>Industria 4.0</div>
-                        <div class="bg-blue-50 p-3 rounded text-center hover:bg-blue-100 transition"><span class="text-2xl block">📦</span>Logística</div>
+                    <h3 class="text-lg font-bold text-blue-700 mb-2">Sectores</h3>
+                    <div class="grid grid-cols-2 gap-4 mt-4 text-center">
+                        <div class="bg-blue-50 p-2 rounded">Smart Cities</div>
+                        <div class="bg-blue-50 p-2 rounded">Agricultura</div>
+                        <div class="bg-blue-50 p-2 rounded">Industria</div>
+                        <div class="bg-blue-50 p-2 rounded">Logística</div>
                     </div>
                 </div>
             </div>
-            <p class="mt-8 text-slate-600 max-w-2xl text-center italic">"Se ha consolidado como la referencia en LPWAN gracias a su ecosistema abierto y flexibilidad."</p>
         </div>
 
-        <!-- SLIDE 7: ARQUITECTURA (INTERACTIVA) -->
+        <!-- SLIDE 7: ARQUITECTURA -->
         <div class="slide">
-            <h2 class="text-3xl font-bold text-blue-900 mb-4">Arquitectura: Estrella de Estrellas</h2>
-            <p class="text-slate-600 mb-8">Haz clic en el botón para simular una transmisión.</p>
-            
-            <div class="relative w-full max-w-6xl h-80 bg-white rounded-xl shadow-xl border border-slate-200 flex items-center justify-between px-12 overflow-hidden">
+            <div class="w-full max-w-6xl">
+                <div class="flex justify-between items-end mb-4">
+                    <h2 class="text-3xl font-bold text-blue-900">Arquitectura de Red</h2>
+                    <button onclick="startNetSim()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow transition flex items-center gap-2 text-sm">
+                        <span>📡</span> Enviar Datos
+                    </button>
+                </div>
                 
-                <!-- Background Lines -->
-                <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-100 -z-10"></div>
+                <div class="relative w-full h-96 bg-white/60 backdrop-blur rounded-2xl shadow-xl border border-slate-200 p-8">
+                    
+                    <!-- Background Connections -->
+                    <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none stroke-slate-300 stroke-2" style="z-index: 0;">
+                        <line x1="15%" y1="30%" x2="35%" y2="50%" stroke-dasharray="5,5" />
+                        <line x1="15%" y1="50%" x2="35%" y2="50%" stroke-dasharray="5,5" />
+                        <line x1="15%" y1="70%" x2="35%" y2="50%" stroke-dasharray="5,5" />
+                        <line x1="35%" y1="50%" x2="60%" y2="50%" stroke-width="4" stroke="#94a3b8" />
+                        <line x1="60%" y1="50%" x2="85%" y2="50%" stroke-width="4" stroke="#94a3b8" />
+                    </svg>
 
-                <!-- END DEVICE -->
-                <div class="flex flex-col items-center z-10">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center border-2 border-green-500 mb-2 shadow-sm">
-                        <span class="text-2xl">📡</span>
+                    <!-- Components Grid -->
+                    <div class="grid grid-cols-4 h-full items-center justify-items-center relative z-10">
+                        <!-- Col 1: End Devices -->
+                        <div class="flex flex-col gap-8">
+                            <div class="w-12 h-12 bg-green-100 rounded-full border-2 border-green-500 flex items-center justify-center text-xl shadow-sm" title="Sensor Agua">💧</div>
+                            <div class="w-12 h-12 bg-green-100 rounded-full border-2 border-green-500 flex items-center justify-center text-xl shadow-sm" title="Sensor Temp">🌡️</div>
+                            <div class="w-12 h-12 bg-green-100 rounded-full border-2 border-green-500 flex items-center justify-center text-xl shadow-sm" title="GPS Tracker">📍</div>
+                            <p class="text-xs font-bold text-slate-500 mt-2 text-center">Dispositivos Finales</p>
+                        </div>
+                        <!-- Col 2: Gateway -->
+                        <div class="flex flex-col items-center">
+                            <div class="w-24 h-32 bg-slate-800 rounded-lg border-b-4 border-blue-500 flex flex-col items-center justify-center shadow-lg relative">
+                                <div class="w-1 h-8 bg-slate-600 absolute -top-8 left-4"></div>
+                                <div class="w-1 h-8 bg-slate-600 absolute -top-8 right-4"></div>
+                                <span class="text-3xl">📶</span>
+                                <span class="text-white text-xs font-mono mt-2">GW-01</span>
+                            </div>
+                            <p class="text-xs font-bold text-slate-500 mt-4">Gateway / Concentrador</p>
+                        </div>
+                        <!-- Col 3: Network Server -->
+                        <div class="flex flex-col items-center">
+                            <div class="w-32 h-32 bg-blue-100 rounded-full border-4 border-blue-600 flex flex-col items-center justify-center shadow-2xl relative overflow-hidden">
+                                <div class="absolute inset-0 bg-blue-200 opacity-20 animate-pulse"></div>
+                                <span class="text-4xl z-10">☁️</span>
+                                <span class="text-blue-900 font-bold text-xs z-10 mt-1">THE THINGS<br>NETWORK</span>
+                            </div>
+                            <p class="text-xs font-bold text-slate-500 mt-4">Network Server (Cerebro)</p>
+                        </div>
+                        <!-- Col 4: App Server -->
+                        <div class="flex flex-col items-center">
+                            <div class="w-24 h-24 bg-white rounded-xl border-2 border-cyan-500 flex items-center justify-center shadow-md">
+                                <span class="text-4xl">💻</span>
+                            </div>
+                            <p class="text-xs font-bold text-slate-500 mt-4">Servidor de Aplicación</p>
+                        </div>
                     </div>
-                    <span class="font-bold text-sm">Dispositivo</span>
-                    <span class="text-xs text-slate-500">LoRa RF</span>
+
+                    <!-- Animation Packet -->
+                    <div id="sim-packet" class="packet top-1/2 left-0"></div>
+
                 </div>
-
-                <!-- GATEWAY -->
-                <div class="flex flex-col items-center z-10" style="margin-top: -60px;"> <!-- Visual offset -->
-                    <div class="w-20 h-20 bg-blue-100 rounded flex items-center justify-center border-2 border-blue-500 mb-2 shadow-sm relative">
-                        <span class="text-3xl">📶</span>
-                        <!-- Antenna -->
-                        <div class="absolute -top-4 left-1/2 w-1 h-4 bg-slate-400"></div>
-                    </div>
-                    <span class="font-bold text-sm">Gateway</span>
-                    <span class="text-xs text-slate-500">Concentrador</span>
-                </div>
-
-                <!-- NETWORK SERVER -->
-                <div class="flex flex-col items-center z-10">
-                    <div class="w-24 h-24 bg-indigo-100 rounded-full flex items-center justify-center border-2 border-indigo-500 mb-2 shadow-sm">
-                        <span class="text-4xl">☁️</span>
-                    </div>
-                    <span class="font-bold text-sm">Network Server</span>
-                    <span class="text-xs text-slate-500">Deduplicación/Seguridad</span>
-                </div>
-
-                <!-- APP SERVER -->
-                <div class="flex flex-col items-center z-10">
-                    <div class="w-20 h-20 bg-cyan-100 rounded flex items-center justify-center border-2 border-cyan-500 mb-2 shadow-sm">
-                        <span class="text-3xl">💻</span>
-                    </div>
-                    <span class="font-bold text-sm">App Server</span>
-                    <span class="text-xs text-slate-500">Datos Útiles</span>
-                </div>
-
-                <!-- ANIMATION PACKET -->
-                <div id="packet" class="packet top-1/2 left-10"></div>
-                
-                <!-- Connection Labels -->
-                <div class="absolute top-2/3 left-[20%] text-xs font-mono text-slate-400">LoRa (Aire)</div>
-                <div class="absolute top-1/3 left-[48%] text-xs font-mono text-slate-400">IP Backhaul</div>
-                <div class="absolute top-2/3 left-[78%] text-xs font-mono text-slate-400">API/MQTT</div>
-
             </div>
-
-            <button onclick="startSimulation()" class="mt-8 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg transition transform hover:scale-105 active:scale-95 flex items-center gap-2">
-                <span>🚀</span> Enviar Dato de Sensor
-            </button>
         </div>
 
-        <!-- SLIDE 8: LA TRAMA (Overview) -->
+        <!-- SLIDE 8: ESTRUCTURA DE LA TRAMA -->
         <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-8">Estructura de la Trama</h2>
-            <div class="flex flex-col w-full max-w-5xl gap-4">
-                
-                <!-- Preamble -->
-                <div class="w-full flex gap-1">
-                    <div class="w-1/6 bg-slate-300 h-12 rounded-l flex items-center justify-center text-xs font-bold text-slate-600" title="Sincronización">Preámbulo</div>
-                    <div class="w-1/6 bg-slate-400 h-12 flex items-center justify-center text-xs font-bold text-white">PHDR</div>
-                    <div class="w-4/6 bg-blue-600 h-12 rounded-r flex items-center justify-center text-white font-bold shadow-lg transform scale-105 z-10">PHY Payload</div>
-                    <div class="w-1/12 bg-slate-400 h-12 flex items-center justify-center text-xs font-bold text-white rounded ml-1">CRC</div>
+            <div class="w-full max-w-6xl">
+                <h2 class="text-3xl font-bold text-blue-900 mb-2">Explorador de Trama LoRaWAN</h2>
+                <p class="text-slate-500 mb-8">Haz clic en los bloques de la trama para ver su función técnica.</p>
+
+                <!-- Frame Bar -->
+                <div class="flex w-full h-24 rounded-xl overflow-hidden shadow-2xl border border-slate-300 text-white font-bold text-sm md:text-base select-none">
+                    
+                    <div onclick="showFrameInfo('preamble')" class="frame-segment w-[10%] bg-slate-500 flex flex-col items-center justify-center border-r border-slate-400">
+                        <span>Preámbulo</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('phdr')" class="frame-segment w-[10%] bg-slate-600 flex flex-col items-center justify-center border-r border-slate-500">
+                        <span>PHDR</span>
+                        <span class="text-[10px] opacity-70">CRC</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('mhdr')" class="frame-segment w-[8%] bg-yellow-600 flex flex-col items-center justify-center border-r border-yellow-500">
+                        <span>MHDR</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('devaddr')" class="frame-segment w-[15%] bg-emerald-600 flex flex-col items-center justify-center border-r border-emerald-500">
+                        <span>DevAddr</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('fctrl')" class="frame-segment w-[8%] bg-emerald-500 flex flex-col items-center justify-center border-r border-emerald-400">
+                        <span>FCtrl</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('fcnt')" class="frame-segment w-[10%] bg-emerald-700 flex flex-col items-center justify-center border-r border-emerald-600">
+                        <span>FCnt</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('fport')" class="frame-segment w-[5%] bg-purple-600 flex flex-col items-center justify-center border-r border-purple-500">
+                        <span>Port</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('payload')" class="frame-segment w-[24%] bg-blue-600 flex flex-col items-center justify-center border-r border-blue-500 relative overflow-hidden">
+                        <span class="relative z-10">FRM Payload</span>
+                        <div class="absolute inset-0 bg-black opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==')]"></div>
+                    </div>
+
+                    <div onclick="showFrameInfo('mic')" class="frame-segment w-[10%] bg-red-600 flex flex-col items-center justify-center">
+                        <span>MIC</span>
+                    </div>
                 </div>
 
-                <div class="text-center text-2xl text-slate-400 my-2">⬇️</div>
-
-                <!-- Inside PHY Payload -->
-                <div class="w-4/6 mx-auto flex gap-1">
-                    <div class="w-1/6 bg-yellow-500 h-16 rounded-l flex items-center justify-center text-xs font-bold text-white flex-col">MHDR<span class="text-[8px] opacity-75">Tipo msg</span></div>
-                    <div class="w-4/6 bg-blue-500 h-16 flex items-center justify-center text-white font-bold flex-col">MAC Payload<span class="text-[8px] opacity-75">Datos y Comandos</span></div>
-                    <div class="w-1/6 bg-red-500 h-16 rounded-r flex items-center justify-center text-xs font-bold text-white flex-col">MIC<span class="text-[8px] opacity-75">Integridad</span></div>
-                </div>
-
-                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mt-6 text-left">
-                    <p class="text-sm text-slate-700"><strong>MIC (Message Integrity Code):</strong> 4 bytes críticos. Garantiza que el mensaje no ha sido modificado y proviene de un dispositivo auténtico.</p>
+                <!-- Info Card Container -->
+                <div class="mt-8 h-40 w-full relative">
+                    <div id="frame-detail-card" class="absolute inset-0 bg-white rounded-xl shadow-lg border-l-8 border-slate-300 p-6 transition-all duration-300">
+                        <h3 id="frame-title" class="text-2xl font-bold text-slate-800 mb-2">Selecciona un campo</h3>
+                        <div class="flex gap-4 mb-2">
+                             <span id="frame-size" class="text-xs font-mono bg-slate-100 px-2 py-1 rounded text-slate-500">Tamaño: --</span>
+                             <span id="frame-layer" class="text-xs font-mono bg-slate-100 px-2 py-1 rounded text-slate-500">Capa: --</span>
+                        </div>
+                        <p id="frame-desc" class="text-slate-600">Haz clic en las secciones de la barra superior para revelar su propósito en el protocolo LoRaWAN.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 9: MAC PAYLOAD (DETALLE) -->
-        <div class="slide">
-            <h2 class="text-3xl font-bold text-blue-900 mb-6">Detalle del MAC Payload</h2>
-            <p class="mb-8 text-slate-600">Pasa el ratón por los campos para ver su función.</p>
-
-            <div class="flex w-full max-w-6xl justify-center items-center h-32 gap-1 select-none">
-                <!-- FHDR -->
-                <div class="frame-byte group w-48 bg-emerald-500 h-full rounded-l-lg flex flex-col items-center justify-center text-white cursor-help relative">
-                    <span class="font-bold text-xl">FHDR</span>
-                    <span class="text-xs">Cabecera</span>
-                    <!-- Tooltip -->
-                    <div class="absolute bottom-full mb-2 w-64 bg-slate-800 text-white text-xs p-3 rounded opacity-0 group-hover:opacity-100 transition pointer-events-none z-20">
-                        Contiene la dirección del dispositivo (DevAddr), control de trama (FCtrl) y contador (FCnt) para evitar ataques de repetición.
-                    </div>
-                </div>
-
-                <!-- FPORT -->
-                <div class="frame-byte group w-16 bg-purple-500 h-full flex flex-col items-center justify-center text-white cursor-help relative">
-                    <span class="font-bold text-xl">Port</span>
-                    <span class="text-xs">1 Byte</span>
-                     <div class="absolute bottom-full mb-2 w-48 bg-slate-800 text-white text-xs p-3 rounded opacity-0 group-hover:opacity-100 transition pointer-events-none z-20">
-                        Si es 0, son comandos MAC (cifrados con NwkSKey). Si es >0, son datos de aplicación.
-                    </div>
-                </div>
-
-                <!-- FRM Payload -->
-                <div class="frame-byte group w-64 bg-blue-600 h-full rounded-r-lg flex flex-col items-center justify-center text-white cursor-help relative border-4 border-dashed border-white/30">
-                    <span class="font-bold text-xl">FRMPayload</span>
-                    <span class="text-xs">Datos Encriptados</span>
-                    <div class="absolute bottom-full mb-2 w-64 bg-slate-800 text-white text-xs p-3 rounded opacity-0 group-hover:opacity-100 transition pointer-events-none z-20">
-                        La carga útil real. Cifrada con AppSKey. El servidor de red NO puede leer esto, solo la aplicación final.
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-12 grid grid-cols-2 gap-4 max-w-4xl text-left">
-                <div class="bg-white p-4 shadow rounded border border-slate-100">
-                    <strong class="text-emerald-600">DevAddr (4 bytes):</strong> Dirección lógica en la red (no es única mundialmente como una MAC address, cambia si te unes a otra red).
-                </div>
-                <div class="bg-white p-4 shadow rounded border border-slate-100">
-                    <strong class="text-emerald-600">FCnt (2 bytes):</strong> Contador de trama. Vital para seguridad (anti-replay).
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 10: CLASES DE DISPOSITIVOS -->
+        <!-- SLIDE 9: CLASES -->
         <div class="slide">
             <h2 class="text-3xl font-bold text-blue-900 mb-4">Clases A, B y C</h2>
             <div class="flex gap-4 mb-6">
-                <button onclick="showClass('A')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-bold transition">Clase A (Batería)</button>
-                <button onclick="showClass('B')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-bold transition">Clase B (Balizas)</button>
-                <button onclick="showClass('C')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-bold transition">Clase C (Continua)</button>
+                <button onclick="showClass('A')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-bold transition">Clase A</button>
+                <button onclick="showClass('B')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-bold transition">Clase B</button>
+                <button onclick="showClass('C')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-bold transition">Clase C</button>
             </div>
-
             <div class="w-full max-w-5xl h-64 bg-white border border-slate-300 rounded-lg relative overflow-hidden shadow-inner" id="class-display">
-                <!-- Timeline base -->
                 <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-200"></div>
-                <div class="absolute bottom-2 right-2 text-xs text-slate-400">Tiempo ➡️</div>
-
-                <!-- Dynamic Content injected via JS -->
-                <div id="timeline-content" class="w-full h-full relative">
-                    <!-- Default Class A -->
-                    <div class="absolute top-[40%] left-[10%] w-20 h-12 bg-green-500 text-white flex items-center justify-center text-xs font-bold rounded shadow-lg">Uplink</div>
-                    <div class="absolute top-[40%] left-[30%] w-10 h-12 bg-blue-400 text-white flex items-center justify-center text-xs font-bold rounded opacity-50">RX1</div>
-                    <div class="absolute top-[40%] left-[45%] w-10 h-12 bg-blue-400 text-white flex items-center justify-center text-xs font-bold rounded opacity-50">RX2</div>
-                    <div class="absolute top-[60%] left-[55%] w-40 h-8 border-t-2 border-slate-300 flex items-center justify-center text-xs italic text-slate-500">Dormido (Ahorro Energía)</div>
-                </div>
+                <div id="timeline-content" class="w-full h-full relative"></div>
             </div>
-            
-            <div id="class-desc" class="mt-4 text-center max-w-3xl text-lg font-medium text-blue-800">
-                Clase A: Envía y espera brevemente. Máximo ahorro de batería.
-            </div>
+            <div id="class-desc" class="mt-4 text-center max-w-3xl text-lg font-medium text-blue-800">Selecciona una clase.</div>
         </div>
 
-        <!-- SLIDE 11: SEGURIDAD -->
+        <!-- SLIDE 10: SEGURIDAD -->
         <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-8">Seguridad de Extremo a Extremo</h2>
+            <h2 class="text-4xl font-bold text-blue-900 mb-8">Seguridad</h2>
             <div class="flex flex-col md:flex-row gap-8 items-center max-w-6xl">
-                
                 <div class="flex-1 space-y-6">
                     <div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow border-l-4 border-indigo-500">
                         <div class="text-3xl">🔑</div>
                         <div>
-                            <h4 class="font-bold text-indigo-900">NwkSKey (Red)</h4>
-                            <p class="text-sm text-slate-600">Autentica el nodo y comprueba integridad (MIC).</p>
+                            <h4 class="font-bold text-indigo-900">NwkSKey</h4>
+                            <p class="text-sm text-slate-600">Integridad de red (MIC).</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow border-l-4 border-cyan-500">
                         <div class="text-3xl">🗝️</div>
                         <div>
-                            <h4 class="font-bold text-cyan-900">AppSKey (Aplicación)</h4>
-                            <p class="text-sm text-slate-600">Cifra los datos (Payload). La red no puede leerlos.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow border-l-4 border-slate-800">
-                        <div class="text-3xl">🛡️</div>
-                        <div>
-                            <h4 class="font-bold text-slate-900">AES-128</h4>
-                            <p class="text-sm text-slate-600">Estándar de encriptación robusto utilizado en ambos casos.</p>
+                            <h4 class="font-bold text-cyan-900">AppSKey</h4>
+                            <p class="text-sm text-slate-600">Encriptación de datos.</p>
                         </div>
                     </div>
                 </div>
-
                 <div class="flex-1 flex justify-center">
-                    <div class="relative w-64 h-64">
-                        <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-2xl">
-                            <path d="M50 20 L80 35 L80 65 L50 80 L20 65 L20 35 Z" fill="#1e3a8a" />
-                            <text x="50" y="55" text-anchor="middle" fill="white" font-size="25" font-weight="bold">🔒</text>
-                        </svg>
-                        <div class="absolute -top-4 -right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-bounce">Secure!</div>
-                    </div>
+                    <div class="text-9xl">🔒</div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 12: FUTURO Y EVOLUCIÓN -->
+        <!-- SLIDE 11: FUTURO -->
         <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-8">Líneas Futuras</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl w-full">
-                <div class="bg-gradient-to-br from-white to-blue-50 p-6 rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition">
-                    <h3 class="text-xl font-bold text-blue-800 mb-2">📡 Densificación y Roaming</h3>
-                    <p class="text-slate-600">Mejora en la capacidad de gestionar redes masivas y permitir que los dispositivos salten entre redes de distintos operadores.</p>
+            <h2 class="text-4xl font-bold text-blue-900 mb-8">Futuro</h2>
+            <div class="grid grid-cols-2 gap-6 max-w-5xl">
+                <div class="bg-white p-6 rounded shadow border-t-4 border-blue-500">
+                    <h3 class="font-bold">Roaming</h3>
+                    <p class="text-sm text-slate-600">Saltar entre redes.</p>
                 </div>
-                <div class="bg-gradient-to-br from-white to-blue-50 p-6 rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition">
-                    <h3 class="text-xl font-bold text-blue-800 mb-2">🛰️ LoRaWAN desde el Espacio</h3>
-                    <p class="text-slate-600">Integración con satélites LEO (Low Earth Orbit) para cobertura global real donde no llegan los gateways terrestres.</p>
-                </div>
-                <div class="bg-gradient-to-br from-white to-blue-50 p-6 rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition">
-                    <h3 class="text-xl font-bold text-blue-800 mb-2">🤝 Convergencia 5G</h3>
-                    <p class="text-slate-600">Arquitecturas heterogéneas donde LoRaWAN y NB-IoT/5G conviven complementándose.</p>
-                </div>
-                <div class="bg-gradient-to-br from-white to-blue-50 p-6 rounded-xl shadow-md border border-blue-100 hover:shadow-lg transition">
-                    <h3 class="text-xl font-bold text-blue-800 mb-2">📍 Geolocalización sin GPS</h3>
-                    <p class="text-slate-600">Uso de TDOA (Time Difference of Arrival) mejorado para localizar activos sin el consumo de un chip GPS.</p>
+                <div class="bg-white p-6 rounded shadow border-t-4 border-blue-500">
+                    <h3 class="font-bold">Satélites</h3>
+                    <p class="text-sm text-slate-600">Cobertura total.</p>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 13: CONCLUSIÓN -->
+        <!-- SLIDE 12: CONCLUSIÓN -->
         <div class="slide">
-            <div class="text-center max-w-4xl">
-                <div class="inline-block p-4 rounded-full bg-blue-100 text-blue-900 text-4xl mb-6">🎓</div>
-                <h2 class="text-5xl font-bold text-blue-900 mb-6">Conclusión</h2>
-                <p class="text-2xl text-slate-700 leading-relaxed mb-8">
-                    "LoRaWAN no viene a sustituir, sino a <strong>llenar un vacío crítico</strong> en el IoT: conectar lo desconectado de forma eficiente, barata y segura."
-                </p>
-                <div class="grid grid-cols-3 gap-8 text-center border-t border-slate-200 pt-8">
-                    <div>
-                        <span class="block text-3xl font-bold text-blue-600">Madurez</span>
-                        <span class="text-slate-500 text-sm">Estándar consolidado</span>
-                    </div>
-                    <div>
-                        <span class="block text-3xl font-bold text-blue-600">Escalable</span>
-                        <span class="text-slate-500 text-sm">Millones de nodos</span>
-                    </div>
-                    <div>
-                        <span class="block text-3xl font-bold text-blue-600">Eficiente</span>
-                        <span class="text-slate-500 text-sm">Años de batería</span>
-                    </div>
-                </div>
-            </div>
+            <h2 class="text-5xl font-bold text-blue-900 mb-6">Conclusión</h2>
+            <p class="text-2xl text-slate-700 max-w-4xl text-center">
+                "LoRaWAN llena un vacío crítico en el IoT: conectar lo desconectado de forma eficiente."
+            </p>
         </div>
-        
-        <!-- SLIDE 14: BIBLIOGRAFÍA -->
-         <div class="slide">
-            <h2 class="text-3xl font-bold text-blue-900 mb-6">Bibliografía Destacada</h2>
+
+        <!-- SLIDE 13: BIBLIOGRAFÍA -->
+        <div class="slide">
+            <h2 class="text-3xl font-bold text-blue-900 mb-6">Bibliografía</h2>
             <ul class="text-left space-y-4 max-w-4xl text-slate-700 text-sm">
-                <li class="p-3 bg-white shadow rounded border-l-4 border-blue-500">[1] Prometec. Lora y lorawan. (2025)</li>
-                <li class="p-3 bg-white shadow rounded border-l-4 border-blue-500">[3] AlfaloT. LoRaWAN: Protocolo ideal para IoT. (2025)</li>
-                <li class="p-3 bg-white shadow rounded border-l-4 border-blue-500">[7] INCIBE. LoRaWAN y su aportación al IIoT. (2023)</li>
-                <li class="p-3 bg-white shadow rounded border-l-4 border-blue-500">[14] LoRa Alliance. LoRaWAN 1.0.3 Specification.</li>
+                <li class="p-3 bg-white shadow rounded">[1] Prometec. Lora y lorawan.</li>
+                <li class="p-3 bg-white shadow rounded">[7] INCIBE. LoRaWAN y su aportación al IIoT.</li>
+                <li class="p-3 bg-white shadow rounded">[14] LoRa Alliance. Specifications.</li>
             </ul>
         </div>
-        
-        <!-- SLIDE 15: FIN -->
+
+        <!-- SLIDE 14: FIN -->
         <div class="slide">
-            <div class="glass-panel p-16 text-center">
-                <h1 class="text-6xl font-bold text-blue-950 mb-4">Gracias</h1>
-                <p class="text-xl text-blue-600">¿Preguntas?</p>
-                <button onclick="currentSlide=0; showSlide(0);" class="mt-12 text-slate-400 hover:text-blue-600 underline text-sm transition">Volver al inicio</button>
-            </div>
+            <h1 class="text-6xl font-bold text-blue-950 mb-4">Gracias</h1>
+            <p>Andrea Nazaret González Maroto</p>
+        </div>
+
+         <!-- SLIDE 15: EXTRA -->
+         <div class="slide">
+            <h1 class="text-4xl font-bold text-blue-950 mb-4">Preguntas</h1>
         </div>
 
     </div>
 
-    <!-- Navigation Controls -->
+    <!-- Controles de Navegación -->
     <div class="fixed bottom-8 left-0 w-full flex justify-center items-center gap-8 z-50">
-        <button onclick="prevSlide()" class="p-3 bg-white/80 backdrop-blur rounded-full shadow-lg hover:bg-blue-100 text-blue-900 transition hover:scale-110 active:scale-95">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
-        </button>
-        
-        <!-- Progress Dots -->
+        <button onclick="prevSlide()" class="p-3 bg-white/80 backdrop-blur rounded-full shadow-lg hover:bg-blue-100 text-blue-900">⬅️</button>
         <div id="dots" class="flex gap-2"></div>
-        
-        <button onclick="nextSlide()" class="p-3 bg-white/80 backdrop-blur rounded-full shadow-lg hover:bg-blue-100 text-blue-900 transition hover:scale-110 active:scale-95">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"></path></svg>
-        </button>
+        <button onclick="nextSlide()" class="p-3 bg-white/80 backdrop-blur rounded-full shadow-lg hover:bg-blue-100 text-blue-900">➡️</button>
     </div>
 
-    <!-- Slide Counter -->
-    <div class="fixed bottom-4 right-4 text-xs text-slate-400 font-mono">
-        <span id="counter">1</span> / 15
-    </div>
+    <!-- Script Principal -->
+    <script src="script.js"></script>
 
-    <script>
-        // --- LOGIC ---
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const dotsContainer = document.getElementById('dots');
-        const counter = document.getElementById('counter');
-        const totalSlides = slides.length;
-
-        // Init Dots
-        slides.forEach((_, idx) => {
-            const dot = document.createElement('div');
-            dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-blue-600 scale-125' : 'bg-slate-300'}`;
-            dotsContainer.appendChild(dot);
-        });
-        const dots = dotsContainer.querySelectorAll('div');
-
-        function showSlide(index) {
-            if (index < 0) index = 0;
-            if (index >= totalSlides) index = totalSlides - 1;
-            
-            currentSlide = index;
-
-            // Move Container (Vertical or Horizontal? Let's do Vertical for cool effect)
-            // Actually request was "arrow to pass between", typical slider is horizontal.
-            // Let's do fade + slight scale for elegance.
-            
-            slides.forEach((slide, idx) => {
-                if (idx === currentSlide) {
-                    slide.classList.add('active');
-                    slide.style.transform = 'translateY(0) scale(1)';
-                    slide.style.opacity = '1';
-                    slide.style.zIndex = '10';
-                } else if (idx < currentSlide) {
-                    slide.classList.remove('active');
-                    slide.style.transform = 'translateY(-100%) scale(0.9)';
-                    slide.style.opacity = '0';
-                    slide.style.zIndex = '0';
-                } else {
-                    slide.classList.remove('active');
-                    slide.style.transform = 'translateY(100%) scale(0.9)';
-                    slide.style.opacity = '0';
-                    slide.style.zIndex = '0';
-                }
-            });
-
-            // Update Dots
-            dots.forEach((dot, idx) => {
-                dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${idx === currentSlide ? 'bg-blue-600 w-4' : 'bg-slate-300'}`;
-            });
-
-            // Update Counter
-            counter.innerText = currentSlide + 1;
-
-            // Trigger animations specific to slide
-            if(currentSlide === 3) startChirpAnimation();
-        }
-
-        function nextSlide() { showSlide(currentSlide + 1); }
-        function prevSlide() { showSlide(currentSlide - 1); }
-
-        // Keyboard Nav
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
-            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
-        });
-
-        // Initialize
-        showSlide(0);
-
-        // --- ANIMATIONS ---
-
-        // 1. CHIRP ANIMATION (Canvas)
-        const chirpCanvas = document.getElementById('chirpCanvas');
-        const chirpCtx = chirpCanvas.getContext('2d');
-        let chirpTime = 0;
-
-        function startChirpAnimation() {
-            function draw() {
-                // Only draw if slide is active to save resources
-                if (currentSlide !== 3) return;
-                
-                chirpCtx.clearRect(0, 0, chirpCanvas.width, chirpCanvas.height);
-                chirpCtx.strokeStyle = '#3b82f6'; // blue-500
-                chirpCtx.lineWidth = 2;
-                chirpCtx.beginPath();
-                
-                const width = chirpCanvas.width;
-                const height = chirpCanvas.height;
-                const amplitude = 50;
-                
-                for (let x = 0; x < width; x++) {
-                    // Chirp formula: frequency increases with time (x)
-                    // Freq starts low, gets high
-                    let progress = (x + chirpTime * 2) % width; 
-                    let normalizedX = x / width;
-                    let freq = 1 + normalizedX * 20; // Increasing freq
-                    
-                    let y = height / 2 + Math.sin(x * freq * 0.05 - chirpTime * 0.1) * amplitude;
-                    
-                    if (x===0) chirpCtx.moveTo(x, y);
-                    else chirpCtx.lineTo(x, y);
-                }
-                chirpCtx.stroke();
-                
-                chirpTime += 2;
-                requestAnimationFrame(draw);
-            }
-            draw();
-        }
-
-        // 2. PACKET SIMULATION
-        function startSimulation() {
-            const packet = document.getElementById('packet');
-            // Reset
-            packet.classList.remove('packet-animate');
-            void packet.offsetWidth; // trigger reflow
-            packet.classList.add('packet-animate');
-        }
-
-        // 3. CLASS DISPLAY TOGGLE
-        function showClass(type) {
-            const container = document.getElementById('timeline-content');
-            const desc = document.getElementById('class-desc');
-            container.innerHTML = ''; // Clear
-
-            if (type === 'A') {
-                container.innerHTML = `
-                    <div class="absolute top-[40%] left-[10%] w-20 h-12 bg-green-500 text-white flex items-center justify-center text-xs font-bold rounded shadow-lg animate-pulse">Uplink</div>
-                    <div class="absolute top-[40%] left-[30%] w-10 h-12 bg-blue-500 text-white flex items-center justify-center text-xs font-bold rounded">RX1</div>
-                    <div class="absolute top-[40%] left-[45%] w-10 h-12 bg-blue-500 text-white flex items-center justify-center text-xs font-bold rounded">RX2</div>
-                    <div class="absolute top-[60%] left-[55%] w-40 h-8 border-t-2 border-slate-300 flex items-center justify-center text-xs italic text-slate-500">Dormido (Sleep)</div>
-                `;
-                desc.innerHTML = "Clase A: Envía y abre dos ventanas breves. <span class='text-green-600 font-bold'>Máximo Ahorro.</span>";
-            } else if (type === 'B') {
-                container.innerHTML = `
-                    <div class="absolute top-[40%] left-[5%] w-10 h-12 bg-purple-500 text-white flex items-center justify-center text-[10px] font-bold rounded">Beacon</div>
-                    <div class="absolute top-[40%] left-[15%] w-20 h-12 bg-green-500 text-white flex items-center justify-center text-xs font-bold rounded shadow-lg">Uplink</div>
-                    <div class="absolute top-[40%] left-[35%] w-10 h-12 bg-blue-500 text-white flex items-center justify-center text-xs font-bold rounded">RX1</div>
-                    <div class="absolute top-[40%] left-[55%] w-10 h-12 bg-purple-300 text-white flex items-center justify-center text-xs font-bold rounded border-2 border-purple-500">Ping</div>
-                    <div class="absolute top-[40%] left-[75%] w-10 h-12 bg-purple-300 text-white flex items-center justify-center text-xs font-bold rounded border-2 border-purple-500">Ping</div>
-                `;
-                desc.innerHTML = "Clase B: Se sincroniza con Balizas (Beacons) para abrir ventanas de escucha programadas.";
-            } else if (type === 'C') {
-                container.innerHTML = `
-                   <div class="absolute top-[40%] left-[10%] w-20 h-12 bg-green-500 text-white flex items-center justify-center text-xs font-bold rounded shadow-lg z-10">Uplink</div>
-                   <div class="absolute top-[45%] left-0 w-full h-8 bg-blue-200 text-blue-800 flex items-center justify-end pr-4 text-xs font-bold opacity-50">ESCUCHA CONTINUA (RX)</div>
-                `;
-                 desc.innerHTML = "Clase C: Escucha todo el tiempo excepto cuando transmite. <span class='text-red-600 font-bold'>Alto Consumo.</span>";
-            }
-        }
-
-        // 4. BACKGROUND PARTICLES
-        const bgCanvas = document.getElementById('bgCanvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        let width, height;
-        let particles = [];
-
-        function resize() {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            bgCanvas.width = width;
-            bgCanvas.height = height;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if(this.x < 0) this.x = width;
-                if(this.x > width) this.x = 0;
-                if(this.y < 0) this.y = height;
-                if(this.y > height) this.y = 0;
-            }
-            draw() {
-                bgCtx.fillStyle = '#94a3b8';
-                bgCtx.beginPath();
-                bgCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                bgCtx.fill();
-            }
-        }
-
-        for(let i=0; i<50; i++) particles.push(new Particle());
-
-        function animateBg() {
-            bgCtx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-                // Connect close particles
-                particles.forEach(p2 => {
-                    let dx = p.x - p2.x;
-                    let dy = p.y - p2.y;
-                    let dist = Math.sqrt(dx*dx + dy*dy);
-                    if(dist < 100) {
-                        bgCtx.strokeStyle = `rgba(148, 163, 184, ${1 - dist/100})`;
-                        bgCtx.lineWidth = 0.5;
-                        bgCtx.beginPath();
-                        bgCtx.moveTo(p.x, p.y);
-                        bgCtx.lineTo(p2.x, p2.y);
-                        bgCtx.stroke();
-                    }
-                });
-            });
-            requestAnimationFrame(animateBg);
-        }
-        animateBg();
-
-    </script>
 </body>
 </html>
