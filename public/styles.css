@@ -55,7 +55,7 @@ body {
     background-size: 50px 50px;
 }
 
-/* --- Intro Cards (Slide 2) - FIX: Max-height animation --- */
+/* --- Intro Cards (Slide 2) --- */
 .intro-details {
     max-height: 0;
     overflow: hidden;
@@ -65,15 +65,15 @@ body {
 
 .intro-card.open .intro-details {
     max-height: 200px;
-    /* Suficiente para el texto */
     opacity: 1;
 }
 
-/* --- Flip Cards (Slide 3) - FIX: Absolute Positioning --- */
+/* --- Flip Cards (Slide 3) - FIXED --- */
 .flip-card-container {
     perspective: 1000px;
     height: 100%;
     position: relative;
+    width: 100%;
 }
 
 .flip-card-inner {
@@ -89,7 +89,7 @@ body {
     transform: rotateY(180deg);
 }
 
-/* IMPORTANTE: Absolute para que se monten una sobre otra */
+/* Backface visibility hidden es CRÍTICO */
 .flip-card-front,
 .flip-card-back {
     position: absolute;
@@ -158,7 +158,7 @@ body {
     }
 }
 
-/* --- Timeline Animation (Slide 9) - FIX: Ensure Keyframes exist --- */
+/* --- Timeline Animation --- */
 @keyframes fadeInDrop {
     0% {
         opacity: 0;
@@ -182,7 +182,6 @@ body {
     border-radius: 4px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     opacity: 0;
-    /* Empieza invisible */
     animation: fadeInDrop 0.5s forwards ease-out;
 }
 

@@ -29,7 +29,6 @@
                 </div>
                 <h1 class="text-7xl font-extrabold text-blue-950 mb-6 tracking-tight">LoRa y LoRaWAN</h1>
                 <h2 class="text-3xl text-blue-600 font-light mb-12">Redes de Comunicaciones Móviles</h2>
-
                 <div class="flex justify-between items-end mt-16 border-t border-slate-200 pt-8">
                     <div class="text-left">
                         <p class="text-xs uppercase text-slate-400 font-bold mb-1 tracking-wider">Autor</p>
@@ -50,11 +49,10 @@
                     <p class="text-lg text-slate-700 leading-relaxed text-justify">
                         Las tecnologías actuales deben responder a un escenario donde miles de dispositivos necesitan
                         conectarse sin depender de infraestructuras costosas. <br><br>
-                        <strong>Haz clic en las tarjetas</strong> para desplegar la información.
+                        <strong>Haz clic en las tarjetas</strong> para desplegar la información detallada.
                     </p>
                 </div>
                 <div class="w-2/3 flex flex-col gap-4 justify-center">
-
                     <div class="intro-card group cursor-pointer bg-white border-l-8 border-blue-600 shadow-md p-6 rounded-r-xl transition-all hover:shadow-xl"
                         onclick="toggleIntroDetails(this)">
                         <div class="flex justify-between items-center">
@@ -63,13 +61,12 @@
                         </div>
                         <div class="intro-details">
                             <div class="pt-4 text-slate-600 text-sm border-t mt-4">
-                                En escenarios IoT, los dispositivos a menudo funcionan con baterías pequeñas y deben
-                                durar años. Las redes tradicionales consumen demasiada energía manteniendo la conexión.
-                                LoRa permite modos de "sueño profundo".
+                                Los dispositivos IoT necesitan funcionar durante años con baterías pequeñas. Las redes
+                                tradicionales consumen demasiada energía, mientras que LoRa permite minimizar el
+                                consumo.
                             </div>
                         </div>
                     </div>
-
                     <div class="intro-card group cursor-pointer bg-white border-l-8 border-cyan-500 shadow-md p-6 rounded-r-xl transition-all hover:shadow-xl"
                         onclick="toggleIntroDetails(this)">
                         <div class="flex justify-between items-center">
@@ -78,13 +75,12 @@
                         </div>
                         <div class="intro-details">
                             <div class="pt-4 text-slate-600 text-sm border-t mt-4">
-                                Muchos sensores están ubicados en sótanos, campos agrícolas extensos o entornos
-                                industriales densos. Se requiere una tecnología capaz de penetrar obstáculos y cubrir
-                                kilómetros sin repetidores.
+                                Muchos sensores están en zonas rurales, sótanos o entornos industriales difíciles. Se
+                                requiere una tecnología capaz de cubrir amplias áreas geográficas sin infraestructura
+                                compleja.
                             </div>
                         </div>
                     </div>
-
                     <div class="intro-card group cursor-pointer bg-white border-l-8 border-indigo-600 shadow-md p-6 rounded-r-xl transition-all hover:shadow-xl"
                         onclick="toggleIntroDetails(this)">
                         <div class="flex justify-between items-center">
@@ -93,13 +89,11 @@
                         </div>
                         <div class="intro-details">
                             <div class="pt-4 text-slate-600 text-sm border-t mt-4">
-                                Conectar miles de dispositivos no es viable si cada uno requiere una suscripción SIM 4G
-                                costosa. LoRaWAN permite desplegar redes privadas o usar públicas con un coste por nodo
-                                extremadamente bajo.
+                                Conectar miles de nodos requiere soluciones de bajo coste que no dependan de
+                                suscripciones caras como las redes móviles tradicionales.
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -107,9 +101,9 @@
         <div class="slide">
             <h2 class="text-4xl font-bold text-blue-900 mb-4">La Problemática de las Redes Actuales</h2>
             <p class="text-slate-500 mb-8 max-w-4xl text-center">Haz clic en los botones de colores para girar las
-                tarjetas.</p>
+                tarjetas y comparar tecnologías.</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl w-full h-[500px]">
+            <div class="grid grid-cols-3 gap-8 max-w-7xl w-full h-[500px]">
 
                 <div class="flip-card-container">
                     <div class="flip-card-inner" id="card-local">
@@ -117,19 +111,17 @@
                             class="flip-card-front bg-white border-t-8 border-red-500 shadow-lg p-8 flex flex-col items-center justify-center rounded-xl">
                             <div class="text-6xl mb-6">📶</div>
                             <h3 class="text-2xl font-bold text-slate-800">Redes Locales</h3>
-                            <p class="text-slate-500 mt-2">(WiFi, Bluetooth, Zigbee)</p>
+                            <p class="text-slate-500 mt-2">(WiFi, Bluetooth)</p>
                             <button onclick="toggleFlip('card-local')"
-                                class="mt-8 px-4 py-2 bg-red-100 text-red-600 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-200 transition">
-                                Ver Limitaciones
-                            </button>
+                                class="mt-8 px-4 py-2 bg-red-100 text-red-600 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-200 transition">Ver
+                                Limitaciones</button>
                         </div>
                         <div
                             class="flip-card-back bg-red-50 border-t-8 border-red-500 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl">
                             <h3 class="text-xl font-bold text-red-900 mb-4">Alcance Limitado</h3>
-                            <p class="text-slate-700 text-sm leading-relaxed">
-                                Diseñadas para corta distancia. Consumen mucha energía para mantener el ancho de banda
-                                alto, algo innecesario para un sensor. No sirven para agricultura.
-                            </p>
+                            <p class="text-slate-700 text-sm leading-relaxed">Diseñadas para corta distancia. Consumen
+                                mucha energía para mantener el ancho de banda, algo innecesario para sensores
+                                esporádicos.</p>
                             <button onclick="toggleFlip('card-local')"
                                 class="mt-6 text-red-500 underline text-sm">Volver</button>
                         </div>
@@ -144,17 +136,14 @@
                             <h3 class="text-2xl font-bold text-slate-800">Redes Celulares</h3>
                             <p class="text-slate-500 mt-2">(3G, 4G, LTE)</p>
                             <button onclick="toggleFlip('card-celular')"
-                                class="mt-8 px-4 py-2 bg-orange-100 text-orange-600 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-orange-200 transition">
-                                Ver Limitaciones
-                            </button>
+                                class="mt-8 px-4 py-2 bg-orange-100 text-orange-600 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-orange-200 transition">Ver
+                                Limitaciones</button>
                         </div>
                         <div
                             class="flip-card-back bg-orange-50 border-t-8 border-orange-500 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl">
                             <h3 class="text-xl font-bold text-orange-900 mb-4">Coste y Consumo</h3>
-                            <p class="text-slate-700 text-sm leading-relaxed">
-                                Optimizadas para voz y video. El protocolo es pesado, agotando baterías. Coste de
-                                licencia demasiado alto para sensores masivos.
-                            </p>
+                            <p class="text-slate-700 text-sm leading-relaxed">Optimizadas para multimedia. El protocolo
+                                es pesado y caro, no encaja con dispositivos sencillos que envían pocos datos.</p>
                             <button onclick="toggleFlip('card-celular')"
                                 class="mt-6 text-orange-500 underline text-sm">Volver</button>
                         </div>
@@ -164,22 +153,20 @@
                 <div class="flip-card-container">
                     <div class="flip-card-inner" id="card-lpwan">
                         <div
-                            class="flip-card-front bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-xl p-8 flex flex-col items-center justify-center transform scale-105 ring-4 ring-blue-100 rounded-xl">
+                            class="flip-card-front bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-xl p-8 flex flex-col items-center justify-center transform scale-105 ring-4 ring-blue-100 rounded-xl relative z-10">
                             <div class="text-6xl mb-6">🌐</div>
                             <h3 class="text-2xl font-bold">LPWAN</h3>
                             <p class="text-blue-200 mt-2">La Solución</p>
                             <button onclick="toggleFlip('card-lpwan')"
-                                class="mt-8 px-4 py-2 bg-blue-500 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-blue-400 transition shadow-lg">
-                                Ver Ventajas
-                            </button>
+                                class="mt-8 px-4 py-2 bg-blue-500 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-blue-400 transition shadow-lg">Ver
+                                Ventajas</button>
                         </div>
                         <div
                             class="flip-card-back bg-blue-50 border-t-8 border-blue-600 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl transform scale-105">
                             <h3 class="text-xl font-bold text-blue-900 mb-4">Low Power Wide Area</h3>
-                            <p class="text-slate-700 text-sm leading-relaxed">
-                                <strong>LoRaWAN, Sigfox, NB-IoT</strong>. Ofrecen kilómetros de alcance con baterías que
-                                duran años, sacrificando velocidad de datos. Perfecto para telemetría.
-                            </p>
+                            <p class="text-slate-700 text-sm leading-relaxed"><strong>LoRaWAN, Sigfox</strong>. Cubren
+                                grandes áreas, soportan muchos nodos y mantienen un consumo muy bajo, sacrificando
+                                velocidad.</p>
                             <button onclick="toggleFlip('card-lpwan')"
                                 class="mt-6 text-blue-600 underline text-sm">Volver</button>
                         </div>
@@ -193,35 +180,33 @@
                 <div class="w-1/2 flex flex-col justify-center">
                     <h2 class="text-5xl font-bold text-blue-900 mb-6">¿Qué es LoRa?</h2>
                     <h3 class="text-xl text-blue-500 font-semibold mb-6 uppercase tracking-wide">Capa Física (PHY)</h3>
-
                     <div class="space-y-6 text-slate-700">
                         <p class="text-lg leading-relaxed">
-                            <strong>LoRa (Long Range)</strong> es una técnica de modulación patentada por Semtech. No
-                            define la red, solo cómo viajan las ondas de radio.
+                            <strong>LoRa (Long Range)</strong> es la modulación física. Utiliza una técnica llamada
+                            <strong>Chirp Spread Spectrum (CSS)</strong>.
                         </p>
                         <div class="bg-white p-6 rounded-lg shadow border-l-4 border-blue-500">
-                            <h4 class="font-bold text-blue-900 mb-2">Chirp Spread Spectrum (CSS)</h4>
-                            <p class="text-sm">Utiliza "chirps" (barridos de frecuencia) para codificar la información.
-                                Esto la hace extremadamente resistente al ruido y permite decodificar señales incluso
-                                por debajo del nivel de ruido ambiental.</p>
+                            <h4 class="font-bold text-blue-900 mb-2">¿Qué es un Chirp?</h4>
+                            <p class="text-sm">Es una señal cuya frecuencia aumenta (Up-Chirp) o disminuye (Down-Chirp)
+                                linealmente con el tiempo. Esta modulación hace que la señal sea increíblemente robusta
+                                frente al ruido y las interferencias.</p>
                         </div>
                         <ul class="list-disc pl-5 space-y-2 text-sm">
-                            <li>Bandas ISM sin licencia (868 MHz Europa).</li>
-                            <li>Balance único entre alcance y consumo.</li>
-                            <li>Alta inmunidad al efecto Doppler.</li>
+                            <li>Desarrollado por Cycleo, adquirido por Semtech.</li>
+                            <li>Permite demodular señales por debajo del ruido térmico.</li>
+                            <li>Bajo consumo y largo alcance.</li>
                         </ul>
                     </div>
                 </div>
-
                 <div class="w-1/2 bg-slate-900 rounded-2xl shadow-2xl relative overflow-hidden flex flex-col">
-                    <div class="absolute top-4 left-4 z-10">
-                        <span class="text-xs font-mono text-green-400">Visualización de Chirps</span>
+                    <div class="absolute top-4 left-4 z-10 bg-black/30 backdrop-blur px-3 py-1 rounded">
+                        <span class="text-xs font-mono text-green-400">● Live: CSS Modulation (Up-Chirps)</span>
                     </div>
                     <canvas id="chirpCanvas" class="w-full h-full"></canvas>
                     <div
-                        class="absolute bottom-0 left-0 w-full p-4 bg-black/50 backdrop-blur text-white text-xs font-mono">
-                        > Frequency sweep over time<br>
-                        > Robust against noise
+                        class="absolute bottom-0 left-0 w-full p-4 bg-black/80 backdrop-blur text-white text-xs font-mono border-t border-slate-700">
+                        > Frequency increases over time (f(t) = f0 + kt)<br>
+                        > Representation: Time Domain Amplitude
                     </div>
                 </div>
             </div>
@@ -229,9 +214,7 @@
 
         <div class="slide">
             <h2 class="text-4xl font-bold text-blue-900 mb-2">LoRa vs LoRaWAN</h2>
-            <p class="text-slate-500 mb-8">Arquitectura completa de protocolos (Basado en Fig 2.2). Haz clic en las
-                capas coloreadas.</p>
-
+            <p class="text-slate-500 mb-8">Arquitectura completa de protocolos (Basado en Fig 2.2).</p>
             <div class="flex items-start justify-center gap-16 w-full max-w-7xl">
                 <div
                     class="w-[500px] flex flex-col shadow-2xl rounded-lg overflow-hidden font-sans font-bold text-white text-center select-none">
@@ -256,18 +239,16 @@
                             class="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition">
                             👆</div>
                     </div>
-                    <div class="bg-slate-400 py-2 text-slate-700 text-xs flex justify-around">
-                        <span>EU 868</span><span>US 915</span><span>AS 430</span>
-                    </div>
+                    <div class="bg-slate-400 py-2 text-slate-700 text-xs flex justify-around"><span>EU
+                            868</span><span>US 915</span><span>AS 430</span></div>
                 </div>
                 <div class="w-[500px] h-[400px]">
                     <div id="stack-info-panel"
                         class="glass-panel w-full h-full p-8 flex flex-col justify-center relative transition-all duration-300">
                         <h3 id="stack-title" class="text-3xl font-bold text-blue-900 mb-6 border-b pb-4">Selecciona una
                             capa</h3>
-                        <p id="stack-desc" class="text-slate-700 text-lg leading-relaxed">
-                            Interactúa con los bloques <strong>Azul (MAC)</strong> y <strong>Naranja (Física)</strong>
-                            para ver la distinción clave explicada en la memoria.
+                        <p id="stack-desc" class="text-slate-700 text-lg leading-relaxed">Interactúa con los bloques
+                            <strong>Azul</strong> y <strong>Naranja</strong>.
                         </p>
                     </div>
                 </div>
@@ -275,25 +256,20 @@
         </div>
 
         <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-6 text-center">Estado Actual y Ecosistema</h2>
+            <h2 class="text-4xl font-bold text-blue-900 mb-6 text-center">Estado Actual</h2>
             <div class="grid grid-cols-2 gap-8 max-w-7xl w-full h-[60vh]">
                 <div class="glass-panel p-8 flex flex-col justify-center">
                     <h3 class="text-2xl font-bold text-blue-700 mb-4">Consolidación Global</h3>
-                    <p class="text-slate-700 leading-relaxed mb-6 text-justify">
-                        LoRaWAN se ha consolidado como la tecnología LPWAN líder. Gracias a la <strong>LoRa
-                            Alliance</strong>, se ha creado un estándar abierto que garantiza interoperabilidad.
-                    </p>
+                    <p class="text-slate-700 leading-relaxed mb-6 text-justify">LoRaWAN se ha consolidado como la
+                        tecnología LPWAN líder. Gracias a la <strong>LoRa Alliance</strong>, se ha creado un estándar
+                        abierto que garantiza interoperabilidad.</p>
                     <ul class="space-y-4">
-                        <li class="flex items-center gap-3 bg-white p-3 rounded shadow-sm">
-                            <span
-                                class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">1</span>
-                            <span class="text-sm text-slate-600">Despliegues en +170 países.</span>
-                        </li>
-                        <li class="flex items-center gap-3 bg-white p-3 rounded shadow-sm">
-                            <span
-                                class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">2</span>
-                            <span class="text-sm text-slate-600">Redes públicas y privadas (TTN).</span>
-                        </li>
+                        <li class="flex items-center gap-3 bg-white p-3 rounded shadow-sm"><span
+                                class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">1</span><span
+                                class="text-sm text-slate-600">Despliegues en +170 países.</span></li>
+                        <li class="flex items-center gap-3 bg-white p-3 rounded shadow-sm"><span
+                                class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">2</span><span
+                                class="text-sm text-slate-600">Redes públicas y privadas (TTN).</span></li>
                     </ul>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
@@ -320,18 +296,15 @@
                 </div>
             </div>
         </div>
-
         <div class="slide">
             <div class="w-full max-w-7xl">
                 <div class="flex justify-between items-end mb-6">
                     <div>
                         <h2 class="text-4xl font-bold text-blue-900">Arquitectura de Red</h2>
                         <p class="text-slate-500">Topología Estrella de Estrellas</p>
-                    </div>
-                    <button onclick="startNetSim()"
-                        class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg transition flex items-center gap-2">
-                        <span>📡</span> Enviar Datos
-                    </button>
+                    </div><button onclick="startNetSim()"
+                        class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg transition flex items-center gap-2"><span>📡</span>
+                        Enviar Datos</button>
                 </div>
                 <div
                     class="relative w-full h-[500px] bg-white/60 backdrop-blur rounded-3xl shadow-2xl border border-slate-200 p-8 overflow-hidden">
@@ -352,23 +325,19 @@
                                 <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">🌡️
                                 </div><span class="text-xs font-bold text-slate-600">Sensor</span>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">📍
-                                </div><span class="text-xs font-bold text-slate-600">Tracker</span>
-                            </div>
                         </div>
                         <div class="flex flex-col items-center text-center">
                             <div
                                 class="w-28 h-36 bg-slate-800 rounded-lg border-b-8 border-blue-500 flex flex-col items-center justify-center shadow-2xl relative">
-                                <span class="text-4xl text-blue-400">((●))</span>
-                                <span class="text-white text-xs font-mono mt-4">Concentrador</span>
+                                <span class="text-4xl text-blue-400">((●))</span><span
+                                    class="text-white text-xs font-mono mt-4">GW</span>
                             </div>
                         </div>
                         <div class="flex flex-col items-center">
                             <div
                                 class="w-40 h-40 bg-blue-50 rounded-full border-4 border-blue-600 flex flex-col items-center justify-center shadow-2xl relative z-20">
                                 <span class="text-5xl mb-2">☁️</span><span
-                                    class="text-blue-900 font-bold text-sm text-center">Network<br>Server</span>
+                                    class="text-blue-900 font-bold text-sm text-center">Nwk Server</span>
                             </div>
                         </div>
                         <div class="flex flex-col items-center">
@@ -383,83 +352,78 @@
                 </div>
             </div>
         </div>
-
         <div class="slide">
             <div class="w-full max-w-7xl">
                 <h2 class="text-3xl font-bold text-blue-900 mb-2">Explorador de Trama</h2>
-                <p class="text-slate-500 mb-10">Desglose del mensaje. Haz clic en los bloques.</p>
+                <p class="text-slate-500 mb-10">Desglose del mensaje.</p>
                 <div
                     class="flex w-full h-28 rounded-xl overflow-hidden shadow-2xl border border-slate-300 text-white font-bold text-sm select-none relative z-10">
                     <div onclick="showFrameInfo('preamble')"
                         class="frame-segment flex-1 bg-slate-500 flex flex-col items-center justify-center border-r border-slate-400 hover:bg-slate-400">
-                        <span>Preamble</span></div>
+                        <span>Preamble</span>
+                    </div>
                     <div onclick="showFrameInfo('phdr')"
                         class="frame-segment w-24 bg-slate-600 flex flex-col items-center justify-center border-r border-slate-500 hover:bg-slate-500">
-                        <span>PHDR</span></div>
+                        <span>PHDR</span>
+                    </div>
                     <div onclick="showFrameInfo('mhdr')"
                         class="frame-segment w-16 bg-yellow-600 flex flex-col items-center justify-center border-r border-yellow-500 hover:bg-yellow-500">
-                        <span>MHDR</span></div>
+                        <span>MHDR</span>
+                    </div>
                     <div onclick="showFrameInfo('devaddr')"
                         class="frame-segment w-32 bg-emerald-600 flex flex-col items-center justify-center border-r border-emerald-500 hover:bg-emerald-500">
-                        <span>DevAddr</span></div>
+                        <span>DevAddr</span>
+                    </div>
                     <div onclick="showFrameInfo('fctrl')"
                         class="frame-segment w-16 bg-emerald-500 flex flex-col items-center justify-center border-r border-emerald-400 hover:bg-emerald-400">
-                        <span>FCtrl</span></div>
+                        <span>FCtrl</span>
+                    </div>
                     <div onclick="showFrameInfo('fcnt')"
                         class="frame-segment w-20 bg-emerald-700 flex flex-col items-center justify-center border-r border-emerald-600 hover:bg-emerald-600">
-                        <span>FCnt</span></div>
+                        <span>FCnt</span>
+                    </div>
                     <div onclick="showFrameInfo('fport')"
                         class="frame-segment w-16 bg-purple-600 flex flex-col items-center justify-center border-r border-purple-500 hover:bg-purple-500">
-                        <span>Port</span></div>
+                        <span>Port</span>
+                    </div>
                     <div onclick="showFrameInfo('payload')"
                         class="frame-segment flex-[2] bg-blue-600 flex flex-col items-center justify-center border-r border-blue-500 relative overflow-hidden hover:bg-blue-500">
-                        <span class="relative z-10">FRM Payload</span></div>
+                        <span class="relative z-10">FRM Payload</span>
+                    </div>
                     <div onclick="showFrameInfo('mic')"
                         class="frame-segment w-24 bg-red-600 flex flex-col items-center justify-center hover:bg-red-500">
-                        <span>MIC</span></div>
+                        <span>MIC</span>
+                    </div>
                 </div>
                 <div class="mt-8 h-48 w-full relative">
                     <div id="frame-detail-card"
                         class="absolute inset-0 bg-white rounded-xl shadow-lg border-l-8 border-slate-300 p-8 transition-all duration-300">
                         <h3 id="frame-title" class="text-3xl font-bold text-slate-800 mb-4">Selecciona un campo</h3>
-                        <div class="flex gap-4 mb-4">
-                            <span id="frame-size"
+                        <div class="flex gap-4 mb-4"><span id="frame-size"
                                 class="text-xs font-mono bg-slate-100 px-3 py-1 rounded text-slate-500 border">Tamaño:
-                                --</span>
-                            <span id="frame-layer"
+                                --</span><span id="frame-layer"
                                 class="text-xs font-mono bg-slate-100 px-3 py-1 rounded text-slate-500 border">Capa:
-                                --</span>
-                        </div>
-                        <p id="frame-desc" class="text-lg text-slate-600 leading-relaxed">Haz clic en las secciones de
-                            la barra superior.</p>
+                                --</span></div>
+                        <p id="frame-desc" class="text-lg text-slate-600 leading-relaxed">Haz clic en las secciones.</p>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-6">Clases de Dispositivos (A, B, C)</h2>
-            <p class="text-slate-500 mb-8">Elige una clase para ver el diagrama temporal (TX vs RX). Basado en la Fig
-                2.4.</p>
-
-            <div class="flex gap-6 mb-12 justify-center">
-                <button onclick="renderTimeline('A')"
-                    class="px-8 py-3 bg-white border border-blue-200 hover:border-blue-500 hover:shadow-md text-blue-900 rounded-lg font-bold transition flex flex-col items-center min-w-[150px]">
-                    <span class="text-xl">Clase A</span><span
-                        class="text-[10px] text-slate-400 font-normal uppercase">Bajo Consumo</span>
-                </button>
-                <button onclick="renderTimeline('B')"
-                    class="px-8 py-3 bg-white border border-blue-200 hover:border-blue-500 hover:shadow-md text-blue-900 rounded-lg font-bold transition flex flex-col items-center min-w-[150px]">
-                    <span class="text-xl">Clase B</span><span
-                        class="text-[10px] text-slate-400 font-normal uppercase">Latencia Media</span>
-                </button>
-                <button onclick="renderTimeline('C')"
-                    class="px-8 py-3 bg-white border border-blue-200 hover:border-blue-500 hover:shadow-md text-blue-900 rounded-lg font-bold transition flex flex-col items-center min-w-[150px]">
-                    <span class="text-xl">Clase C</span><span
-                        class="text-[10px] text-slate-400 font-normal uppercase">Sin Latencia</span>
-                </button>
-            </div>
-
+            <h2 class="text-4xl font-bold text-blue-900 mb-6">Clases de Dispositivos</h2>
+            <p class="text-slate-500 mb-8">Elige una clase.</p>
+            <div class="flex gap-6 mb-12 justify-center"><button onclick="renderTimeline('A')"
+                    class="px-8 py-3 bg-white border border-blue-200 hover:border-blue-500 hover:shadow-md text-blue-900 rounded-lg font-bold transition flex flex-col items-center min-w-[150px]"><span
+                        class="text-xl">Clase A</span><span
+                        class="text-[10px] text-slate-400 font-normal uppercase">Bajo Consumo</span></button><button
+                    onclick="renderTimeline('B')"
+                    class="px-8 py-3 bg-white border border-blue-200 hover:border-blue-500 hover:shadow-md text-blue-900 rounded-lg font-bold transition flex flex-col items-center min-w-[150px]"><span
+                        class="text-xl">Clase B</span><span
+                        class="text-[10px] text-slate-400 font-normal uppercase">Latencia Media</span></button><button
+                    onclick="renderTimeline('C')"
+                    class="px-8 py-3 bg-white border border-blue-200 hover:border-blue-500 hover:shadow-md text-blue-900 rounded-lg font-bold transition flex flex-col items-center min-w-[150px]"><span
+                        class="text-xl">Clase C</span><span class="text-[10px] text-slate-400 font-normal uppercase">Sin
+                        Latencia</span></button></div>
             <div class="w-full max-w-6xl relative">
                 <div class="bg-white p-12 rounded-2xl shadow-xl border border-slate-200 h-64 relative overflow-hidden"
                     id="timeline-container">
@@ -469,16 +433,14 @@
                 </div>
                 <div id="class-description"
                     class="mt-8 text-center text-slate-700 max-w-4xl mx-auto bg-blue-50 p-4 rounded-lg border border-blue-100">
-                    Selecciona una clase arriba para visualizar el diagrama.
-                </div>
+                    Selecciona una clase arriba para visualizar el diagrama.</div>
             </div>
         </div>
-
         <div class="slide">
             <h2 class="text-5xl font-bold text-blue-900 mb-8">Seguridad en LoRaWAN</h2>
             <div class="flex flex-col md:flex-row gap-12 items-start max-w-7xl w-full h-[60vh]">
                 <div class="w-1/2 space-y-8">
-                    <p class="text-lg text-slate-700">Cifrado <strong>AES-128</strong> en dos capas independientes.</p>
+                    <p class="text-lg text-slate-700">Cifrado <strong>AES-128</strong>.</p>
                     <div
                         class="group bg-white p-6 rounded-xl shadow-md border-l-8 border-indigo-500 hover:shadow-2xl transition-all cursor-default">
                         <div class="flex items-center gap-4 mb-2">
@@ -512,28 +474,79 @@
         </div>
 
         <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-12">Retos y Futuro</h2>
-            <div class="grid grid-cols-3 gap-8 max-w-7xl w-full h-80">
-                <div
-                    class="w-full h-full bg-white rounded-2xl shadow-xl border-t-8 border-blue-500 p-8 hover:-translate-y-4 transition-transform">
-                    <div class="text-5xl mb-6 bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center">🛰️
+            <h2 class="text-4xl font-bold text-blue-900 mb-6">Retos y Perspectivas de Futuro</h2>
+            <div class="flex gap-8 max-w-7xl w-full h-[65vh]">
+
+                <div class="w-1/3 flex flex-col justify-center space-y-4 text-left">
+                    <p class="text-slate-700 leading-relaxed text-sm">
+                        De cara al futuro, LoRaWAN afronta retos relacionados con la <strong>saturación de las bandas
+                            ISM</strong> y la convivencia en arquitecturas heterogéneas.
+                    </p>
+                    <p class="text-slate-700 leading-relaxed text-sm">
+                        Será clave disponer de herramientas de gestión más eficientes para planificar el espectro y
+                        evitar interferencias en entornos urbanos densos.
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <p class="font-bold text-blue-900 text-sm mb-1">Tendencia Clave:</p>
+                        <p class="text-xs text-slate-600">Modelos de negocio sostenibles para infraestructuras públicas
+                            y privadas.</p>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Satélites LEO</h3>
-                    <p class="text-slate-600 text-sm">Cobertura global real (LR-FHSS).</p>
                 </div>
-                <div
-                    class="w-full h-full bg-white rounded-2xl shadow-xl border-t-8 border-purple-500 p-8 hover:-translate-y-4 transition-transform delay-100">
-                    <div class="text-5xl mb-6 bg-purple-50 w-20 h-20 rounded-full flex items-center justify-center">🤝
+
+                <div class="w-2/3 grid grid-cols-2 gap-6">
+
+                    <div
+                        class="bg-white rounded-xl shadow-lg border-t-8 border-purple-600 p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span
+                                class="text-3xl bg-purple-100 rounded-full w-12 h-12 flex items-center justify-center">🤝</span>
+                            <h3 class="font-bold text-slate-800">Redes Híbridas</h3>
+                        </div>
+                        <p class="text-slate-600 text-xs leading-relaxed">
+                            Integración con 5G y NB-IoT. El futuro es un entorno donde conviven protocolos, usando
+                            LoRaWAN para bajo consumo y 5G para latencia crítica.
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Roaming</h3>
-                    <p class="text-slate-600 text-sm">Interconexión entre operadores.</p>
-                </div>
-                <div
-                    class="w-full h-full bg-white rounded-2xl shadow-xl border-t-8 border-green-500 p-8 hover:-translate-y-4 transition-transform delay-200">
-                    <div class="text-5xl mb-6 bg-green-50 w-20 h-20 rounded-full flex items-center justify-center">📶
+
+                    <div
+                        class="bg-white rounded-xl shadow-lg border-t-8 border-blue-500 p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span
+                                class="text-3xl bg-blue-100 rounded-full w-12 h-12 flex items-center justify-center">🛰️</span>
+                            <h3 class="font-bold text-slate-800">Cobertura Satelital</h3>
+                        </div>
+                        <p class="text-slate-600 text-xs leading-relaxed">
+                            Uso de LR-FHSS para conectar sensores directamente a satélites LEO, cubriendo zonas remotas
+                            (océanos, desiertos) sin gateways terrestres.
+                        </p>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Densificación</h3>
-                    <p class="text-slate-600 text-sm">Millones de nodos en ciudades.</p>
+
+                    <div
+                        class="bg-white rounded-xl shadow-lg border-t-8 border-green-500 p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span
+                                class="text-3xl bg-green-100 rounded-full w-12 h-12 flex items-center justify-center">📶</span>
+                            <h3 class="font-bold text-slate-800">Densificación</h3>
+                        </div>
+                        <p class="text-slate-600 text-xs leading-relaxed">
+                            Optimización avanzada del Duty Cycle y ADR para soportar millones de dispositivos en
+                            ciudades inteligentes sin colapsar el espectro.
+                        </p>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-xl shadow-lg border-t-8 border-red-500 p-6 flex flex-col hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span
+                                class="text-3xl bg-red-100 rounded-full w-12 h-12 flex items-center justify-center">🛡️</span>
+                            <h3 class="font-bold text-slate-800">Ciberseguridad</h3>
+                        </div>
+                        <p class="text-slate-600 text-xs leading-relaxed">
+                            Mejora continua de la resiliencia frente a ataques físicos y de red, siguiendo
+                            recomendaciones estrictas para infraestructuras críticas.
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -545,7 +558,6 @@
                 </p>
             </div>
         </div>
-
         <div class="slide">
             <h2 class="text-4xl font-bold text-blue-900 mb-8">Bibliografía</h2>
             <div class="bg-white p-8 rounded-xl shadow-lg max-w-4xl w-full border border-slate-200">
@@ -556,7 +568,6 @@
                 </ul>
             </div>
         </div>
-
         <div class="slide">
             <h1 class="text-7xl font-extrabold text-blue-950 mb-6">Gracias</h1>
             <p class="text-2xl text-slate-600">Andrea Nazaret González Maroto</p>
@@ -564,12 +575,25 @@
 
     </div>
 
+
     <div class="fixed bottom-8 left-0 w-full flex justify-center items-center gap-8 z-50 pointer-events-auto">
         <button onclick="prevSlide()"
-            class="p-4 bg-white/90 backdrop-blur rounded-full shadow-lg hover:bg-blue-50 text-blue-900 text-xl">⬅️</button>
+            class="p-4 bg-white/90 backdrop-blur rounded-full shadow-lg hover:bg-blue-50 text-blue-900 transition-transform hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+                <path
+                    d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z">
+                </path>
+            </svg>
+        </button>
         <div id="dots" class="flex gap-3"></div>
         <button onclick="nextSlide()"
-            class="p-4 bg-white/90 backdrop-blur rounded-full shadow-lg hover:bg-blue-50 text-blue-900 text-xl">➡️</button>
+            class="p-4 bg-white/90 backdrop-blur rounded-full shadow-lg hover:bg-blue-50 text-blue-900 transition-transform hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+                <path
+                    d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z">
+                </path>
+            </svg>
+        </button>
     </div>
 
     <script src="public/script.js"></script>

@@ -9,7 +9,6 @@ slides.forEach((_, idx) => {
     dot.onclick = () => showSlide(idx);
     dotsContainer.appendChild(dot);
 });
-const dots = dotsContainer.querySelectorAll('div');
 
 function showSlide(index) {
     if (index < 0) index = 0;
@@ -28,6 +27,7 @@ function showSlide(index) {
         }
     });
 
+    const dots = dotsContainer.querySelectorAll('div');
     dots.forEach((dot, idx) => {
         dot.className = `w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${idx === currentSlide ? 'bg-blue-600 w-6' : 'bg-slate-300'}`;
     });
@@ -44,17 +44,14 @@ document.addEventListener('keydown', (e) => {
 });
 showSlide(0);
 
-// --- SLIDE 2: INTRO CARD TOGGLE (FIXED) ---
+// --- INTRO & FLIP CARDS ---
 function toggleIntroDetails(element) {
-    // Cerrar otros primero para efecto acordeón único (opcional)
     document.querySelectorAll('.intro-card').forEach(card => {
         if (card !== element) {
             card.classList.remove('open');
             card.querySelector('.toggle-icon').innerText = "+";
         }
     });
-
-    // Toggle del actual
     const icon = element.querySelector('.toggle-icon');
     if (element.classList.contains('open')) {
         element.classList.remove('open');
@@ -65,16 +62,15 @@ function toggleIntroDetails(element) {
     }
 }
 
-// --- SLIDE 3: FLIP CARDS LOGIC (FIXED) ---
 function toggleFlip(id) {
     const card = document.getElementById(id);
     card.classList.toggle('flipped');
 }
 
-// --- SLIDE 4: CHIRP ANIMATION ---
+// --- REALISTIC CHIRP ANIMATION (Up-Chirp) ---
 const chirpCanvas = document.getElementById('chirpCanvas');
 const chirpCtx = chirpCanvas.getContext('2d');
-let chirpTime = 0;
+let timeOffset = 0;
 let animationFrameId;
 
 function startChirpAnimation() {
@@ -87,34 +83,58 @@ function startChirpAnimation() {
 
     function draw() {
         if (currentSlide !== 3) return;
+
         chirpCtx.clearRect(0, 0, rect.width, rect.height);
-        chirpCtx.fillStyle = '#0f172a';
+        chirpCtx.fillStyle = '#0f172a'; // Slate 900
         chirpCtx.fillRect(0, 0, rect.width, rect.height);
-        chirpCtx.strokeStyle = '#38bdf8';
-        chirpCtx.lineWidth = 3;
+
+        chirpCtx.strokeStyle = '#38bdf8'; // Cyan
+        chirpCtx.lineWidth = 2;
         chirpCtx.beginPath();
 
         const width = rect.width;
         const height = rect.height;
-        for (let i = 0; i < 3; i++) {
-            let offset = (chirpTime + i * 100) % width;
-            for (let x = 0; x < width / 3; x++) {
-                let gx = offset + x;
-                if (gx > width) continue;
-                let progress = x / (width / 3);
-                let freq = 2 + progress * 30;
-                let y = height / 2 + Math.sin(x * freq * 0.1) * (height / 3);
-                if (x === 0) chirpCtx.moveTo(gx, y); else chirpCtx.lineTo(gx, y);
+        const amplitude = height * 0.35;
+        const centerY = height / 2;
+
+        // Simulación matemática de Up-Chirp: f(t) = f0 + k*t
+        // La fase es la integral de la frecuencia.
+
+        const symbolDuration = 150; // Pixeles por símbolo
+
+        for (let x = 0; x < width; x++) {
+            // Calcular posición relativa dentro del "símbolo" actual que se mueve
+            let t = (x + timeOffset) % symbolDuration;
+
+            // Frecuencia normalizada (0 a 1)
+            let normalizedFreq = t / symbolDuration;
+
+            // Factor de frecuencia: aumenta con t (Up-Chirp)
+            // Multiplicador ajustado para visualización
+            let freq = 0.05 + (normalizedFreq * 0.4);
+
+            // Onda
+            let y = centerY + Math.sin(t * t * 0.005) * amplitude; // t*t crea el efecto de aceleración de fase
+
+            if (x === 0) chirpCtx.moveTo(x, y);
+            else chirpCtx.lineTo(x, y);
+
+            // Dibujar separador visual entre símbolos (cuando la fase reinicia)
+            if (t < 2) {
+                chirpCtx.stroke();
+                chirpCtx.beginPath();
+                chirpCtx.moveTo(x, y);
             }
         }
+
         chirpCtx.stroke();
-        chirpTime += 2;
+        timeOffset += 1.5; // Velocidad de desplazamiento
         animationFrameId = requestAnimationFrame(draw);
     }
     draw();
 }
 
-// --- SLIDE 5 & 8: INFO DISPLAYS ---
+// --- INFO DISPLAYS ---
 const stackData = {
     lorawan: { title: "Capa MAC (LoRaWAN)", desc: "Protocolo de red. Gestiona seguridad, clases y reglas." },
     lora: { title: "Capa Física (LoRa)", desc: "Modulación de radio CSS. Solo envía bits, sin lógica de red." }
@@ -153,12 +173,11 @@ function startNetSim() {
     p.classList.add('packet-animate');
 }
 
-// --- SLIDE 9: TIMELINE RENDERER (FIXED) ---
+// --- TIMELINE RENDERER ---
 function renderTimeline(type) {
     const container = document.getElementById('timeline-elements');
     const desc = document.getElementById('class-description');
     container.innerHTML = '';
-
     let elements = [];
     if (type === 'A') {
         desc.innerHTML = "<strong>Clase A:</strong> Envía y espera un poco. Máximo ahorro.";
@@ -184,29 +203,23 @@ function renderTimeline(type) {
             { type: 'rx-long', left: 50, width: 50, text: 'RX...' }
         ];
     }
-
     elements.forEach((el, index) => {
         const div = document.createElement('div');
-        div.className = 'timeline-box'; // Clase base
-
-        // Estilos posicionales
+        div.className = 'timeline-box';
         div.style.left = el.left + '%';
         div.style.width = el.width + '%';
         div.innerText = el.text;
         div.style.animationDelay = (index * 0.1) + 's';
-
-        // FIX: Espacios añadidos antes de las clases de Tailwind
         if (el.type === 'tx') div.className += ' bg-green-500 z-20 top-[15%] h-[70%]';
         if (el.type === 'rx') div.className += ' bg-blue-500 top-[30%] h-[40%]';
         if (el.type === 'rx-long') div.className += ' bg-blue-200 text-blue-800 border border-blue-400 top-[35%] h-[30%]';
         if (el.type === 'beacon') div.className += ' bg-purple-600 top-[10%] h-[80%]';
         if (el.type === 'sleep') div.className += ' bg-slate-200 text-slate-500 top-[40%] h-[20%]';
-
         container.appendChild(div);
     });
 }
 
-// Background
+// Background Particles
 const bgCanvas = document.getElementById('bgCanvas');
 const bgCtx = bgCanvas.getContext('2d');
 let width, height, particles = [];
