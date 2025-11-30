@@ -97,30 +97,19 @@ function startChirpAnimation() {
         const amplitude = height * 0.35;
         const centerY = height / 2;
 
-        // Simulación matemática de Up-Chirp: f(t) = f0 + k*t
-        // La fase es la integral de la frecuencia.
-
-        const symbolDuration = 150; // Pixeles por símbolo
+        // Simulación matemática de Up-Chirp
+        const symbolDuration = 150;
 
         for (let x = 0; x < width; x++) {
-            // Calcular posición relativa dentro del "símbolo" actual que se mueve
             let t = (x + timeOffset) % symbolDuration;
-
-            // Frecuencia normalizada (0 a 1)
             let normalizedFreq = t / symbolDuration;
-
-            // Factor de frecuencia: aumenta con t (Up-Chirp)
-            // Multiplicador ajustado para visualización
-            let freq = 0.05 + (normalizedFreq * 0.4);
-
-            // Onda
-            let y = centerY + Math.sin(t * t * 0.005) * amplitude; // t*t crea el efecto de aceleración de fase
+            // Up-Chirp
+            let y = centerY + Math.sin(t * t * 0.005) * amplitude;
 
             if (x === 0) chirpCtx.moveTo(x, y);
             else chirpCtx.lineTo(x, y);
 
-            // Dibujar separador visual entre símbolos (cuando la fase reinicia)
-            if (t < 2) {
+            if (t < 2) { // Reset visual
                 chirpCtx.stroke();
                 chirpCtx.beginPath();
                 chirpCtx.moveTo(x, y);
@@ -128,7 +117,7 @@ function startChirpAnimation() {
         }
 
         chirpCtx.stroke();
-        timeOffset += 1.5; // Velocidad de desplazamiento
+        timeOffset += 1.5;
         animationFrameId = requestAnimationFrame(draw);
     }
     draw();
@@ -210,16 +199,19 @@ function renderTimeline(type) {
         div.style.width = el.width + '%';
         div.innerText = el.text;
         div.style.animationDelay = (index * 0.1) + 's';
+
+        // Espacios corregidos en las clases
         if (el.type === 'tx') div.className += ' bg-green-500 z-20 top-[15%] h-[70%]';
         if (el.type === 'rx') div.className += ' bg-blue-500 top-[30%] h-[40%]';
         if (el.type === 'rx-long') div.className += ' bg-blue-200 text-blue-800 border border-blue-400 top-[35%] h-[30%]';
         if (el.type === 'beacon') div.className += ' bg-purple-600 top-[10%] h-[80%]';
         if (el.type === 'sleep') div.className += ' bg-slate-200 text-slate-500 top-[40%] h-[20%]';
+
         container.appendChild(div);
     });
 }
 
-// Background Particles
+// Background
 const bgCanvas = document.getElementById('bgCanvas');
 const bgCtx = bgCanvas.getContext('2d');
 let width, height, particles = [];
@@ -242,16 +234,13 @@ const securityState = {
 };
 
 function toggleKey(type) {
-    // 1. Alternar estado
     securityState[type] = !securityState[type];
     const isActive = securityState[type];
 
-    // 2. Actualizar UI de la tarjeta (Llave)
     const card = document.getElementById(`key-${type}`);
     if (isActive) card.classList.add('active');
     else card.classList.remove('active');
 
-    // 3. Actualizar Anillos visuales y Iconos inferiores
     const ring = document.getElementById(`ring-${type}`);
     const statusIcon = type === 'nwk' ? document.getElementById('status-integrity') : document.getElementById('status-confidentiality');
 
@@ -263,7 +252,6 @@ function toggleKey(type) {
         statusIcon.classList.remove('status-active');
     }
 
-    // 4. Comprobar estado global del Candado
     updateLockState();
 }
 
@@ -272,14 +260,12 @@ function updateLockState() {
     const lockText = document.getElementById('lock-text');
     const lockCircle = document.getElementById('lock-circle');
 
-    // Si ambas llaves están activas -> SEGURO
     if (securityState.nwk && securityState.app) {
         lockIcon.innerText = "🔒";
         lockText.innerText = "SEGURO";
         lockText.className = "text-green-400 font-bold text-xl uppercase tracking-widest";
         lockCircle.classList.add('secure');
     } else {
-        // Si falta alguna -> INSEGURO
         lockIcon.innerText = "🔓";
         lockText.innerText = "INSEGURO";
         lockText.className = "text-red-400 font-bold text-xl uppercase tracking-widest";

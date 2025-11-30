@@ -32,12 +32,14 @@ body {
     transform: translateY(20px);
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease-in-out;
     pointer-events: none;
+    /* Inhabilitado cuando no activo */
 }
 
 .slide.active {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+    /* Habilitado cuando activo */
     z-index: 10;
 }
 
@@ -68,7 +70,7 @@ body {
     opacity: 1;
 }
 
-/* --- Flip Cards (Slide 3) - FIXED --- */
+/* --- Flip Cards (Slide 3) --- */
 .flip-card-container {
     perspective: 1000px;
     height: 100%;
@@ -89,7 +91,6 @@ body {
     transform: rotateY(180deg);
 }
 
-/* Backface visibility hidden es CRÍTICO */
 .flip-card-front,
 .flip-card-back {
     position: absolute;
@@ -199,22 +200,18 @@ body {
 /* --- Security Slide Interactions --- */
 .security-card.active {
     background-color: #eff6ff;
-    /* blue-50 */
     transform: translateX(10px);
     border-color: #3b82f6;
 }
 
 .security-card.active .status-indicator {
     background-color: #22c55e;
-    /* green-500 */
     border-color: #16a34a;
     box-shadow: 0 0 10px #22c55e;
 }
 
-/* Animaciones del Candado */
 #lock-circle.secure {
     background-color: #0f172a;
-    /* Slate 900 más oscuro */
     box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
 }
 
@@ -222,7 +219,6 @@ body {
     opacity: 1;
     transform: scale(1);
     box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
-    /* Indigo glow */
     animation: pulse-ring 3s infinite;
 }
 
@@ -230,7 +226,6 @@ body {
     opacity: 1;
     transform: scale(1);
     box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
-    /* Cyan glow */
     animation: pulse-ring 3s infinite reverse;
 }
 
@@ -251,7 +246,6 @@ body {
     }
 }
 
-/* Estados de texto */
 .status-active {
     opacity: 1 !important;
     transform: translateY(-5px);
