@@ -68,7 +68,7 @@ body {
     opacity: 1;
 }
 
-/* --- Flip Cards (Slide 3) --- */
+/* --- Flip Cards (Slide 3) - FIXED & ROBUST --- */
 .flip-card-container {
     perspective: 1000px;
     height: 100%;
@@ -96,6 +96,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    /* CRÍTICO: backface-visibility asegura que no parpadee o desaparezca */
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     border-radius: 1rem;
@@ -103,6 +104,8 @@ body {
 
 .flip-card-back {
     transform: rotateY(180deg);
+    background-color: #eff6ff;
+    /* Asegurar fondo sólido */
 }
 
 /* --- Packet Animation (Slide 7) --- */
@@ -157,17 +160,33 @@ body {
     }
 }
 
-/* --- Frame Explorer (Slide 8 - Estilos añadidos) --- */
+/* --- Frame Explorer (Slide 8) --- */
 .frame-segment {
     transition: all 0.2s ease;
     cursor: pointer;
 }
 
 .frame-segment:hover {
-    filter: brightness(1.15);
-    transform: translateY(-4px);
+    filter: brightness(1.1);
+    transform: translateY(-2px);
     z-index: 20;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* Animación para desplegar las nuevas capas */
+.reveal-animation {
+    animation: slideDownFade 0.5s ease-out forwards;
+}
+
+@keyframes slideDownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* --- Timeline Animation (Slide 9) --- */

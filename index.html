@@ -102,7 +102,7 @@
         <div class="slide">
             <h2 class="text-4xl font-bold text-blue-900 mb-4">La Problemática de las Redes Actuales</h2>
             <p class="text-slate-500 mb-8 max-w-4xl text-center">Haz clic en los botones de colores para girar las
-                tarjetas y comparar tecnologías.</p>
+                tarjetas.</p>
 
             <div class="grid grid-cols-3 gap-8 max-w-7xl w-full h-[500px]">
 
@@ -121,8 +121,7 @@
                             class="flip-card-back bg-red-50 border-t-8 border-red-500 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl">
                             <h3 class="text-xl font-bold text-red-900 mb-4">Alcance Limitado</h3>
                             <p class="text-slate-700 text-sm leading-relaxed">Diseñadas para corta distancia. Consumen
-                                mucha energía para mantener el ancho de banda, algo innecesario para sensores
-                                esporádicos.</p>
+                                mucha energía para mantener el ancho de banda.</p>
                             <button onclick="toggleFlip('card-local')"
                                 class="mt-6 text-red-500 underline text-sm">Volver</button>
                         </div>
@@ -143,8 +142,8 @@
                         <div
                             class="flip-card-back bg-orange-50 border-t-8 border-orange-500 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl">
                             <h3 class="text-xl font-bold text-orange-900 mb-4">Coste y Consumo</h3>
-                            <p class="text-slate-700 text-sm leading-relaxed">Optimizadas para multimedia. El protocolo
-                                es pesado y caro, no encaja con dispositivos sencillos que envían pocos datos.</p>
+                            <p class="text-slate-700 text-sm leading-relaxed">Protocolo pesado y caro. No encaja con
+                                dispositivos que envían pocos datos esporádicamente.</p>
                             <button onclick="toggleFlip('card-celular')"
                                 class="mt-6 text-orange-500 underline text-sm">Volver</button>
                         </div>
@@ -154,7 +153,7 @@
                 <div class="flip-card-container">
                     <div class="flip-card-inner" id="card-lpwan">
                         <div
-                            class="flip-card-front bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-xl p-8 flex flex-col items-center justify-center transform scale-105 ring-4 ring-blue-100 rounded-xl relative z-10">
+                            class="flip-card-front bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-xl p-8 flex flex-col items-center justify-center rounded-xl relative z-10">
                             <div class="text-6xl mb-6">🌐</div>
                             <h3 class="text-2xl font-bold">LPWAN</h3>
                             <p class="text-blue-200 mt-2">La Solución</p>
@@ -166,8 +165,7 @@
                             class="flip-card-back bg-blue-50 border-t-8 border-blue-600 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl">
                             <h3 class="text-xl font-bold text-blue-900 mb-4">Low Power Wide Area</h3>
                             <p class="text-slate-700 text-sm leading-relaxed"><strong>LoRaWAN, Sigfox</strong>. Cubren
-                                grandes áreas, soportan muchos nodos y mantienen un consumo muy bajo, sacrificando
-                                velocidad.</p>
+                                grandes áreas con consumo mínimo, sacrificando velocidad de datos.</p>
                             <button onclick="toggleFlip('card-lpwan')"
                                 class="mt-6 text-blue-600 underline text-sm">Volver</button>
                         </div>
@@ -176,7 +174,6 @@
 
             </div>
         </div>
-
         <div class="slide">
             <div class="max-w-7xl w-full flex flex-row gap-12 items-stretch h-[70vh]">
                 <div class="w-1/2 flex flex-col justify-center">
@@ -408,88 +405,98 @@
             </div>
         </div>
 
+
         <div class="slide">
-            <div class="w-full max-w-7xl">
-                <h2 class="text-4xl font-bold text-blue-900 mb-2">Estructura de la Trama LoRaWAN</h2>
-                <p class="text-slate-500 mb-10">Desglose byte a byte (Basado en Fig 2.3). Haz clic en los campos para
-                    ver su función técnica.</p>
+            <div class="w-full max-w-7xl flex flex-col h-full justify-center">
+                <h2 class="text-3xl font-bold text-blue-900 mb-2">Estructura de la Trama (Drill-Down)</h2>
+                <p class="text-slate-500 mb-6">Haz clic en los bloques con flecha (▼) para desplegar su contenido
+                    interior.</p>
 
-                <div
-                    class="flex w-full h-32 rounded-xl overflow-hidden shadow-2xl border border-slate-300 text-white font-bold text-xs select-none relative z-10 font-mono">
+                <div class="w-full mb-2">
+                    <div class="text-xs font-bold text-slate-400 mb-1 uppercase tracking-widest">1. Capa Física (LoRa
+                        Radio)</div>
+                    <div
+                        class="flex w-full h-20 rounded-lg overflow-hidden shadow-lg border border-slate-400 text-white font-bold text-xs select-none">
+                        <div onclick="showFrameInfo('preamble')"
+                            class="frame-segment w-24 bg-slate-500 flex flex-col items-center justify-center border-r border-slate-400 hover:bg-slate-400">
+                            Preamble</div>
+                        <div onclick="showFrameInfo('phdr')"
+                            class="frame-segment w-20 bg-slate-600 flex flex-col items-center justify-center border-r border-slate-500 hover:bg-slate-500">
+                            PHDR</div>
+                        <div onclick="showFrameInfo('phdr_crc')"
+                            class="frame-segment w-16 bg-slate-600 flex flex-col items-center justify-center border-r border-slate-500 hover:bg-slate-500">
+                            CRC</div>
 
-                    <div onclick="showFrameInfo('preamble')"
-                        class="frame-segment flex-1 bg-slate-500 flex flex-col items-center justify-center border-r border-slate-400 hover:bg-slate-400 group relative">
-                        <span>Preamble</span>
-                        <span class="text-[9px] opacity-60">Sync</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('phdr')"
-                        class="frame-segment w-16 bg-slate-600 flex flex-col items-center justify-center border-r border-slate-500 hover:bg-slate-500">
-                        <span>PHDR</span>
-                        <span class="text-[9px] opacity-60">CRC</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('mhdr')"
-                        class="frame-segment w-14 bg-yellow-600 flex flex-col items-center justify-center border-r border-yellow-500 hover:bg-yellow-500 text-center">
-                        <span>MHDR</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('devaddr')"
-                        class="frame-segment w-28 bg-emerald-600 flex flex-col items-center justify-center border-r border-emerald-500 hover:bg-emerald-500">
-                        <span>DevAddr</span>
-                        <span class="text-[9px] opacity-60">32-bit</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('fctrl')"
-                        class="frame-segment w-14 bg-emerald-500 flex flex-col items-center justify-center border-r border-emerald-400 hover:bg-emerald-400">
-                        <span>FCtrl</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('fcnt')"
-                        class="frame-segment w-20 bg-emerald-700 flex flex-col items-center justify-center border-r border-emerald-600 hover:bg-emerald-600">
-                        <span>FCnt</span>
-                        <span class="text-[9px] opacity-60">16-bit</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('fport')"
-                        class="frame-segment w-14 bg-purple-600 flex flex-col items-center justify-center border-r border-purple-500 hover:bg-purple-500">
-                        <span>FPort</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('payload')"
-                        class="frame-segment flex-[3] bg-blue-600 flex flex-col items-center justify-center border-r border-blue-500 relative overflow-hidden hover:bg-blue-500 transition-all">
-                        <span class="relative z-10 text-lg">FRM Payload</span>
-                        <span class="relative z-10 text-[9px] opacity-80">(Datos Encriptados)</span>
-                        <div
-                            class="absolute inset-0 opacity-20 bg-[radial-gradient(circle,_#ffffff_1px,_transparent_1px)] bg-[length:4px_4px]">
+                        <div onclick="revealLayer('mac')"
+                            class="frame-segment flex-1 bg-blue-900 flex flex-col items-center justify-center border-r border-slate-500 hover:bg-blue-800 cursor-pointer relative group">
+                            <span class="text-lg">PHY Payload</span>
+                            <span class="text-[10px] text-blue-200 mt-1">Clic para ver contenido ▼</span>
                         </div>
-                    </div>
 
-                    <div onclick="showFrameInfo('mic')"
-                        class="frame-segment w-20 bg-red-600 flex flex-col items-center justify-center hover:bg-red-500">
-                        <span>MIC</span>
-                        <span class="text-[9px] opacity-60">4-Byte</span>
+                        <div onclick="showFrameInfo('crc')"
+                            class="frame-segment w-16 bg-slate-500 flex flex-col items-center justify-center hover:bg-slate-400">
+                            CRC</div>
                     </div>
                 </div>
 
-                <div class="mt-8 h-56 w-full relative">
-                    <div id="frame-detail-card"
-                        class="absolute inset-0 bg-white rounded-xl shadow-lg border-l-8 border-slate-300 p-8 transition-all duration-300">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 id="frame-title" class="text-3xl font-bold text-slate-800">Selecciona un campo</h3>
-                            <div class="flex gap-2">
-                                <span id="frame-size"
-                                    class="text-xs font-mono bg-slate-100 px-3 py-1 rounded text-slate-500 border font-bold">TAMAÑO:
-                                    --</span>
-                                <span id="frame-layer"
-                                    class="text-xs font-mono bg-slate-100 px-3 py-1 rounded text-slate-500 border font-bold">CAPA:
-                                    --</span>
+                <div id="layer-mac" class="w-[80%] mx-auto mb-2 hidden transition-all duration-500">
+                    <div class="text-center text-2xl text-slate-300 my-1">↓</div>
+                    <div class="text-xs font-bold text-yellow-600 mb-1 uppercase tracking-widest">2. Capa MAC (LoRaWAN)
+                    </div>
+                    <div
+                        class="flex w-full h-20 rounded-lg overflow-hidden shadow-lg border border-yellow-500 text-slate-800 font-bold text-xs select-none">
+                        <div onclick="showFrameInfo('mhdr')"
+                            class="frame-segment w-24 bg-yellow-400 flex flex-col items-center justify-center border-r border-yellow-500 hover:bg-yellow-300">
+                            MHDR</div>
+
+                        <div onclick="revealLayer('app')"
+                            class="frame-segment flex-1 bg-yellow-500 flex flex-col items-center justify-center border-r border-yellow-600 hover:bg-yellow-400 cursor-pointer">
+                            <span class="text-lg">MAC Payload</span>
+                            <span class="text-[10px] text-yellow-800 mt-1">Clic para ver contenido ▼</span>
+                        </div>
+
+                        <div onclick="showFrameInfo('mic')"
+                            class="frame-segment w-24 bg-yellow-400 flex flex-col items-center justify-center border-l border-yellow-500 hover:bg-yellow-300">
+                            MIC</div>
+                    </div>
+                </div>
+
+                <div id="layer-app" class="w-[70%] mx-auto mb-4 hidden transition-all duration-500">
+                    <div class="text-center text-2xl text-slate-300 my-1">↓</div>
+                    <div class="text-xs font-bold text-emerald-600 mb-1 uppercase tracking-widest">3. Frame Payload
+                    </div>
+                    <div
+                        class="flex w-full h-20 rounded-lg overflow-hidden shadow-lg border border-emerald-500 text-white font-bold text-xs select-none">
+                        <div onclick="showFrameInfo('fhdr')"
+                            class="frame-segment flex-1 bg-emerald-600 flex flex-col items-center justify-center border-r border-emerald-500 hover:bg-emerald-500">
+                            <span>FHDR</span>
+                            <span class="text-[9px] opacity-70">(DevAddr, FCtrl, FCnt)</span>
+                        </div>
+                        <div onclick="showFrameInfo('fport')"
+                            class="frame-segment w-20 bg-purple-600 flex flex-col items-center justify-center border-r border-purple-500 hover:bg-purple-500">
+                            FPort</div>
+                        <div onclick="showFrameInfo('frmpayload')"
+                            class="frame-segment flex-[2] bg-blue-600 flex flex-col items-center justify-center hover:bg-blue-500 relative overflow-hidden">
+                            <span class="relative z-10">FRM Payload</span>
+                            <span class="relative z-10 text-[9px]">(Datos Encriptados)</span>
+                            <div
+                                class="absolute inset-0 opacity-20 bg-[radial-gradient(circle,_#ffffff_1px,_transparent_1px)] bg-[length:4px_4px]">
                             </div>
                         </div>
-                        <p id="frame-desc" class="text-lg text-slate-600 leading-relaxed">
-                            Esta barra representa el paquete de datos real que viaja por el aire. Haz clic en las
-                            secciones superiores (Preamble, MHDR, Payload...) para entender cómo LoRaWAN estructura y
-                            protege la información.
+                    </div>
+                </div>
+
+                <div class="h-32 w-full mt-4">
+                    <div id="frame-detail-card"
+                        class="h-full bg-white rounded-xl shadow-lg border-l-8 border-slate-300 p-6 transition-all duration-300">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 id="frame-title" class="text-2xl font-bold text-slate-800">Explorador de Trama</h3>
+                            <span id="frame-layer-tag"
+                                class="text-xs font-mono bg-slate-100 px-2 py-1 rounded border">INFO</span>
+                        </div>
+                        <p id="frame-desc" class="text-slate-600 text-sm leading-relaxed">
+                            Haz clic en "PHY Payload" para comenzar a "abrir" el paquete y ver qué hay dentro. Luego haz
+                            clic en los bloques individuales para ver su descripción aquí.
                         </p>
                     </div>
                 </div>

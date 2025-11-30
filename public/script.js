@@ -100,8 +100,6 @@ function startChirpAnimation() {
 
         for (let x = 0; x < width; x++) {
             let t = (x + timeOffset) % symbolDuration;
-            let normalizedFreq = t / symbolDuration;
-            // Up-Chirp
             let y = centerY + Math.sin(t * t * 0.005) * amplitude;
 
             if (x === 0) chirpCtx.moveTo(x, y);
@@ -113,7 +111,6 @@ function startChirpAnimation() {
                 chirpCtx.moveTo(x, y);
             }
         }
-
         chirpCtx.stroke();
         timeOffset += 1.5;
         animationFrameId = requestAnimationFrame(draw);
@@ -121,7 +118,7 @@ function startChirpAnimation() {
     draw();
 }
 
-// --- INFO DISPLAYS (STACK & FRAME) ---
+// --- INFO DISPLAYS (STACK) ---
 const stackData = {
     lorawan: { title: "Capa MAC (LoRaWAN)", desc: "Protocolo de red. Gestiona seguridad, clases y reglas." },
     lora: { title: "Capa Física (LoRa)", desc: "Modulación de radio CSS. Solo envía bits, sin lógica de red." }
@@ -131,70 +128,55 @@ function showStackInfo(id) {
     document.getElementById('stack-desc').innerText = stackData[id].desc;
 }
 
-// DATOS DE LA TRAMA (Recuperados de la memoria)
-const frameData = {
-    preamble: {
-        title: "Preamble (Preámbulo)",
-        desc: "Secuencia de chirps para sincronizar el receptor. Permite 'despertar' al gateway antes de que lleguen los datos.",
-        color: "border-slate-500", size: "Variable", layer: "Física (PHY)"
-    },
-    phdr: {
-        title: "Physical Header (PHDR)",
-        desc: "Contiene información sobre la longitud del payload y el Coding Rate utilizado. Incluye su propio CRC.",
-        color: "border-slate-600", size: "Variable", layer: "Física (PHY)"
-    },
-    mhdr: {
-        title: "MAC Header (MHDR)",
-        desc: "Identifica el tipo de mensaje (Join Request, Data Uplink, Data Downlink) y la versión mayor de LoRaWAN.",
-        color: "border-yellow-600", size: "1 Byte", layer: "MAC"
-    },
-    devaddr: {
-        title: "Device Address (DevAddr)",
-        desc: "Dirección lógica de 32 bits del dispositivo en la red actual. No es única mundialmente (como el DevEUI), sino temporal.",
-        color: "border-emerald-600", size: "4 Bytes", layer: "MAC / FHDR"
-    },
-    fctrl: {
-        title: "Frame Control (FCtrl)",
-        desc: "Byte de control para activar el ADR (Adaptive Data Rate), solicitar confirmación (ACK) o indicar que hay más datos pendientes.",
-        color: "border-emerald-500", size: "1 Byte", layer: "MAC / FHDR"
-    },
-    fcnt: {
-        title: "Frame Counter (FCnt)",
-        desc: "Contador incremental (uplink/downlink). Vital para evitar ataques de repetición (Replay Attacks).",
-        color: "border-emerald-700", size: "2 Bytes", layer: "MAC / FHDR"
-    },
-    fport: {
-        title: "FPort (Frame Port)",
-        desc: "Puerto de aplicación. Si es 0, el payload son comandos MAC cifrados con NwkSKey. Si es >0, son datos de usuario cifrados con AppSKey.",
-        color: "border-purple-600", size: "1 Byte", layer: "MAC"
-    },
-    payload: {
-        title: "FRM Payload",
-        desc: "Tus datos reales (temperatura, GPS...). Viajan ENCRIPTADOS (AES-128) usando la AppSKey. La red los transporta pero no puede leerlos.",
-        color: "border-blue-600", size: "Variable", layer: "Aplicación"
-    },
-    mic: {
-        title: "MIC (Message Integrity Code)",
-        desc: "Firma digital de 4 bytes calculada con la NwkSKey. Garantiza que el mensaje no ha sido modificado en el aire (Integridad).",
-        color: "border-red-600", size: "4 Bytes", layer: "MAC"
+// --- LOGICA DE LA TRAMA (DRILL-DOWN) ---
+function revealLayer(layerId) {
+    // 1. Mostrar la capa
+    const layer = document.getElementById(`layer-${layerId}`);
+    layer.classList.remove('hidden');
+    layer.classList.add('reveal-animation');
+
+    // 2. Mensaje de contexto
+    const cardTitle = document.getElementById('frame-title');
+    const cardDesc = document.getElementById('frame-desc');
+    const card = document.getElementById('frame-detail-card');
+
+    if (layerId === 'mac') {
+        cardTitle.innerText = "Capa MAC Desplegada";
+        cardDesc.innerText = "Has desencapsulado el PHY Payload. Ahora puedes ver la cabecera MAC, el MIC de seguridad y el Payload MAC.";
+        card.className = "h-full bg-yellow-50 rounded-xl shadow-lg border-l-8 border-yellow-500 p-6 transition-all duration-300";
+    } else if (layerId === 'app') {
+        cardTitle.innerText = "Capa Aplicación Desplegada";
+        cardDesc.innerText = "Has desencapsulado el MAC Payload. Aquí es donde finalmente se encuentra el Payload de usuario (FRM Payload) y los comandos de control (FOpt).";
+        card.className = "h-full bg-emerald-50 rounded-xl shadow-lg border-l-8 border-emerald-500 p-6 transition-all duration-300";
     }
+}
+
+const frameData = {
+    preamble: { title: "Preamble", desc: "Sincronización. Despierta al receptor.", color: "border-slate-500", layer: "PHY" },
+    phdr: { title: "PHDR", desc: "Longitud y Coding Rate.", color: "border-slate-600", layer: "PHY" },
+    phdr_crc: { title: "PHDR CRC", desc: "Check de errores de la cabecera.", color: "border-slate-600", layer: "PHY" },
+    crc: { title: "CRC", desc: "Check de errores de todo el paquete.", color: "border-slate-500", layer: "PHY" },
+
+    mhdr: { title: "MHDR", desc: "Tipo de mensaje (Join, Data, ACK).", color: "border-yellow-500", layer: "MAC" },
+    mic: { title: "MIC", desc: "Firma de seguridad (NwkSKey).", color: "border-yellow-500", layer: "MAC" },
+
+    fhdr: { title: "FHDR", desc: "Cabecera de Trama (Dirección, Contador).", color: "border-emerald-600", layer: "FRAME" },
+    fport: { title: "FPort", desc: "Puerto (0=MAC, 1+=App).", color: "border-purple-600", layer: "FRAME" },
+    frmpayload: { title: "FRM Payload", desc: "Datos de usuario encriptados (AppSKey).", color: "border-blue-600", layer: "APP" }
 };
 
 function showFrameInfo(id) {
     const data = frameData[id];
+    const cardTitle = document.getElementById('frame-title');
+    const cardDesc = document.getElementById('frame-desc');
+    const cardLayer = document.getElementById('frame-layer-tag');
     const card = document.getElementById('frame-detail-card');
 
-    // Actualizar Textos
-    document.getElementById('frame-title').innerText = data.title;
-    // Cambiar color del título según el bloque
-    document.getElementById('frame-title').className = `text-3xl font-bold mb-4 ${data.color.replace('border', 'text')}`;
+    cardTitle.innerText = data.title;
+    cardDesc.innerText = data.desc;
+    cardLayer.innerText = data.layer;
 
-    document.getElementById('frame-size').innerText = `TAMAÑO: ${data.size}`;
-    document.getElementById('frame-layer').innerText = `CAPA: ${data.layer}`;
-    document.getElementById('frame-desc').innerText = data.desc;
-
-    // Cambiar borde de la tarjeta
-    card.className = `absolute inset-0 bg-white rounded-xl shadow-lg border-l-8 ${data.color} p-8 transition-all duration-300`;
+    card.className = `h-full bg-white rounded-xl shadow-lg border-l-8 ${data.color} p-6 transition-all duration-300`;
 }
 
 function startNetSim() {
@@ -212,27 +194,13 @@ function renderTimeline(type) {
     let elements = [];
     if (type === 'A') {
         desc.innerHTML = "<strong>Clase A:</strong> Envía y espera un poco. Máximo ahorro.";
-        elements = [
-            { type: 'tx', left: 10, width: 10, text: 'Uplink' },
-            { type: 'rx', left: 30, width: 5, text: 'RX1' },
-            { type: 'rx', left: 45, width: 5, text: 'RX2' },
-            { type: 'sleep', left: 50, width: 40, text: 'Zzz...' }
-        ];
+        elements = [{ type: 'tx', left: 10, width: 10, text: 'Uplink' }, { type: 'rx', left: 30, width: 5, text: 'RX1' }, { type: 'rx', left: 45, width: 5, text: 'RX2' }, { type: 'sleep', left: 50, width: 40, text: 'Zzz...' }];
     } else if (type === 'B') {
         desc.innerHTML = "<strong>Clase B:</strong> Escuchas programadas (Pings).";
-        elements = [
-            { type: 'beacon', left: 5, width: 2, text: 'B' },
-            { type: 'rx', left: 20, width: 5, text: 'Ping' },
-            { type: 'rx', left: 40, width: 5, text: 'Ping' },
-            { type: 'tx', left: 60, width: 10, text: 'TX' }
-        ];
+        elements = [{ type: 'beacon', left: 5, width: 2, text: 'B' }, { type: 'rx', left: 20, width: 5, text: 'Ping' }, { type: 'rx', left: 40, width: 5, text: 'Ping' }, { type: 'tx', left: 60, width: 10, text: 'TX' }];
     } else {
         desc.innerHTML = "<strong>Clase C:</strong> Escucha continua.";
-        elements = [
-            { type: 'rx-long', left: 0, width: 40, text: 'RX...' },
-            { type: 'tx', left: 40, width: 10, text: 'TX' },
-            { type: 'rx-long', left: 50, width: 50, text: 'RX...' }
-        ];
+        elements = [{ type: 'rx-long', left: 0, width: 40, text: 'RX...' }, { type: 'tx', left: 40, width: 10, text: 'TX' }, { type: 'rx-long', left: 50, width: 50, text: 'RX...' }];
     }
     elements.forEach((el, index) => {
         const div = document.createElement('div');
@@ -241,13 +209,11 @@ function renderTimeline(type) {
         div.style.width = el.width + '%';
         div.innerText = el.text;
         div.style.animationDelay = (index * 0.1) + 's';
-
         if (el.type === 'tx') div.className += ' bg-green-500 z-20 top-[15%] h-[70%]';
         if (el.type === 'rx') div.className += ' bg-blue-500 top-[30%] h-[40%]';
         if (el.type === 'rx-long') div.className += ' bg-blue-200 text-blue-800 border border-blue-400 top-[35%] h-[30%]';
         if (el.type === 'beacon') div.className += ' bg-purple-600 top-[10%] h-[80%]';
         if (el.type === 'sleep') div.className += ' bg-slate-200 text-slate-500 top-[40%] h-[20%]';
-
         container.appendChild(div);
     });
 }
@@ -268,48 +234,26 @@ for (let i = 0; i < 60; i++)particles.push(new Particle());
 function animateBg() { bgCtx.clearRect(0, 0, width, height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateBg); }
 animateBg();
 
-// --- SEGURIDAD: Lógica Interactiva ---
-const securityState = {
-    nwk: false,
-    app: false
-};
-
+// --- SEGURIDAD ---
+const securityState = { nwk: false, app: false };
 function toggleKey(type) {
     securityState[type] = !securityState[type];
     const isActive = securityState[type];
-
     const card = document.getElementById(`key-${type}`);
-    if (isActive) card.classList.add('active');
-    else card.classList.remove('active');
-
+    if (isActive) card.classList.add('active'); else card.classList.remove('active');
     const ring = document.getElementById(`ring-${type}`);
     const statusIcon = type === 'nwk' ? document.getElementById('status-integrity') : document.getElementById('status-confidentiality');
-
-    if (isActive) {
-        ring.classList.add('active');
-        statusIcon.classList.add('status-active');
-    } else {
-        ring.classList.remove('active');
-        statusIcon.classList.remove('status-active');
-    }
-
+    if (isActive) { ring.classList.add('active'); statusIcon.classList.add('status-active'); }
+    else { ring.classList.remove('active'); statusIcon.classList.remove('status-active'); }
     updateLockState();
 }
-
 function updateLockState() {
     const lockIcon = document.getElementById('lock-icon');
     const lockText = document.getElementById('lock-text');
     const lockCircle = document.getElementById('lock-circle');
-
     if (securityState.nwk && securityState.app) {
-        lockIcon.innerText = "🔒";
-        lockText.innerText = "SEGURO";
-        lockText.className = "text-green-400 font-bold text-xl uppercase tracking-widest";
-        lockCircle.classList.add('secure');
+        lockIcon.innerText = "🔒"; lockText.innerText = "SEGURO"; lockText.className = "text-green-400 font-bold text-xl uppercase tracking-widest"; lockCircle.classList.add('secure');
     } else {
-        lockIcon.innerText = "🔓";
-        lockText.innerText = "INSEGURO";
-        lockText.className = "text-red-400 font-bold text-xl uppercase tracking-widest";
-        lockCircle.classList.remove('secure');
+        lockIcon.innerText = "🔓"; lockText.innerText = "INSEGURO"; lockText.className = "text-red-400 font-bold text-xl uppercase tracking-widest"; lockCircle.classList.remove('secure');
     }
 }
