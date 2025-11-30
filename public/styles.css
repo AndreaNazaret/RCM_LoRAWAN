@@ -280,3 +280,16 @@ body {
     opacity: 1 !important;
     transform: translateY(-5px);
 }
+
+/* --- Ajuste para listas en Flip Cards --- */
+.flip-card-back ul li {
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.flip-card-back ul li strong {
+    display: block;
+    /* Pone el título en una línea propia si es muy largo, o destaca más */
+    color: inherit;
+    font-weight: 800;
+}

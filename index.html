@@ -101,8 +101,8 @@
 
         <div class="slide">
             <h2 class="text-4xl font-bold text-blue-900 mb-4">La Problemática de las Redes Actuales</h2>
-            <p class="text-slate-500 mb-8 max-w-4xl text-center">Haz clic en los botones de colores para girar las
-                tarjetas.</p>
+            <p class="text-slate-500 mb-8 max-w-4xl text-center">Haz clic en los botones para ver por qué las redes
+                tradicionales fallan en el IoT [1, 2].</p>
 
             <div class="grid grid-cols-3 gap-8 max-w-7xl w-full h-[500px]">
 
@@ -112,18 +112,24 @@
                             class="flip-card-front bg-white border-t-8 border-red-500 shadow-lg p-8 flex flex-col items-center justify-center rounded-xl">
                             <div class="text-6xl mb-6">📶</div>
                             <h3 class="text-2xl font-bold text-slate-800">Redes Locales</h3>
-                            <p class="text-slate-500 mt-2">(WiFi, Bluetooth)</p>
+                            <p class="text-slate-500 mt-2">(WiFi, Bluetooth, Zigbee)</p>
                             <button onclick="toggleFlip('card-local')"
                                 class="mt-8 px-4 py-2 bg-red-100 text-red-600 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-red-200 transition">Ver
                                 Limitaciones</button>
                         </div>
                         <div
-                            class="flip-card-back bg-red-50 border-t-8 border-red-500 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl">
-                            <h3 class="text-xl font-bold text-red-900 mb-4">Alcance Limitado</h3>
-                            <p class="text-slate-700 text-sm leading-relaxed">Diseñadas para corta distancia. Consumen
-                                mucha energía para mantener el ancho de banda.</p>
+                            class="flip-card-back bg-red-50 border-t-8 border-red-500 shadow-lg p-6 flex flex-col items-center justify-center text-left rounded-xl">
+                            <h3 class="text-xl font-bold text-red-900 mb-2 text-center w-full">¿Por qué no sirven?</h3>
+                            <ul class="text-slate-700 text-sm space-y-2 list-disc pl-4 leading-snug">
+                                <li><strong>Alcance Insuficiente:</strong> Diseñadas para distancias cortas (metros).
+                                    Cubrir una ciudad requeriría miles de routers.</li>
+                                <li><strong>Energía Excesiva:</strong> Los protocolos mantienen la conexión "viva"
+                                    constantemente, agotando baterías pequeñas en días.</li>
+                                <li><strong>Conexión Compleja:</strong> Dificultad para conectar dispositivos en zonas
+                                    aisladas o de difícil acceso.</li>
+                            </ul>
                             <button onclick="toggleFlip('card-local')"
-                                class="mt-6 text-red-500 underline text-sm">Volver</button>
+                                class="mt-4 text-red-500 underline text-sm font-bold text-center w-full">Volver</button>
                         </div>
                     </div>
                 </div>
@@ -140,12 +146,19 @@
                                 Limitaciones</button>
                         </div>
                         <div
-                            class="flip-card-back bg-orange-50 border-t-8 border-orange-500 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl">
-                            <h3 class="text-xl font-bold text-orange-900 mb-4">Coste y Consumo</h3>
-                            <p class="text-slate-700 text-sm leading-relaxed">Protocolo pesado y caro. No encaja con
-                                dispositivos que envían pocos datos esporádicamente.</p>
+                            class="flip-card-back bg-orange-50 border-t-8 border-orange-500 shadow-lg p-6 flex flex-col items-center justify-center text-left rounded-xl">
+                            <h3 class="text-xl font-bold text-orange-900 mb-2 text-center w-full">¿Por qué no sirven?
+                            </h3>
+                            <ul class="text-slate-700 text-sm space-y-2 list-disc pl-4 leading-snug">
+                                <li><strong>Sobrecarga (Overhead):</strong> Protocolos diseñados para voz/video. Enviar
+                                    pocos bytes requiere mucha señalización.</li>
+                                <li><strong>Coste Elevado:</strong> Hardware caro (módems LTE) y necesidad de
+                                    suscripción (tarjeta SIM) por cada sensor.</li>
+                                <li><strong>Consumo:</strong> Inviable para operar con pilas de botón durante años [2,
+                                    3].</li>
+                            </ul>
                             <button onclick="toggleFlip('card-celular')"
-                                class="mt-6 text-orange-500 underline text-sm">Volver</button>
+                                class="mt-4 text-orange-500 underline text-sm font-bold text-center w-full">Volver</button>
                         </div>
                     </div>
                 </div>
@@ -156,18 +169,24 @@
                             class="flip-card-front bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-xl p-8 flex flex-col items-center justify-center rounded-xl relative z-10">
                             <div class="text-6xl mb-6">🌐</div>
                             <h3 class="text-2xl font-bold">LPWAN</h3>
-                            <p class="text-blue-200 mt-2">La Solución</p>
+                            <p class="text-blue-200 mt-2">La Solución (LoRaWAN)</p>
                             <button onclick="toggleFlip('card-lpwan')"
                                 class="mt-8 px-4 py-2 bg-blue-500 text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-blue-400 transition shadow-lg">Ver
                                 Ventajas</button>
                         </div>
                         <div
-                            class="flip-card-back bg-blue-50 border-t-8 border-blue-600 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl">
-                            <h3 class="text-xl font-bold text-blue-900 mb-4">Low Power Wide Area</h3>
-                            <p class="text-slate-700 text-sm leading-relaxed"><strong>LoRaWAN, Sigfox</strong>. Cubren
-                                grandes áreas con consumo mínimo, sacrificando velocidad de datos.</p>
+                            class="flip-card-back bg-blue-50 border-t-8 border-blue-600 shadow-lg p-6 flex flex-col items-center justify-center text-left rounded-xl">
+                            <h3 class="text-xl font-bold text-blue-900 mb-2 text-center w-full">Ventajas Clave</h3>
+                            <ul class="text-slate-700 text-sm space-y-2 list-disc pl-4 leading-snug">
+                                <li><strong>Largo Alcance:</strong> Cobertura de kilómetros (urbano/rural) y penetración
+                                    profunda (sótanos) [4].</li>
+                                <li><strong>Bajo Consumo:</strong> Dispositivos duermen el 99% del tiempo. Baterías >
+                                    5-10 años.</li>
+                                <li><strong>Escalabilidad:</strong> Un solo Gateway conecta miles de nodos. Uso de
+                                    bandas libres (sin licencia).</li>
+                            </ul>
                             <button onclick="toggleFlip('card-lpwan')"
-                                class="mt-6 text-blue-600 underline text-sm">Volver</button>
+                                class="mt-4 text-blue-600 underline text-sm font-bold text-center w-full">Volver</button>
                         </div>
                     </div>
                 </div>
