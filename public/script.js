@@ -85,10 +85,10 @@ function startChirpAnimation() {
         if (currentSlide !== 3) return;
 
         chirpCtx.clearRect(0, 0, rect.width, rect.height);
-        chirpCtx.fillStyle = '#0f172a'; // Slate 900
+        chirpCtx.fillStyle = '#0f172a';
         chirpCtx.fillRect(0, 0, rect.width, rect.height);
 
-        chirpCtx.strokeStyle = '#38bdf8'; // Cyan
+        chirpCtx.strokeStyle = '#38bdf8';
         chirpCtx.lineWidth = 2;
         chirpCtx.beginPath();
 
@@ -96,8 +96,6 @@ function startChirpAnimation() {
         const height = rect.height;
         const amplitude = height * 0.35;
         const centerY = height / 2;
-
-        // Simulación matemática de Up-Chirp
         const symbolDuration = 150;
 
         for (let x = 0; x < width; x++) {
@@ -109,7 +107,7 @@ function startChirpAnimation() {
             if (x === 0) chirpCtx.moveTo(x, y);
             else chirpCtx.lineTo(x, y);
 
-            if (t < 2) { // Reset visual
+            if (t < 2) {
                 chirpCtx.stroke();
                 chirpCtx.beginPath();
                 chirpCtx.moveTo(x, y);
@@ -123,7 +121,7 @@ function startChirpAnimation() {
     draw();
 }
 
-// --- INFO DISPLAYS ---
+// --- INFO DISPLAYS (STACK & FRAME) ---
 const stackData = {
     lorawan: { title: "Capa MAC (LoRaWAN)", desc: "Protocolo de red. Gestiona seguridad, clases y reglas." },
     lora: { title: "Capa Física (LoRa)", desc: "Modulación de radio CSS. Solo envía bits, sin lógica de red." }
@@ -133,26 +131,70 @@ function showStackInfo(id) {
     document.getElementById('stack-desc').innerText = stackData[id].desc;
 }
 
+// DATOS DE LA TRAMA (Recuperados de la memoria)
 const frameData = {
-    preamble: { title: "Preámbulo", desc: "Sincronización del receptor.", color: "border-slate-500", size: "Var", layer: "PHY" },
-    phdr: { title: "PHDR", desc: "Configuración física (Rate/Length).", color: "border-slate-600", size: "Var", layer: "PHY" },
-    mhdr: { title: "MHDR", desc: "Tipo de mensaje (Join/Data).", color: "border-yellow-600", size: "1B", layer: "MAC" },
-    devaddr: { title: "DevAddr", desc: "Dirección de red del nodo.", color: "border-emerald-600", size: "4B", layer: "MAC" },
-    fctrl: { title: "FCtrl", desc: "Control (ACK, ADR).", color: "border-emerald-500", size: "1B", layer: "MAC" },
-    fcnt: { title: "FCnt", desc: "Contador anti-replay.", color: "border-emerald-700", size: "2B", layer: "MAC" },
-    fport: { title: "FPort", desc: "Puerto (0=MAC, 1+=App).", color: "border-purple-600", size: "1B", layer: "MAC" },
-    payload: { title: "FRM Payload", desc: "Datos encriptados (AppSKey).", color: "border-blue-600", size: "Var", layer: "App" },
-    mic: { title: "MIC", desc: "Firma de integridad (NwkSKey).", color: "border-red-600", size: "4B", layer: "MAC" }
+    preamble: {
+        title: "Preamble (Preámbulo)",
+        desc: "Secuencia de chirps para sincronizar el receptor. Permite 'despertar' al gateway antes de que lleguen los datos.",
+        color: "border-slate-500", size: "Variable", layer: "Física (PHY)"
+    },
+    phdr: {
+        title: "Physical Header (PHDR)",
+        desc: "Contiene información sobre la longitud del payload y el Coding Rate utilizado. Incluye su propio CRC.",
+        color: "border-slate-600", size: "Variable", layer: "Física (PHY)"
+    },
+    mhdr: {
+        title: "MAC Header (MHDR)",
+        desc: "Identifica el tipo de mensaje (Join Request, Data Uplink, Data Downlink) y la versión mayor de LoRaWAN.",
+        color: "border-yellow-600", size: "1 Byte", layer: "MAC"
+    },
+    devaddr: {
+        title: "Device Address (DevAddr)",
+        desc: "Dirección lógica de 32 bits del dispositivo en la red actual. No es única mundialmente (como el DevEUI), sino temporal.",
+        color: "border-emerald-600", size: "4 Bytes", layer: "MAC / FHDR"
+    },
+    fctrl: {
+        title: "Frame Control (FCtrl)",
+        desc: "Byte de control para activar el ADR (Adaptive Data Rate), solicitar confirmación (ACK) o indicar que hay más datos pendientes.",
+        color: "border-emerald-500", size: "1 Byte", layer: "MAC / FHDR"
+    },
+    fcnt: {
+        title: "Frame Counter (FCnt)",
+        desc: "Contador incremental (uplink/downlink). Vital para evitar ataques de repetición (Replay Attacks).",
+        color: "border-emerald-700", size: "2 Bytes", layer: "MAC / FHDR"
+    },
+    fport: {
+        title: "FPort (Frame Port)",
+        desc: "Puerto de aplicación. Si es 0, el payload son comandos MAC cifrados con NwkSKey. Si es >0, son datos de usuario cifrados con AppSKey.",
+        color: "border-purple-600", size: "1 Byte", layer: "MAC"
+    },
+    payload: {
+        title: "FRM Payload",
+        desc: "Tus datos reales (temperatura, GPS...). Viajan ENCRIPTADOS (AES-128) usando la AppSKey. La red los transporta pero no puede leerlos.",
+        color: "border-blue-600", size: "Variable", layer: "Aplicación"
+    },
+    mic: {
+        title: "MIC (Message Integrity Code)",
+        desc: "Firma digital de 4 bytes calculada con la NwkSKey. Garantiza que el mensaje no ha sido modificado en el aire (Integridad).",
+        color: "border-red-600", size: "4 Bytes", layer: "MAC"
+    }
 };
+
 function showFrameInfo(id) {
     const data = frameData[id];
     const card = document.getElementById('frame-detail-card');
+
+    // Actualizar Textos
     document.getElementById('frame-title').innerText = data.title;
+    // Cambiar color del título según el bloque
     document.getElementById('frame-title').className = `text-3xl font-bold mb-4 ${data.color.replace('border', 'text')}`;
-    document.getElementById('frame-size').innerText = `Tamaño: ${data.size}`;
-    document.getElementById('frame-layer').innerText = `Capa: ${data.layer}`;
+
+    document.getElementById('frame-size').innerText = `TAMAÑO: ${data.size}`;
+    document.getElementById('frame-layer').innerText = `CAPA: ${data.layer}`;
     document.getElementById('frame-desc').innerText = data.desc;
-    card.className = `absolute inset-0 bg-white rounded-xl shadow-lg border-l-8 ${data.color} p-8 transition-all`;
+
+    // Cambiar borde de la tarjeta
+    card.className = `absolute inset-0 bg-white rounded-xl shadow-lg border-l-8 ${data.color} p-8 transition-all duration-300`;
 }
 
 function startNetSim() {
@@ -200,7 +242,6 @@ function renderTimeline(type) {
         div.innerText = el.text;
         div.style.animationDelay = (index * 0.1) + 's';
 
-        // Espacios corregidos en las clases
         if (el.type === 'tx') div.className += ' bg-green-500 z-20 top-[15%] h-[70%]';
         if (el.type === 'rx') div.className += ' bg-blue-500 top-[30%] h-[40%]';
         if (el.type === 'rx-long') div.className += ' bg-blue-200 text-blue-800 border border-blue-400 top-[35%] h-[30%]';

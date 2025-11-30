@@ -7,7 +7,7 @@ body {
     color: #0f172a;
 }
 
-/* --- Layout --- */
+/* --- Layout Principal --- */
 .slide-container {
     position: absolute;
     top: 0;
@@ -32,14 +32,12 @@ body {
     transform: translateY(20px);
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease-in-out;
     pointer-events: none;
-    /* Inhabilitado cuando no activo */
 }
 
 .slide.active {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
-    /* Habilitado cuando activo */
     z-index: 10;
 }
 
@@ -107,7 +105,7 @@ body {
     transform: rotateY(180deg);
 }
 
-/* --- Packet Animation --- */
+/* --- Packet Animation (Slide 7) --- */
 .packet {
     width: 20px;
     height: 20px;
@@ -159,7 +157,20 @@ body {
     }
 }
 
-/* --- Timeline Animation --- */
+/* --- Frame Explorer (Slide 8 - Estilos añadidos) --- */
+.frame-segment {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.frame-segment:hover {
+    filter: brightness(1.15);
+    transform: translateY(-4px);
+    z-index: 20;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Timeline Animation (Slide 9) --- */
 @keyframes fadeInDrop {
     0% {
         opacity: 0;
@@ -186,7 +197,7 @@ body {
     animation: fadeInDrop 0.5s forwards ease-out;
 }
 
-/* Utilidades */
+/* Utilidades de Animación */
 .animate-spin-slow {
     animation: spin 8s linear infinite;
 }
@@ -197,7 +208,7 @@ body {
     }
 }
 
-/* --- Security Slide Interactions --- */
+/* --- Security Slide Interactions (Slide 10) --- */
 .security-card.active {
     background-color: #eff6ff;
     transform: translateX(10px);
