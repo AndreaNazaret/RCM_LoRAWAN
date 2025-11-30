@@ -297,63 +297,107 @@
             </div>
         </div>
         <div class="slide">
-            <div class="w-full max-w-7xl">
+            <div class="w-full max-w-7xl h-full flex flex-col justify-center">
                 <div class="flex justify-between items-end mb-6">
                     <div>
                         <h2 class="text-4xl font-bold text-blue-900">Arquitectura de Red</h2>
-                        <p class="text-slate-500">Topología Estrella de Estrellas</p>
+                        <p class="text-slate-500">Topología Estrella de Estrellas (Star-of-Stars)</p>
                     </div>
                     <button onclick="startNetSim()"
                         class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg transition flex items-center gap-2">
                         <span>📡</span> Enviar Datos
                     </button>
                 </div>
+
                 <div
-                    class="relative w-full h-[500px] bg-white/60 backdrop-blur rounded-3xl shadow-2xl border border-slate-200 p-8 overflow-hidden">
-                    <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none stroke-slate-300">
-                        <path d="M 150 150 L 400 250" stroke-width="2" stroke-dasharray="5,5" />
-                        <path d="M 150 250 L 400 250" stroke-width="2" stroke-dasharray="5,5" />
-                        <path d="M 150 350 L 400 250" stroke-width="2" stroke-dasharray="5,5" />
-                        <line x1="450" y1="250" x2="700" y2="250" stroke-width="4" stroke="#94a3b8" />
-                        <line x1="800" y1="250" x2="1050" y2="250" stroke-width="4" stroke="#94a3b8" />
+                    class="relative w-full h-[500px] bg-white/60 backdrop-blur rounded-3xl shadow-2xl border border-slate-200 p-8">
+
+                    <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none stroke-slate-400">
+                        <path d="M 150 120 L 400 250" stroke-width="2" stroke-dasharray="5,5"
+                            class="stroke-blue-400 opacity-50" />
+                        <path d="M 150 250 L 400 250" stroke-width="2" stroke-dasharray="5,5"
+                            class="stroke-blue-400 opacity-50" />
+                        <path d="M 150 380 L 400 250" stroke-width="2" stroke-dasharray="5,5"
+                            class="stroke-blue-400 opacity-50" />
+
+                        <line x1="450" y1="250" x2="700" y2="250" stroke-width="4" stroke="#64748b" />
+                        <text x="530" y="240" fill="#64748b" font-size="10" font-weight="bold">IP Backhaul</text>
+
+                        <line x1="800" y1="250" x2="1050" y2="250" stroke-width="4" stroke="#64748b" />
+                        <text x="880" y="240" fill="#64748b" font-size="10" font-weight="bold">HTTPS / API</text>
                     </svg>
+
                     <div class="grid grid-cols-4 h-full items-center justify-items-center relative z-10">
-                        <div class="flex flex-col gap-12 bg-white/50 p-4 rounded-xl border border-slate-200 shadow-sm">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">💧
-                                </div><span class="text-xs font-bold text-slate-600">Sensor</span>
+
+                        <div class="flex flex-col justify-around h-full py-8 w-full px-4">
+                            <div
+                                class="flex items-center gap-3 bg-white p-2 rounded-lg shadow-sm border border-slate-100 z-10">
+                                <div
+                                    class="w-10 h-10 bg-green-100 text-green-700 rounded-full flex items-center justify-center text-xl shadow-inner">
+                                    💧</div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-700">Agua</p>
+                                    <p class="text-[10px] text-slate-400">Class A</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">🌡️
-                                </div><span class="text-xs font-bold text-slate-600">Sensor</span>
+                            <div
+                                class="flex items-center gap-3 bg-white p-2 rounded-lg shadow-sm border border-slate-100 z-10">
+                                <div
+                                    class="w-10 h-10 bg-orange-100 text-orange-700 rounded-full flex items-center justify-center text-xl shadow-inner">
+                                    🌡️</div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-700">Temp</p>
+                                    <p class="text-[10px] text-slate-400">Class A</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">📍
-                                </div><span class="text-xs font-bold text-slate-600">Tracker</span>
+                            <div
+                                class="flex items-center gap-3 bg-white p-2 rounded-lg shadow-sm border border-slate-100 z-10">
+                                <div
+                                    class="w-10 h-10 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center text-xl shadow-inner">
+                                    📍</div>
+                                <div>
+                                    <p class="text-xs font-bold text-slate-700">GPS</p>
+                                    <p class="text-[10px] text-slate-400">Class C</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex flex-col items-center text-center">
+
+                        <div class="flex flex-col items-center text-center z-10">
                             <div
                                 class="w-28 h-36 bg-slate-800 rounded-lg border-b-8 border-blue-500 flex flex-col items-center justify-center shadow-2xl relative">
-                                <span class="text-4xl text-blue-400">((●))</span>
-                                <span class="text-white text-xs font-mono mt-4">Concentrador</span>
+                                <div class="w-1 h-8 bg-slate-600 absolute -top-8 left-4 rounded-t"></div>
+                                <div class="w-1 h-8 bg-slate-600 absolute -top-8 right-4 rounded-t"></div>
+                                <span class="text-4xl text-blue-400 animate-pulse">((●))</span>
+                                <span class="text-white text-xs font-mono mt-4">GW-01</span>
+                            </div>
+                            <p class="text-xs font-bold text-slate-500 mt-2">Packet Forwarder</p>
+                        </div>
+
+                        <div class="flex flex-col items-center z-10">
+                            <div
+                                class="w-40 h-40 bg-blue-50 rounded-full border-4 border-blue-600 flex flex-col items-center justify-center shadow-2xl relative">
+                                <span class="text-5xl mb-2">☁️</span>
+                                <span
+                                    class="text-blue-900 font-bold text-sm text-center leading-tight">Network<br>Server</span>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <p class="text-xs font-bold text-slate-600">Gestión de Red</p>
+                                <p class="text-[10px] text-slate-400">ADR, Auth, Dedup</p>
                             </div>
                         </div>
-                        <div class="flex flex-col items-center">
+
+                        <div class="flex flex-col items-center z-10">
                             <div
-                                class="w-40 h-40 bg-blue-50 rounded-full border-4 border-blue-600 flex flex-col items-center justify-center shadow-2xl relative z-20">
-                                <span class="text-5xl mb-2">☁️</span><span
-                                    class="text-blue-900 font-bold text-sm text-center">Network<br>Server</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div
-                                class="w-32 h-32 bg-white rounded-xl border-2 border-cyan-500 flex items-center justify-center shadow-lg relative z-20">
+                                class="w-32 h-32 bg-white rounded-xl border-2 border-cyan-500 flex items-center justify-center shadow-lg relative">
                                 <span class="text-5xl">💻</span>
                             </div>
-                            <div class="mt-4 text-xs text-slate-500 font-bold">App Server</div>
+                            <div class="mt-4 text-center">
+                                <p class="text-xs font-bold text-slate-600">App Server</p>
+                                <p class="text-[10px] text-slate-400">Descifrado Payload</p>
+                            </div>
                         </div>
                     </div>
+
                     <div id="sim-packet" class="packet"></div>
                 </div>
             </div>
@@ -386,42 +430,85 @@
             </div>
         </div>
         <div class="slide">
-            <h2 class="text-5xl font-bold text-blue-900 mb-8">Seguridad en LoRaWAN</h2>
-            <div class="flex flex-col md:flex-row gap-12 items-start max-w-7xl w-full h-[60vh]">
-                <div class="w-1/2 space-y-8">
-                    <p class="text-lg text-slate-700">Cifrado <strong>AES-128</strong>.</p>
-                    <div
-                        class="group bg-white p-6 rounded-xl shadow-md border-l-8 border-indigo-500 hover:shadow-2xl transition-all cursor-default">
-                        <div class="flex items-center gap-4 mb-2">
-                            <div class="bg-indigo-100 p-3 rounded-full text-2xl">🔑</div>
-                            <h3 class="text-2xl font-bold text-indigo-900">Network Session Key</h3>
+            <h2 class="text-5xl font-bold text-blue-900 mb-4">Seguridad en LoRaWAN</h2>
+            <p class="text-slate-500 mb-8">Haz clic en las llaves para activar las capas de seguridad y proteger el
+                mensaje.</p>
+
+            <div class="flex flex-col md:flex-row gap-12 items-center justify-center max-w-7xl w-full h-[60vh]">
+
+                <div class="w-1/3 flex flex-col gap-6">
+                    <div id="key-nwk" onclick="toggleKey('nwk')"
+                        class="security-card cursor-pointer bg-white p-6 rounded-xl shadow-md border-l-8 border-indigo-500 hover:shadow-xl hover:translate-x-2 transition-all">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <div class="bg-indigo-100 p-3 rounded-full text-2xl">🔑</div>
+                                <div>
+                                    <h3 class="font-bold text-indigo-900">NwkSKey</h3>
+                                    <p class="text-xs text-slate-500">Network Session Key</p>
+                                </div>
+                            </div>
+                            <div class="status-indicator w-4 h-4 rounded-full bg-slate-300 border border-slate-400">
+                            </div>
                         </div>
-                        <p class="text-slate-600 mb-4 font-mono text-sm">NwkSKey - Integridad (MIC)</p>
+                        <p class="text-sm text-slate-600 mt-3 pt-3 border-t border-slate-100">
+                            Garantiza la <strong>Integridad (MIC)</strong>. Evita que el mensaje sea modificado en el
+                            aire.
+                        </p>
                     </div>
-                    <div
-                        class="group bg-white p-6 rounded-xl shadow-md border-l-8 border-cyan-500 hover:shadow-2xl transition-all cursor-default">
-                        <div class="flex items-center gap-4 mb-2">
-                            <div class="bg-cyan-100 p-3 rounded-full text-2xl">🗝️</div>
-                            <h3 class="text-2xl font-bold text-cyan-900">App Session Key</h3>
+
+                    <div id="key-app" onclick="toggleKey('app')"
+                        class="security-card cursor-pointer bg-white p-6 rounded-xl shadow-md border-l-8 border-cyan-500 hover:shadow-xl hover:translate-x-2 transition-all">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <div class="bg-cyan-100 p-3 rounded-full text-2xl">🗝️</div>
+                                <div>
+                                    <h3 class="font-bold text-cyan-900">AppSKey</h3>
+                                    <p class="text-xs text-slate-500">Application Session Key</p>
+                                </div>
+                            </div>
+                            <div class="status-indicator w-4 h-4 rounded-full bg-slate-300 border border-slate-400">
+                            </div>
                         </div>
-                        <p class="text-slate-600 mb-4 font-mono text-sm">AppSKey - Confidencialidad</p>
+                        <p class="text-sm text-slate-600 mt-3 pt-3 border-t border-slate-100">
+                            Garantiza la <strong>Confidencialidad</strong>. Cifra tus datos para que nadie más pueda
+                            leerlos.
+                        </p>
                     </div>
                 </div>
-                <div class="w-1/2 flex items-center justify-center h-full relative">
-                    <div
-                        class="w-80 h-80 bg-slate-800 rounded-full flex items-center justify-center relative shadow-2xl">
-                        <div
-                            class="absolute inset-0 border-4 border-dashed border-slate-600 rounded-full animate-spin-slow">
+
+                <div class="w-1/2 flex flex-col items-center justify-center relative h-full">
+
+                    <div id="lock-container" class="relative w-64 h-64 transition-all duration-500">
+                        <div class="absolute inset-0 bg-slate-800 rounded-full flex items-center justify-center shadow-2xl z-10 transition-colors duration-500"
+                            id="lock-circle">
+                            <div class="text-center">
+                                <div class="text-8xl mb-2 transition-transform duration-500" id="lock-icon">🔓</div>
+                                <div class="text-white font-bold text-xl uppercase tracking-widest" id="lock-text">
+                                    INSEGURO</div>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <div class="text-6xl mb-2">🔒</div>
-                            <div class="text-white font-bold text-xl">AES-128</div>
+                        <div id="ring-nwk"
+                            class="absolute inset-[-20px] border-4 border-indigo-500 rounded-full opacity-0 scale-90 transition-all duration-500 z-0">
+                        </div>
+                        <div id="ring-app"
+                            class="absolute inset-[-40px] border-4 border-cyan-500 rounded-full opacity-0 scale-90 transition-all duration-500 z-0">
                         </div>
                     </div>
+
+                    <div class="mt-12 flex gap-8">
+                        <div class="text-center opacity-30 transition-opacity duration-300" id="status-integrity">
+                            <span class="block text-indigo-600 text-2xl mb-1">🛡️</span>
+                            <span class="text-xs font-bold text-slate-600">INTEGRIDAD</span>
+                        </div>
+                        <div class="text-center opacity-30 transition-opacity duration-300" id="status-confidentiality">
+                            <span class="block text-cyan-600 text-2xl mb-1">👁️‍🗨️</span>
+                            <span class="text-xs font-bold text-slate-600">CONFIDENCIALIDAD</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-
         <div class="slide">
             <h2 class="text-4xl font-bold text-blue-900 mb-6">Retos y Perspectivas de Futuro</h2>
             <div class="flex gap-8 max-w-7xl w-full h-[65vh]">

@@ -234,3 +234,55 @@ class Particle {
 for (let i = 0; i < 60; i++)particles.push(new Particle());
 function animateBg() { bgCtx.clearRect(0, 0, width, height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateBg); }
 animateBg();
+
+// --- SEGURIDAD: Lógica Interactiva ---
+const securityState = {
+    nwk: false,
+    app: false
+};
+
+function toggleKey(type) {
+    // 1. Alternar estado
+    securityState[type] = !securityState[type];
+    const isActive = securityState[type];
+
+    // 2. Actualizar UI de la tarjeta (Llave)
+    const card = document.getElementById(`key-${type}`);
+    if (isActive) card.classList.add('active');
+    else card.classList.remove('active');
+
+    // 3. Actualizar Anillos visuales y Iconos inferiores
+    const ring = document.getElementById(`ring-${type}`);
+    const statusIcon = type === 'nwk' ? document.getElementById('status-integrity') : document.getElementById('status-confidentiality');
+
+    if (isActive) {
+        ring.classList.add('active');
+        statusIcon.classList.add('status-active');
+    } else {
+        ring.classList.remove('active');
+        statusIcon.classList.remove('status-active');
+    }
+
+    // 4. Comprobar estado global del Candado
+    updateLockState();
+}
+
+function updateLockState() {
+    const lockIcon = document.getElementById('lock-icon');
+    const lockText = document.getElementById('lock-text');
+    const lockCircle = document.getElementById('lock-circle');
+
+    // Si ambas llaves están activas -> SEGURO
+    if (securityState.nwk && securityState.app) {
+        lockIcon.innerText = "🔒";
+        lockText.innerText = "SEGURO";
+        lockText.className = "text-green-400 font-bold text-xl uppercase tracking-widest";
+        lockCircle.classList.add('secure');
+    } else {
+        // Si falta alguna -> INSEGURO
+        lockIcon.innerText = "🔓";
+        lockText.innerText = "INSEGURO";
+        lockText.className = "text-red-400 font-bold text-xl uppercase tracking-widest";
+        lockCircle.classList.remove('secure');
+    }
+}
