@@ -3,25 +3,20 @@
 body {
     font-family: 'Inter', sans-serif;
     overflow: hidden;
-    background-color: #f8fafc; /* Slate 50 */
-    color: #0f172a; /* Slate 900 */
+    background-color: #f8fafc;
+    /* Slate 50 */
+    color: #0f172a;
+    /* Slate 900 */
 }
 
-/* Paleta de colores personalizada */
-:root {
-    --primary: #1e3a8a; 
-    --secondary: #3b82f6; 
-    --accent: #0ea5e9; 
-    --dark: #020617; 
-}
-
+/* --- Layout Principal --- */
 .slide-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .slide {
@@ -36,41 +31,76 @@ body {
     justify-content: center;
     align-items: center;
     opacity: 0;
+    transform: translateY(20px);
+    /* Ligero desplazamiento inicial */
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease-in-out;
-    background-color: #f8fafc;
+    background-color: transparent;
     pointer-events: none;
 }
 
 .slide.active {
     opacity: 1;
+    transform: translateY(0);
     pointer-events: auto;
     z-index: 10;
 }
 
+/* --- Paneles de Cristal (Glassmorphism) --- */
 .glass-panel {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
     border-radius: 1.5rem;
 }
 
-/* Animaciones Específicas */
-.chirp-wave {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: dash 3s linear infinite;
+/* --- Animación de fondo --- */
+.bg-tech-grid {
+    background-image:
+        linear-gradient(to right, rgba(203, 213, 225, 0.3) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(203, 213, 225, 0.3) 1px, transparent 1px);
+    background-size: 50px 50px;
 }
 
-@keyframes dash {
-    to { stroke-dashoffset: 0; }
+/* --- Efecto Flip Card (Slide 3) --- */
+.flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+    height: 100%;
 }
 
-/* Packet Animation Revised */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+/* --- Animación Paquete Red (Slide 7) --- */
 .packet {
-    width: 16px;
-    height: 16px;
-    background-color: #ef4444; /* Red for visibility */
+    width: 20px;
+    height: 20px;
+    background-color: #ef4444;
     border-radius: 50%;
     position: absolute;
     display: none;
@@ -81,45 +111,102 @@ body {
 
 .packet-animate {
     display: block;
-    animation: networkPath 2.5s forwards ease-in-out;
+    animation: networkPath 3s forwards ease-in-out;
 }
 
-/* Ruta actualizada para la nueva arquitectura */
+/* Coordenadas aproximadas para la animación del paquete */
 @keyframes networkPath {
-    0% { left: 15%; top: 50%; opacity: 1; transform: scale(1); } /* Sensors */
-    30% { left: 35%; top: 50%; transform: scale(1.2); } /* Gateway */
-    60% { left: 60%; top: 50%; transform: scale(1.2); } /* Network Server */
-    100% { left: 85%; top: 50%; opacity: 0; transform: scale(2); } /* App Server */
+    0% {
+        left: 18%;
+        top: 25%;
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Sensor Agua */
+    20% {
+        left: 18%;
+        top: 25%;
+        opacity: 1;
+    }
+
+    40% {
+        left: 38%;
+        top: 40%;
+        transform: scale(1.2);
+    }
+
+    /* Gateway */
+    70% {
+        left: 62%;
+        top: 40%;
+        transform: scale(1.2);
+    }
+
+    /* Nwk Server */
+    100% {
+        left: 88%;
+        top: 40%;
+        opacity: 0;
+        transform: scale(2);
+    }
+
+    /* App Server */
 }
 
-.bg-tech-grid {
-    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-    background-size: 40px 40px;
-}
-
-/* Frame Interaction Styles */
+/* --- Frame Explorer (Slide 8) --- */
 .frame-segment {
     transition: all 0.2s ease;
     cursor: pointer;
 }
+
 .frame-segment:hover {
-    filter: brightness(1.1);
-    transform: translateY(-2px);
-}
-.frame-segment.active-segment {
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5);
-    z-index: 20;
+    filter: brightness(1.15);
     transform: translateY(-4px);
+    z-index: 10;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* Layer Stack Styles */
-.layer-block {
-    transition: all 0.3s ease;
-    cursor: pointer;
+/* --- Timeline Classes (Slide 9) --- */
+.timeline-box {
+    position: absolute;
+    height: 60%;
+    top: 20%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: fadeInDrop 0.5s forwards ease-out;
 }
-.layer-block:hover {
-    transform: scale(1.05) !important; 
-    animation-play-state: paused;
-    z-index: 20;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+
+@keyframes fadeInDrop {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Utilidades Generales --- */
+.animate-spin-slow {
+    animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }

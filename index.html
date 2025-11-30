@@ -1,396 +1,719 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LoRa y LoRaWAN - RCM</title>
-    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Hoja de estilos personalizada externa -->
     <link rel="stylesheet" href="public/styles.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
-<body class="bg-slate-50 text-slate-900">
 
-    <!-- Decoración de fondo -->
-    <div class="fixed inset-0 z-0 bg-tech-grid opacity-40 pointer-events-none"></div>
-    <canvas id="bgCanvas" class="fixed inset-0 z-0 opacity-30 pointer-events-none"></canvas>
+<body class="bg-slate-50 text-slate-900 font-sans">
 
-    <!-- Contenedor Principal de Diapositivas -->
+    <div class="fixed inset-0 z-0 bg-tech-grid opacity-30 pointer-events-none"></div>
+    <canvas id="bgCanvas" class="fixed inset-0 z-0 opacity-20 pointer-events-none"></canvas>
+
     <div class="slide-container" id="slider">
 
-        <!-- SLIDE 1: PORTADA -->
         <div class="slide active">
-            <div class="glass-panel p-12 max-w-4xl w-full text-center relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-900 via-blue-600 to-cyan-400"></div>
-                <div class="mb-6">
-                    <span class="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-bold tracking-wide">ULPGC</span>
-                    <span class="inline-block px-4 py-1 rounded-full bg-slate-100 text-slate-600 text-sm font-bold tracking-wide ml-2">2025-2026</span>
+            <div class="glass-panel p-16 max-w-7xl w-full text-center relative overflow-hidden shadow-2xl">
+                <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-blue-900 via-blue-600 to-cyan-400">
                 </div>
-                <h1 class="text-6xl font-extrabold text-blue-950 mb-4 tracking-tight">LoRa y LoRaWAN</h1>
-                <h2 class="text-2xl text-blue-700 font-light mb-8">Redes de Comunicaciones Móviles</h2>
-                
-                <div class="grid grid-cols-2 gap-8 text-left mt-12 border-t border-slate-200 pt-8">
-                    <div>
-                        <p class="text-xs uppercase text-slate-500 font-bold mb-1">Autor</p>
-                        <p class="text-lg font-semibold text-slate-800">Andrea Nazaret González Maroto</p>
+                <div class="mb-8 flex justify-center gap-4">
+                    <span
+                        class="px-6 py-2 rounded-full bg-blue-100 text-blue-900 font-bold tracking-wide border border-blue-200">ULPGC</span>
+                    <span
+                        class="px-6 py-2 rounded-full bg-slate-100 text-slate-700 font-bold tracking-wide border border-slate-200">2025-2026</span>
+                </div>
+                <h1 class="text-7xl font-extrabold text-blue-950 mb-6 tracking-tight">LoRa y LoRaWAN</h1>
+                <h2 class="text-3xl text-blue-600 font-light mb-12">Redes de Comunicaciones Móviles</h2>
+
+                <div class="flex justify-between items-end mt-16 border-t border-slate-200 pt-8">
+                    <div class="text-left">
+                        <p class="text-xs uppercase text-slate-400 font-bold mb-1 tracking-wider">Autor</p>
+                        <p class="text-2xl font-bold text-slate-800">Andrea Nazaret González Maroto</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-xs uppercase text-slate-500 font-bold mb-1">Profesor</p>
-                        <p class="text-lg font-semibold text-slate-800">Roberto Domínguez Sarmiento</p>
+                        <p class="text-xs uppercase text-slate-400 font-bold mb-1 tracking-wider">Profesor</p>
+                        <p class="text-2xl font-bold text-slate-800">Roberto Domínguez Sarmiento</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 2: INTRODUCCIÓN -->
         <div class="slide">
-            <div class="flex flex-col md:flex-row items-center gap-12 max-w-6xl w-full">
-                <div class="w-full md:w-1/2 text-left">
-                    <h2 class="text-4xl font-bold text-blue-900 mb-6">Introducción al IoT</h2>
-                    <p class="text-xl text-slate-700 leading-relaxed mb-6">
-                        El <strong>Internet de las Cosas (IoT)</strong> conecta miles de dispositivos. Sin embargo, las redes tradicionales no siempre son la solución.
+            <h2 class="text-5xl font-bold text-blue-900 mb-8 w-full max-w-6xl text-left">Introducción al IoT</h2>
+            <div class="flex gap-8 max-w-6xl w-full h-[60vh]">
+                <div class="w-1/3 flex flex-col justify-center space-y-6">
+                    <p class="text-lg text-slate-700 leading-relaxed text-justify">
+                        Las tecnologías actuales deben responder a un escenario donde miles de dispositivos necesitan
+                        conectarse sin depender de infraestructuras costosas. <br><br>
+                        <strong>Haz clic en las tarjetas</strong> para explorar los pilares fundamentales que impulsan
+                        esta tecnología.
+                    </p>
+                </div>
+                <div class="w-2/3 grid grid-rows-3 gap-4">
+                    <div class="intro-card group cursor-pointer relative bg-white border-l-8 border-blue-600 shadow-md p-6 rounded-r-xl transition-all hover:shadow-xl hover:translate-x-2"
+                        onclick="toggleIntroDetails(this)">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-blue-900">Eficiencia Energética</h3>
+                            <span class="text-2xl text-blue-400">+</span>
+                        </div>
+                        <div class="details hidden mt-4 text-slate-600 text-sm border-t pt-4">
+                            En escenarios IoT, los dispositivos a menudo funcionan con baterías pequeñas y deben durar
+                            años. Las redes tradicionales consumen demasiada energía manteniendo la conexión. LoRa
+                            permite modos de "sueño profundo" para maximizar la vida útil.
+                        </div>
+                    </div>
+                    <div class="intro-card group cursor-pointer relative bg-white border-l-8 border-cyan-500 shadow-md p-6 rounded-r-xl transition-all hover:shadow-xl hover:translate-x-2"
+                        onclick="toggleIntroDetails(this)">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-cyan-900">Gran Cobertura</h3>
+                            <span class="text-2xl text-cyan-400">+</span>
+                        </div>
+                        <div class="details hidden mt-4 text-slate-600 text-sm border-t pt-4">
+                            Muchos sensores están ubicados en sótanos, campos agrícolas extensos o entornos industriales
+                            densos. Se requiere una tecnología capaz de penetrar obstáculos y cubrir kilómetros sin
+                            necesidad de repetidores complejos.
+                        </div>
+                    </div>
+                    <div class="intro-card group cursor-pointer relative bg-white border-l-8 border-indigo-600 shadow-md p-6 rounded-r-xl transition-all hover:shadow-xl hover:translate-x-2"
+                        onclick="toggleIntroDetails(this)">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-bold text-indigo-900">Escalabilidad y Coste</h3>
+                            <span class="text-2xl text-indigo-400">+</span>
+                        </div>
+                        <div class="details hidden mt-4 text-slate-600 text-sm border-t pt-4">
+                            Conectar miles de dispositivos no es viable si cada uno requiere una suscripción SIM 4G
+                            costosa. LoRaWAN permite desplegar redes privadas o usar públicas con un coste por nodo
+                            extremadamente bajo.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold text-blue-900 mb-4">La Problemática de las Redes Actuales</h2>
+            <p class="text-slate-500 mb-8 max-w-4xl text-center">¿Por qué WiFi o 4G no son suficientes para el IoT
+                masivo? Haz clic para comparar.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl w-full h-[60vh]">
+                <div class="flip-card cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div
+                            class="flip-card-front bg-white border-t-8 border-red-500 shadow-lg p-8 flex flex-col items-center justify-center">
+                            <div class="text-6xl mb-6">📶</div>
+                            <h3 class="text-2xl font-bold text-slate-800">Redes Locales</h3>
+                            <p class="text-slate-500 mt-2">(WiFi, Bluetooth, Zigbee)</p>
+                            <p class="mt-8 text-xs font-bold text-red-500 uppercase tracking-widest">Ver Limitaciones
+                            </p>
+                        </div>
+                        <div
+                            class="flip-card-back bg-red-50 border-t-8 border-red-500 shadow-lg p-8 flex flex-col items-center justify-center text-center">
+                            <h3 class="text-xl font-bold text-red-900 mb-4">Alcance Limitado</h3>
+                            <p class="text-slate-700 text-sm leading-relaxed">
+                                Diseñadas para corta distancia (hogar/oficina). Consumen mucha energía para mantener el
+                                ancho de banda alto, algo innecesario para un sensor que envía pocos bytes al día. No
+                                sirven para agricultura o ciudades.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div
+                            class="flip-card-front bg-white border-t-8 border-orange-500 shadow-lg p-8 flex flex-col items-center justify-center">
+                            <div class="text-6xl mb-6">📱</div>
+                            <h3 class="text-2xl font-bold text-slate-800">Redes Celulares</h3>
+                            <p class="text-slate-500 mt-2">(3G, 4G, LTE)</p>
+                            <p class="mt-8 text-xs font-bold text-orange-500 uppercase tracking-widest">Ver Limitaciones
+                            </p>
+                        </div>
+                        <div
+                            class="flip-card-back bg-orange-50 border-t-8 border-orange-500 shadow-lg p-8 flex flex-col items-center justify-center text-center">
+                            <h3 class="text-xl font-bold text-orange-900 mb-4">Coste y Consumo</h3>
+                            <p class="text-slate-700 text-sm leading-relaxed">
+                                Optimizadas para voz y video streaming. El protocolo es pesado ("overhead"), lo que
+                                agota las baterías rápidamente. El coste de licencia y hardware es demasiado alto para
+                                sensores masivos y baratos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card cursor-pointer" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div
+                            class="flip-card-front bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-xl p-8 flex flex-col items-center justify-center transform scale-105 ring-4 ring-blue-100 rounded-xl">
+                            <div class="text-6xl mb-6">🌐</div>
+                            <h3 class="text-2xl font-bold">LPWAN</h3>
+                            <p class="text-blue-200 mt-2">La Solución</p>
+                            <p
+                                class="mt-8 text-xs font-bold text-white uppercase tracking-widest bg-blue-500 px-2 py-1 rounded">
+                                Ver Ventajas</p>
+                        </div>
+                        <div
+                            class="flip-card-back bg-blue-50 border-t-8 border-blue-600 shadow-lg p-8 flex flex-col items-center justify-center text-center rounded-xl">
+                            <h3 class="text-xl font-bold text-blue-900 mb-4">Low Power Wide Area</h3>
+                            <p class="text-slate-700 text-sm leading-relaxed">
+                                Tecnologías como <strong>LoRaWAN, Sigfox o NB-IoT</strong> llenan el vacío: ofrecen
+                                kilómetros de alcance con baterías que duran años, sacrificando velocidad de datos, lo
+                                cual es perfecto para telemetría.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="max-w-7xl w-full flex flex-row gap-12 items-stretch h-[70vh]">
+                <div class="w-1/2 flex flex-col justify-center">
+                    <h2 class="text-5xl font-bold text-blue-900 mb-6">¿Qué es LoRa?</h2>
+                    <h3 class="text-xl text-blue-500 font-semibold mb-6 uppercase tracking-wide">Capa Física (PHY)</h3>
+
+                    <div class="space-y-6 text-slate-700">
+                        <p class="text-lg leading-relaxed">
+                            <strong>LoRa (Long Range)</strong> es una técnica de modulación patentada por Semtech
+                            (adquirida de Cycleo). No define la red, solo cómo viajan las ondas de radio.
+                        </p>
+                        <div class="bg-white p-6 rounded-lg shadow border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-900 mb-2">Chirp Spread Spectrum (CSS)</h4>
+                            <p class="text-sm">Utiliza "chirps" (barridos de frecuencia) para codificar la información.
+                                Esto la hace extremadamente resistente al ruido y las interferencias, permitiendo
+                                decodificar señales incluso por debajo del nivel de ruido ambiental.</p>
+                        </div>
+                        <ul class="list-disc pl-5 space-y-2 text-sm">
+                            <li>Bandas ISM sin licencia (868 MHz Europa).</li>
+                            <li>Balance único entre alcance y consumo.</li>
+                            <li>Alta inmunidad al efecto Doppler y multitrayecto.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="w-1/2 bg-slate-900 rounded-2xl shadow-2xl relative overflow-hidden flex flex-col">
+                    <div class="absolute top-4 left-4 z-10">
+                        <span class="text-xs font-mono text-green-400">Visualización de Chirps</span>
+                    </div>
+                    <canvas id="chirpCanvas" class="w-full h-full"></canvas>
+                    <div
+                        class="absolute bottom-0 left-0 w-full p-4 bg-black/50 backdrop-blur text-white text-xs font-mono">
+                        > Frequency sweep over time<br>
+                        > Robust against noise
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold text-blue-900 mb-2">LoRa vs LoRaWAN</h2>
+            <p class="text-slate-500 mb-8">Arquitectura completa de protocolos (Basado en Fig 2.2). Haz clic en las
+                capas coloreadas.</p>
+
+            <div class="flex items-start justify-center gap-16 w-full max-w-7xl">
+
+                <div
+                    class="w-[500px] flex flex-col shadow-2xl rounded-lg overflow-hidden font-sans font-bold text-white text-center select-none">
+
+                    <div class="py-3 bg-slate-300 text-slate-500 border-b border-white/20">
+                        Application
+                    </div>
+
+                    <div onclick="showStackInfo('lorawan')"
+                        class="py-4 bg-blue-600 hover:bg-blue-500 cursor-pointer transition-colors border-b border-white/20 relative group">
+                        <span class="relative z-10">LoRaWAN MAC</span>
+                        <div
+                            class="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition">
+                            👆</div>
+                    </div>
+
+                    <div class="py-2 bg-blue-300 text-blue-800 text-sm border-b border-white/20">
+                        MAC options
+                    </div>
+
+                    <div class="grid grid-cols-3 border-b border-white/20 text-sm">
+                        <div class="bg-cyan-600 py-2 border-r border-white/20 opacity-60">Class A</div>
+                        <div class="bg-cyan-600 py-2 border-r border-white/20 opacity-60">Class B</div>
+                        <div class="bg-cyan-600 py-2 opacity-60">Class C</div>
+                    </div>
+
+                    <div onclick="showStackInfo('lora')"
+                        class="py-4 bg-orange-600 hover:bg-orange-500 cursor-pointer transition-colors border-b border-white/20 relative group">
+                        <span class="relative z-10">LoRa Modulation</span>
+                        <div
+                            class="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition">
+                            👆</div>
+                    </div>
+
+                    <div class="bg-slate-400 py-2 text-slate-700 text-xs flex justify-around">
+                        <span>EU 868</span>
+                        <span>US 915</span>
+                        <span>AS 430</span>
+                    </div>
+
+                </div>
+
+                <div class="w-[500px] h-[400px]">
+                    <div id="stack-info-panel"
+                        class="glass-panel w-full h-full p-8 flex flex-col justify-center relative">
+                        <div class="absolute top-4 right-4 text-6xl opacity-10">📚</div>
+                        <h3 id="stack-title" class="text-3xl font-bold text-blue-900 mb-6 border-b pb-4">Selecciona una
+                            capa</h3>
+                        <p id="stack-desc" class="text-slate-700 text-lg leading-relaxed">
+                            Esta pila diferencia la tecnología física (radio) del protocolo de red inteligente.
+                            Interactúa con los bloques <strong>Azul (MAC)</strong> y <strong>Naranja (Física)</strong>
+                            para ver la distinción clave explicada en la memoria.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-4xl font-bold text-blue-900 mb-6 text-center">Estado Actual y Ecosistema</h2>
+            <div class="grid grid-cols-2 gap-8 max-w-7xl w-full h-[60vh]">
+
+                <div class="glass-panel p-8 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-blue-700 mb-4">Consolidación Global</h3>
+                    <p class="text-slate-700 leading-relaxed mb-6 text-justify">
+                        LoRaWAN se ha consolidado como la tecnología LPWAN líder "de facto" a nivel mundial. Gracias a
+                        la <strong>LoRa Alliance</strong>, se ha creado un estándar abierto que garantiza la
+                        interoperabilidad.
                     </p>
                     <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">1</span>
-                            <span>Necesidad de <strong>eficiencia energética</strong>.</span>
+                        <li class="flex items-center gap-3 bg-white p-3 rounded shadow-sm">
+                            <span
+                                class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">1</span>
+                            <span class="text-sm text-slate-600">Despliegues masivos en +170 países.</span>
                         </li>
-                        <li class="flex items-start">
-                            <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0">2</span>
-                            <span>Requisito de <strong>gran cobertura</strong>.</span>
+                        <li class="flex items-center gap-3 bg-white p-3 rounded shadow-sm">
+                            <span
+                                class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">2</span>
+                            <span class="text-sm text-slate-600">Modelos flexibles: Redes públicas (operadores) y redes
+                                privadas comunitarias (The Things Network).</span>
+                        </li>
+                        <li class="flex items-center gap-3 bg-white p-3 rounded shadow-sm">
+                            <span
+                                class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">3</span>
+                            <span class="text-sm text-slate-600">Madurez tecnológica: Roaming, Multicast y
+                                actualizaciones FOTA.</span>
                         </li>
                     </ul>
                 </div>
-                <div class="w-full md:w-1/2 flex justify-center">
-                    <div class="relative w-80 h-80 bg-blue-50 rounded-full flex items-center justify-center border-4 border-blue-100 shadow-xl">
-                        <div class="absolute inset-0 rounded-full border border-blue-200 animate-[spin_10s_linear_infinite]"></div>
-                        <div class="text-6xl text-blue-600">IoT</div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div
+                        class="bg-blue-50 p-6 rounded-2xl border border-blue-100 flex flex-col items-center justify-center text-center hover:bg-blue-100 transition">
+                        <div class="text-4xl mb-2">🏙️</div>
+                        <h4 class="font-bold text-blue-900">Smart Cities</h4>
+                        <p class="text-xs text-slate-600 mt-2">Gestión de residuos, alumbrado inteligente y parking.</p>
+                    </div>
+                    <div
+                        class="bg-green-50 p-6 rounded-2xl border border-green-100 flex flex-col items-center justify-center text-center hover:bg-green-100 transition">
+                        <div class="text-4xl mb-2">🌾</div>
+                        <h4 class="font-bold text-green-900">Agricultura</h4>
+                        <p class="text-xs text-slate-600 mt-2">Humedad del suelo, seguimiento de ganado.</p>
+                    </div>
+                    <div
+                        class="bg-orange-50 p-6 rounded-2xl border border-orange-100 flex flex-col items-center justify-center text-center hover:bg-orange-100 transition">
+                        <div class="text-4xl mb-2">🏭</div>
+                        <h4 class="font-bold text-orange-900">Industria 4.0</h4>
+                        <p class="text-xs text-slate-600 mt-2">Mantenimiento predictivo y monitorización de activos.</p>
+                    </div>
+                    <div
+                        class="bg-purple-50 p-6 rounded-2xl border border-purple-100 flex flex-col items-center justify-center text-center hover:bg-purple-100 transition">
+                        <div class="text-4xl mb-2">📦</div>
+                        <h4 class="font-bold text-purple-900">Logística</h4>
+                        <p class="text-xs text-slate-600 mt-2">Trazabilidad de cadena de frío y localización
+                            indoor/outdoor.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="w-full max-w-7xl">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <h2 class="text-4xl font-bold text-blue-900">Arquitectura de Red</h2>
+                        <p class="text-slate-500">Topología Estrella de Estrellas (Star-of-Stars)</p>
+                    </div>
+                    <button onclick="startNetSim()"
+                        class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg transition flex items-center gap-2">
+                        <span>📡</span> Simular Envío de Datos
+                    </button>
+                </div>
+
+                <div
+                    class="relative w-full h-[500px] bg-white/60 backdrop-blur rounded-3xl shadow-2xl border border-slate-200 p-8 overflow-hidden">
+
+                    <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none stroke-slate-300"
+                        style="z-index: 0;">
+                        <path d="M 150 150 L 400 250" stroke-width="2" stroke-dasharray="5,5" />
+                        <path d="M 150 250 L 400 250" stroke-width="2" stroke-dasharray="5,5" />
+                        <path d="M 150 350 L 400 250" stroke-width="2" stroke-dasharray="5,5" />
+                        <line x1="450" y1="250" x2="700" y2="250" stroke-width="4" stroke="#94a3b8" />
+                        <line x1="800" y1="250" x2="1050" y2="250" stroke-width="4" stroke="#94a3b8" />
+                    </svg>
+
+                    <div class="grid grid-cols-4 h-full items-center justify-items-center relative z-10">
+
+                        <div class="flex flex-col gap-12 bg-white/50 p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">💧
+                                </div>
+                                <span class="text-xs font-bold text-slate-600">Sensor</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">🌡️
+                                </div>
+                                <span class="text-xs font-bold text-slate-600">Sensor</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">📍
+                                </div>
+                                <span class="text-xs font-bold text-slate-600">Tracker</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center text-center">
+                            <div
+                                class="w-28 h-36 bg-slate-800 rounded-lg border-b-8 border-blue-500 flex flex-col items-center justify-center shadow-2xl relative">
+                                <div class="w-1 h-10 bg-slate-600 absolute -top-10 left-4"></div>
+                                <div class="w-1 h-10 bg-slate-600 absolute -top-10 right-4"></div>
+                                <span class="text-4xl text-blue-400">((●))</span>
+                                <span class="text-white text-xs font-mono mt-4">Concentrador</span>
+                            </div>
+                            <div class="mt-4 bg-slate-100 px-3 py-1 rounded text-xs text-slate-500 font-mono">Packet
+                                Forwarder</div>
+                        </div>
+
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="w-40 h-40 bg-blue-50 rounded-full border-4 border-blue-600 flex flex-col items-center justify-center shadow-2xl relative z-20">
+                                <span class="text-5xl mb-2">☁️</span>
+                                <span
+                                    class="text-blue-900 font-bold text-sm text-center leading-tight">Network<br>Server</span>
+                            </div>
+                            <div class="mt-4 text-xs text-slate-500 max-w-[150px] text-center">Gestión de red, ADR,
+                                Deduplicación</div>
+                        </div>
+
+                        <div class="flex flex-col items-center">
+                            <div
+                                class="w-32 h-32 bg-white rounded-xl border-2 border-cyan-500 flex items-center justify-center shadow-lg relative z-20">
+                                <span class="text-5xl">💻</span>
+                            </div>
+                            <div class="mt-4 text-xs text-slate-500 font-bold">Application Server</div>
+                            <div class="text-[10px] text-slate-400">Dashboards / API</div>
+                        </div>
+                    </div>
+
+                    <div id="sim-packet" class="packet"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="w-full max-w-7xl">
+                <h2 class="text-3xl font-bold text-blue-900 mb-2">Explorador de Trama LoRaWAN</h2>
+                <p class="text-slate-500 mb-10">Desglose bit a bit del mensaje enviado por el aire.</p>
+
+                <div
+                    class="flex w-full h-28 rounded-xl overflow-hidden shadow-2xl border border-slate-300 text-white font-bold text-sm select-none relative z-10">
+
+                    <div onclick="showFrameInfo('preamble')"
+                        class="frame-segment flex-1 bg-slate-500 flex flex-col items-center justify-center border-r border-slate-400 hover:bg-slate-400">
+                        <span>Preamble</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('phdr')"
+                        class="frame-segment w-24 bg-slate-600 flex flex-col items-center justify-center border-r border-slate-500 hover:bg-slate-500">
+                        <span>PHDR</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('mhdr')"
+                        class="frame-segment w-16 bg-yellow-600 flex flex-col items-center justify-center border-r border-yellow-500 hover:bg-yellow-500">
+                        <span>MHDR</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('devaddr')"
+                        class="frame-segment w-32 bg-emerald-600 flex flex-col items-center justify-center border-r border-emerald-500 hover:bg-emerald-500">
+                        <span>DevAddr</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('fctrl')"
+                        class="frame-segment w-16 bg-emerald-500 flex flex-col items-center justify-center border-r border-emerald-400 hover:bg-emerald-400">
+                        <span>FCtrl</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('fcnt')"
+                        class="frame-segment w-20 bg-emerald-700 flex flex-col items-center justify-center border-r border-emerald-600 hover:bg-emerald-600">
+                        <span>FCnt</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('fport')"
+                        class="frame-segment w-16 bg-purple-600 flex flex-col items-center justify-center border-r border-purple-500 hover:bg-purple-500">
+                        <span>Port</span>
+                    </div>
+
+                    <div onclick="showFrameInfo('payload')"
+                        class="frame-segment flex-[2] bg-blue-600 flex flex-col items-center justify-center border-r border-blue-500 relative overflow-hidden hover:bg-blue-500">
+                        <span class="relative z-10">FRM Payload</span>
+                        <div
+                            class="absolute inset-0 opacity-20 bg-[radial-gradient(circle,_#ffffff_1px,_transparent_1px)] bg-[length:4px_4px]">
+                        </div>
+                    </div>
+
+                    <div onclick="showFrameInfo('mic')"
+                        class="frame-segment w-24 bg-red-600 flex flex-col items-center justify-center hover:bg-red-500">
+                        <span>MIC</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 h-48 w-full relative">
+                    <div id="frame-detail-card"
+                        class="absolute inset-0 bg-white rounded-xl shadow-lg border-l-8 border-slate-300 p-8 transition-all duration-300">
+                        <h3 id="frame-title" class="text-3xl font-bold text-slate-800 mb-4">Selecciona un campo</h3>
+                        <div class="flex gap-4 mb-4">
+                            <span id="frame-size"
+                                class="text-xs font-mono bg-slate-100 px-3 py-1 rounded text-slate-500 uppercase tracking-wide border">Tamaño:
+                                --</span>
+                            <span id="frame-layer"
+                                class="text-xs font-mono bg-slate-100 px-3 py-1 rounded text-slate-500 uppercase tracking-wide border">Capa:
+                                --</span>
+                        </div>
+                        <p id="frame-desc" class="text-lg text-slate-600 leading-relaxed">Haz clic en las secciones de
+                            la barra superior para revelar su propósito técnico en el protocolo.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 3: PROBLEMA -->
         <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-12">La Necesidad de Nuevas Redes</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
-                <div class="glass-panel p-8 text-center border-b-4 border-red-400">
-                    <div class="text-5xl mb-4">📶</div>
-                    <h3 class="text-xl font-bold mb-2">WiFi / Bluetooth</h3>
-                    <p class="text-slate-600 text-sm">Corto alcance.</p>
+            <h2 class="text-4xl font-bold text-blue-900 mb-6">Clases de Dispositivos (A, B, C)</h2>
+            <p class="text-slate-500 mb-8">Elige una clase para ver su comportamiento temporal (TX vs RX). Basado en la
+                Fig 2.4.</p>
+
+            <div class="flex gap-6 mb-12 justify-center">
+                <button onclick="renderTimeline('A')"
+                    class="px-8 py-3 bg-white border border-blue-200 hover:border-blue-500 hover:shadow-md text-blue-900 rounded-lg font-bold transition flex flex-col items-center min-w-[150px]">
+                    <span class="text-xl">Clase A</span>
+                    <span class="text-[10px] text-slate-400 font-normal uppercase">Bajo Consumo</span>
+                </button>
+                <button onclick="renderTimeline('B')"
+                    class="px-8 py-3 bg-white border border-blue-200 hover:border-blue-500 hover:shadow-md text-blue-900 rounded-lg font-bold transition flex flex-col items-center min-w-[150px]">
+                    <span class="text-xl">Clase B</span>
+                    <span class="text-[10px] text-slate-400 font-normal uppercase">Latencia Media</span>
+                </button>
+                <button onclick="renderTimeline('C')"
+                    class="px-8 py-3 bg-white border border-blue-200 hover:border-blue-500 hover:shadow-md text-blue-900 rounded-lg font-bold transition flex flex-col items-center min-w-[150px]">
+                    <span class="text-xl">Clase C</span>
+                    <span class="text-[10px] text-slate-400 font-normal uppercase">Sin Latencia</span>
+                </button>
+            </div>
+
+            <div class="w-full max-w-6xl relative">
+
+                <div class="bg-white p-12 rounded-2xl shadow-xl border border-slate-200 h-64 relative overflow-hidden"
+                    id="timeline-container">
+                    <div class="absolute top-1/2 left-10 right-10 h-1 bg-slate-300"></div>
+                    <div class="absolute top-[52%] right-10 text-xs text-slate-400 font-mono">Tiempo -></div>
+
+                    <div id="timeline-elements" class="w-full h-full absolute top-0 left-0">
+                    </div>
                 </div>
-                <div class="glass-panel p-8 text-center border-b-4 border-orange-400">
-                    <div class="text-5xl mb-4">📱</div>
-                    <h3 class="text-xl font-bold mb-2">3G / 4G / 5G</h3>
-                    <p class="text-slate-600 text-sm">Alto consumo y coste.</p>
+
+                <div id="class-description"
+                    class="mt-8 text-center text-slate-700 max-w-4xl mx-auto bg-blue-50 p-4 rounded-lg border border-blue-100">
+                    Selecciona una clase arriba para visualizar el diagrama.
                 </div>
-                <div class="glass-panel p-8 text-center border-b-4 border-green-500 transform scale-105 shadow-2xl relative">
-                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-3 py-1 rounded text-xs font-bold">SOLUCIÓN</div>
-                    <div class="text-5xl mb-4 text-green-600">🌐</div>
-                    <h3 class="text-xl font-bold mb-2">LPWAN</h3>
-                    <p class="text-slate-600 text-sm">Largo alcance + Bajo Consumo.</p>
+
+            </div>
+        </div>
+
+        <div class="slide">
+            <h2 class="text-5xl font-bold text-blue-900 mb-8">Seguridad en LoRaWAN</h2>
+            <div class="flex flex-col md:flex-row gap-12 items-start max-w-7xl w-full h-[60vh]">
+
+                <div class="w-1/2 space-y-8">
+                    <p class="text-lg text-slate-700">La seguridad es fundamental y está implementada mediante cifrado
+                        <strong>AES-128</strong> en dos capas independientes. Pasa el ratón para ver detalles.
+                    </p>
+
+                    <div
+                        class="group bg-white p-6 rounded-xl shadow-md border-l-8 border-indigo-500 hover:shadow-2xl transition-all cursor-default">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="bg-indigo-100 p-3 rounded-full text-2xl">🔑</div>
+                            <h3 class="text-2xl font-bold text-indigo-900">Network Session Key</h3>
+                        </div>
+                        <p class="text-slate-600 mb-4 font-mono text-sm">NwkSKey</p>
+                        <div class="h-0 overflow-hidden group-hover:h-24 transition-all duration-500">
+                            <p class="text-sm text-slate-600 border-t pt-2">
+                                Garantiza la <strong>Integridad</strong> del mensaje (calculando el campo MIC). Asegura
+                                que el paquete viene del dispositivo correcto y no ha sido modificado. El Operador de
+                                Red la conoce.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="group bg-white p-6 rounded-xl shadow-md border-l-8 border-cyan-500 hover:shadow-2xl transition-all cursor-default">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="bg-cyan-100 p-3 rounded-full text-2xl">🗝️</div>
+                            <h3 class="text-2xl font-bold text-cyan-900">App Session Key</h3>
+                        </div>
+                        <p class="text-slate-600 mb-4 font-mono text-sm">AppSKey</p>
+                        <div class="h-0 overflow-hidden group-hover:h-24 transition-all duration-500">
+                            <p class="text-sm text-slate-600 border-t pt-2">
+                                Garantiza la <strong>Confidencialidad</strong> de los datos. Cifra el Payload FRM. Ni
+                                siquiera el Operador de Red puede leer tus datos; solo tú (el Servidor de Aplicación).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-1/2 flex items-center justify-center h-full relative">
+                    <div
+                        class="w-80 h-80 bg-slate-800 rounded-full flex items-center justify-center relative shadow-2xl">
+                        <div
+                            class="absolute inset-0 border-4 border-dashed border-slate-600 rounded-full animate-spin-slow">
+                        </div>
+                        <div class="text-center">
+                            <div class="text-6xl mb-2">🔒</div>
+                            <div class="text-white font-bold text-xl">AES-128</div>
+                            <div class="text-green-400 text-xs mt-2 font-mono">Secure Payload</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 4: TECNOLOGÍA LORA -->
         <div class="slide">
-            <div class="max-w-5xl w-full flex flex-col md:flex-row gap-12 items-center">
-                <div class="flex-1">
-                    <h2 class="text-4xl font-bold text-blue-900 mb-6">¿Qué es LoRa?</h2>
-                    <p class="mb-4 text-slate-700"><strong>LoRa (Long Range)</strong> es la modulación de la capa física.</p>
-                    <div class="bg-blue-900 text-white p-4 rounded-lg shadow-lg">
-                        <p class="font-mono text-sm">> Modulación robusta (CSS) inmune al ruido.</p>
-                    </div>
-                </div>
-                <div class="flex-1 relative h-64 w-full bg-slate-900 rounded-xl overflow-hidden shadow-inner flex items-center justify-center">
-                    <canvas id="chirpCanvas" width="400" height="200"></canvas>
-                </div>
-            </div>
-        </div>
+            <h2 class="text-4xl font-bold text-blue-900 mb-12">Retos y Futuro</h2>
 
-        <!-- SLIDE 5: LORA VS LORAWAN -->
-        <div class="slide">
-            <h2 class="text-5xl font-bold text-blue-900 mb-2">LoRa vs LoRaWAN</h2>
-            <p class="text-slate-500 mb-8">Pasa el ratón sobre los bloques para entender la diferencia.</p>
-            
-            <div class="flex flex-row items-center justify-center gap-12 w-full max-w-6xl">
-                <!-- Stack -->
-                <div class="relative w-80 h-96 flex flex-col justify-end">
-                    
-                    <!-- App Layer -->
-                    <div onmouseenter="showStackInfo('app')" class="layer-block w-full h-20 bg-cyan-400 text-blue-900 flex items-center justify-center rounded-t-xl shadow-lg mb-1 animate-pulse border-2 border-white">
-                        <span class="text-2xl font-bold">Aplicación</span>
-                    </div>
-                    
-                    <!-- LoRaWAN Layer -->
-                    <div onmouseenter="showStackInfo('lorawan')" class="layer-block w-full h-24 bg-blue-600 text-white flex items-center justify-center rounded-xl shadow-lg mb-4 border-2 border-white animate-bounce" style="animation-duration: 3s;">
-                        <span class="text-2xl font-bold">LoRaWAN (MAC)</span>
-                    </div>
-                    
-                    <!-- LoRa Layer -->
-                    <div onmouseenter="showStackInfo('lora')" class="layer-block w-full h-24 bg-blue-900 text-white flex items-center justify-center rounded-b-xl shadow-lg border-2 border-white">
-                        <span class="text-2xl font-bold">LoRa (Física)</span>
+            <div class="grid grid-cols-3 gap-8 max-w-7xl w-full h-80">
+                <div class="relative group perspective-1000 h-full">
+                    <div
+                        class="w-full h-full bg-white rounded-2xl shadow-xl border-t-8 border-blue-500 p-8 transition-transform duration-500 group-hover:-translate-y-4">
+                        <div class="text-5xl mb-6 bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center">
+                            🛰️</div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Redes Satelitales</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            Integración de LoRaWAN con satélites LEO (Low Earth Orbit) para dar cobertura global real en
+                            océanos y desiertos donde no hay Gateways terrestres (LR-FHSS).
+                        </p>
                     </div>
                 </div>
 
-                <!-- Info Panel -->
-                <div class="w-96 h-64 relative perspective-1000">
-                    <div id="stack-info-panel" class="glass-panel w-full h-full p-6 flex flex-col justify-center transition-all duration-300 transform">
-                        <h3 id="stack-title" class="text-2xl font-bold text-blue-800 mb-4">Arquitectura por Capas</h3>
-                        <p id="stack-desc" class="text-slate-600 leading-relaxed">
-                            Interactúa con la pila para ver los detalles específicos de cada tecnología.
+                <div class="relative group perspective-1000 h-full">
+                    <div
+                        class="w-full h-full bg-white rounded-2xl shadow-xl border-t-8 border-purple-500 p-8 transition-transform duration-500 group-hover:-translate-y-4 delay-100">
+                        <div class="text-5xl mb-6 bg-purple-50 w-20 h-20 rounded-full flex items-center justify-center">
+                            🤝</div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Roaming Pasivo</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            Interconexión entre operadores públicos y privados. Un dispositivo podrá viajar de un país a
+                            otro conectándose a diferentes redes sin reconfiguración manual.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="relative group perspective-1000 h-full">
+                    <div
+                        class="w-full h-full bg-white rounded-2xl shadow-xl border-t-8 border-green-500 p-8 transition-transform duration-500 group-hover:-translate-y-4 delay-200">
+                        <div class="text-5xl mb-6 bg-green-50 w-20 h-20 rounded-full flex items-center justify-center">
+                            📶</div>
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Densificación</h3>
+                        <p class="text-slate-600 leading-relaxed text-sm">
+                            Mejora de algoritmos ADR y gestión del espectro para soportar millones de nodos en ciudades
+                            densas sin colapsar la banda ISM debido a colisiones.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 6: ESTADO ACTUAL -->
         <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-8">Estado Actual</h2>
-            <div class="grid grid-cols-2 gap-8 max-w-6xl w-full">
-                <div class="glass-panel p-6">
-                    <h3 class="text-lg font-bold text-blue-700 mb-2">Adopción Global</h3>
-                    <div class="h-48 bg-slate-200 rounded flex items-center justify-center text-4xl font-extrabold text-blue-800">
-                        170+ Países
-                    </div>
-                </div>
-                <div class="glass-panel p-6">
-                    <h3 class="text-lg font-bold text-blue-700 mb-2">Sectores</h3>
-                    <div class="grid grid-cols-2 gap-4 mt-4 text-center">
-                        <div class="bg-blue-50 p-2 rounded">Smart Cities</div>
-                        <div class="bg-blue-50 p-2 rounded">Agricultura</div>
-                        <div class="bg-blue-50 p-2 rounded">Industria</div>
-                        <div class="bg-blue-50 p-2 rounded">Logística</div>
-                    </div>
+            <div class="max-w-5xl text-center">
+                <h2 class="text-6xl font-bold text-blue-900 mb-12">Conclusión</h2>
+                <div class="glass-panel p-12 relative">
+                    <div class="text-6xl text-blue-200 absolute top-4 left-4">"</div>
+                    <p class="text-3xl text-slate-700 font-light leading-relaxed italic">
+                        LoRaWAN ha logrado el equilibrio perfecto entre simplicidad, robustez y eficiencia. No viene a
+                        sustituir al 5G ni al WiFi, sino a conectar lo invisible: <strong>la infraestructura que
+                            sustenta nuestro mundo.</strong>
+                    </p>
+                    <div class="text-6xl text-blue-200 absolute bottom-4 right-4">"</div>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 7: ARQUITECTURA -->
         <div class="slide">
-            <div class="w-full max-w-6xl">
-                <div class="flex justify-between items-end mb-4">
-                    <h2 class="text-3xl font-bold text-blue-900">Arquitectura de Red</h2>
-                    <button onclick="startNetSim()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow transition flex items-center gap-2 text-sm">
-                        <span>📡</span> Enviar Datos
-                    </button>
-                </div>
-                
-                <div class="relative w-full h-96 bg-white/60 backdrop-blur rounded-2xl shadow-xl border border-slate-200 p-8">
-                    
-                    <!-- Background Connections -->
-                    <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none stroke-slate-300 stroke-2" style="z-index: 0;">
-                        <line x1="15%" y1="30%" x2="35%" y2="50%" stroke-dasharray="5,5" />
-                        <line x1="15%" y1="50%" x2="35%" y2="50%" stroke-dasharray="5,5" />
-                        <line x1="15%" y1="70%" x2="35%" y2="50%" stroke-dasharray="5,5" />
-                        <line x1="35%" y1="50%" x2="60%" y2="50%" stroke-width="4" stroke="#94a3b8" />
-                        <line x1="60%" y1="50%" x2="85%" y2="50%" stroke-width="4" stroke="#94a3b8" />
-                    </svg>
-
-                    <!-- Components Grid -->
-                    <div class="grid grid-cols-4 h-full items-center justify-items-center relative z-10">
-                        <!-- Col 1: End Devices -->
-                        <div class="flex flex-col gap-8">
-                            <div class="w-12 h-12 bg-green-100 rounded-full border-2 border-green-500 flex items-center justify-center text-xl shadow-sm" title="Sensor Agua">💧</div>
-                            <div class="w-12 h-12 bg-green-100 rounded-full border-2 border-green-500 flex items-center justify-center text-xl shadow-sm" title="Sensor Temp">🌡️</div>
-                            <div class="w-12 h-12 bg-green-100 rounded-full border-2 border-green-500 flex items-center justify-center text-xl shadow-sm" title="GPS Tracker">📍</div>
-                            <p class="text-xs font-bold text-slate-500 mt-2 text-center">Dispositivos Finales</p>
-                        </div>
-                        <!-- Col 2: Gateway -->
-                        <div class="flex flex-col items-center">
-                            <div class="w-24 h-32 bg-slate-800 rounded-lg border-b-4 border-blue-500 flex flex-col items-center justify-center shadow-lg relative">
-                                <div class="w-1 h-8 bg-slate-600 absolute -top-8 left-4"></div>
-                                <div class="w-1 h-8 bg-slate-600 absolute -top-8 right-4"></div>
-                                <span class="text-3xl">📶</span>
-                                <span class="text-white text-xs font-mono mt-2">GW-01</span>
-                            </div>
-                            <p class="text-xs font-bold text-slate-500 mt-4">Gateway / Concentrador</p>
-                        </div>
-                        <!-- Col 3: Network Server -->
-                        <div class="flex flex-col items-center">
-                            <div class="w-32 h-32 bg-blue-100 rounded-full border-4 border-blue-600 flex flex-col items-center justify-center shadow-2xl relative overflow-hidden">
-                                <div class="absolute inset-0 bg-blue-200 opacity-20 animate-pulse"></div>
-                                <span class="text-4xl z-10">☁️</span>
-                                <span class="text-blue-900 font-bold text-xs z-10 mt-1">THE THINGS<br>NETWORK</span>
-                            </div>
-                            <p class="text-xs font-bold text-slate-500 mt-4">Network Server (Cerebro)</p>
-                        </div>
-                        <!-- Col 4: App Server -->
-                        <div class="flex flex-col items-center">
-                            <div class="w-24 h-24 bg-white rounded-xl border-2 border-cyan-500 flex items-center justify-center shadow-md">
-                                <span class="text-4xl">💻</span>
-                            </div>
-                            <p class="text-xs font-bold text-slate-500 mt-4">Servidor de Aplicación</p>
-                        </div>
-                    </div>
-
-                    <!-- Animation Packet -->
-                    <div id="sim-packet" class="packet top-1/2 left-0"></div>
-
-                </div>
+            <h2 class="text-4xl font-bold text-blue-900 mb-8">Bibliografía</h2>
+            <div class="bg-white p-8 rounded-xl shadow-lg max-w-4xl w-full border border-slate-200">
+                <ul class="text-left space-y-6 text-slate-700">
+                    <li class="flex gap-4">
+                        <span class="font-bold text-blue-600">[1]</span>
+                        <span>Prometec. <em>LoRa y LoRaWAN</em>. Disponible en línea.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="font-bold text-blue-600">[7]</span>
+                        <span>INCIBE. <em>LoRaWAN y su aportación a las tecnologías IIoT</em> (2023).</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="font-bold text-blue-600">[14]</span>
+                        <span>LoRa Alliance. <em>LoRaWAN 1.0.3 Specification</em> (2020).</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="font-bold text-blue-600">[17]</span>
+                        <span>Cloud Studio. <em>Guía definitiva de LoRaWAN: cómo funciona y casos de uso</em>
+                            (2025).</span>
+                    </li>
+                </ul>
             </div>
         </div>
 
-        <!-- SLIDE 8: ESTRUCTURA DE LA TRAMA -->
         <div class="slide">
-            <div class="w-full max-w-6xl">
-                <h2 class="text-3xl font-bold text-blue-900 mb-2">Explorador de Trama LoRaWAN</h2>
-                <p class="text-slate-500 mb-8">Haz clic en los bloques de la trama para ver su función técnica.</p>
-
-                <!-- Frame Bar -->
-                <div class="flex w-full h-24 rounded-xl overflow-hidden shadow-2xl border border-slate-300 text-white font-bold text-sm md:text-base select-none">
-                    
-                    <div onclick="showFrameInfo('preamble')" class="frame-segment w-[10%] bg-slate-500 flex flex-col items-center justify-center border-r border-slate-400">
-                        <span>Preámbulo</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('phdr')" class="frame-segment w-[10%] bg-slate-600 flex flex-col items-center justify-center border-r border-slate-500">
-                        <span>PHDR</span>
-                        <span class="text-[10px] opacity-70">CRC</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('mhdr')" class="frame-segment w-[8%] bg-yellow-600 flex flex-col items-center justify-center border-r border-yellow-500">
-                        <span>MHDR</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('devaddr')" class="frame-segment w-[15%] bg-emerald-600 flex flex-col items-center justify-center border-r border-emerald-500">
-                        <span>DevAddr</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('fctrl')" class="frame-segment w-[8%] bg-emerald-500 flex flex-col items-center justify-center border-r border-emerald-400">
-                        <span>FCtrl</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('fcnt')" class="frame-segment w-[10%] bg-emerald-700 flex flex-col items-center justify-center border-r border-emerald-600">
-                        <span>FCnt</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('fport')" class="frame-segment w-[5%] bg-purple-600 flex flex-col items-center justify-center border-r border-purple-500">
-                        <span>Port</span>
-                    </div>
-
-                    <div onclick="showFrameInfo('payload')" class="frame-segment w-[24%] bg-blue-600 flex flex-col items-center justify-center border-r border-blue-500 relative overflow-hidden">
-                        <span class="relative z-10">FRM Payload</span>
-                        <div class="absolute inset-0 bg-black opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==')]"></div>
-                    </div>
-
-                    <div onclick="showFrameInfo('mic')" class="frame-segment w-[10%] bg-red-600 flex flex-col items-center justify-center">
-                        <span>MIC</span>
-                    </div>
-                </div>
-
-                <!-- Info Card Container -->
-                <div class="mt-8 h-40 w-full relative">
-                    <div id="frame-detail-card" class="absolute inset-0 bg-white rounded-xl shadow-lg border-l-8 border-slate-300 p-6 transition-all duration-300">
-                        <h3 id="frame-title" class="text-2xl font-bold text-slate-800 mb-2">Selecciona un campo</h3>
-                        <div class="flex gap-4 mb-2">
-                             <span id="frame-size" class="text-xs font-mono bg-slate-100 px-2 py-1 rounded text-slate-500">Tamaño: --</span>
-                             <span id="frame-layer" class="text-xs font-mono bg-slate-100 px-2 py-1 rounded text-slate-500">Capa: --</span>
-                        </div>
-                        <p id="frame-desc" class="text-slate-600">Haz clic en las secciones de la barra superior para revelar su propósito en el protocolo LoRaWAN.</p>
-                    </div>
-                </div>
+            <div class="text-center">
+                <h1 class="text-7xl font-extrabold text-blue-950 mb-6">Gracias</h1>
+                <p class="text-2xl text-slate-600">Andrea Nazaret González Maroto</p>
+                <button onclick="showSlide(0)"
+                    class="mt-12 px-6 py-2 border border-slate-300 rounded-full text-slate-400 hover:text-slate-600 hover:border-slate-500 transition text-sm">Volver
+                    al inicio</button>
             </div>
-        </div>
-
-        <!-- SLIDE 9: CLASES -->
-        <div class="slide">
-            <h2 class="text-3xl font-bold text-blue-900 mb-4">Clases A, B y C</h2>
-            <div class="flex gap-4 mb-6">
-                <button onclick="showClass('A')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-bold transition">Clase A</button>
-                <button onclick="showClass('B')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-bold transition">Clase B</button>
-                <button onclick="showClass('C')" class="px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-bold transition">Clase C</button>
-            </div>
-            <div class="w-full max-w-5xl h-64 bg-white border border-slate-300 rounded-lg relative overflow-hidden shadow-inner" id="class-display">
-                <div class="absolute top-1/2 left-0 w-full h-1 bg-slate-200"></div>
-                <div id="timeline-content" class="w-full h-full relative"></div>
-            </div>
-            <div id="class-desc" class="mt-4 text-center max-w-3xl text-lg font-medium text-blue-800">Selecciona una clase.</div>
-        </div>
-
-        <!-- SLIDE 10: SEGURIDAD -->
-        <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-8">Seguridad</h2>
-            <div class="flex flex-col md:flex-row gap-8 items-center max-w-6xl">
-                <div class="flex-1 space-y-6">
-                    <div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow border-l-4 border-indigo-500">
-                        <div class="text-3xl">🔑</div>
-                        <div>
-                            <h4 class="font-bold text-indigo-900">NwkSKey</h4>
-                            <p class="text-sm text-slate-600">Integridad de red (MIC).</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow border-l-4 border-cyan-500">
-                        <div class="text-3xl">🗝️</div>
-                        <div>
-                            <h4 class="font-bold text-cyan-900">AppSKey</h4>
-                            <p class="text-sm text-slate-600">Encriptación de datos.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-1 flex justify-center">
-                    <div class="text-9xl">🔒</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 11: FUTURO -->
-        <div class="slide">
-            <h2 class="text-4xl font-bold text-blue-900 mb-8">Futuro</h2>
-            <div class="grid grid-cols-2 gap-6 max-w-5xl">
-                <div class="bg-white p-6 rounded shadow border-t-4 border-blue-500">
-                    <h3 class="font-bold">Roaming</h3>
-                    <p class="text-sm text-slate-600">Saltar entre redes.</p>
-                </div>
-                <div class="bg-white p-6 rounded shadow border-t-4 border-blue-500">
-                    <h3 class="font-bold">Satélites</h3>
-                    <p class="text-sm text-slate-600">Cobertura total.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDE 12: CONCLUSIÓN -->
-        <div class="slide">
-            <h2 class="text-5xl font-bold text-blue-900 mb-6">Conclusión</h2>
-            <p class="text-2xl text-slate-700 max-w-4xl text-center">
-                "LoRaWAN llena un vacío crítico en el IoT: conectar lo desconectado de forma eficiente."
-            </p>
-        </div>
-
-        <!-- SLIDE 13: BIBLIOGRAFÍA -->
-        <div class="slide">
-            <h2 class="text-3xl font-bold text-blue-900 mb-6">Bibliografía</h2>
-            <ul class="text-left space-y-4 max-w-4xl text-slate-700 text-sm">
-                <li class="p-3 bg-white shadow rounded">[1] Prometec. Lora y lorawan.</li>
-                <li class="p-3 bg-white shadow rounded">[7] INCIBE. LoRaWAN y su aportación al IIoT.</li>
-                <li class="p-3 bg-white shadow rounded">[14] LoRa Alliance. Specifications.</li>
-            </ul>
-        </div>
-
-        <!-- SLIDE 14: FIN -->
-        <div class="slide">
-            <h1 class="text-6xl font-bold text-blue-950 mb-4">Gracias</h1>
-            <p>Andrea Nazaret González Maroto</p>
-        </div>
-
-         <!-- SLIDE 15: EXTRA -->
-         <div class="slide">
-            <h1 class="text-4xl font-bold text-blue-950 mb-4">Preguntas</h1>
         </div>
 
     </div>
 
-    <!-- Controles de Navegación -->
-    <div class="fixed bottom-8 left-0 w-full flex justify-center items-center gap-8 z-50">
-        <button onclick="prevSlide()" class="p-3 bg-white/80 backdrop-blur rounded-full shadow-lg hover:bg-blue-100 text-blue-900">⬅️</button>
-        <div id="dots" class="flex gap-2"></div>
-        <button onclick="nextSlide()" class="p-3 bg-white/80 backdrop-blur rounded-full shadow-lg hover:bg-blue-100 text-blue-900">➡️</button>
+    <div class="fixed bottom-8 left-0 w-full flex justify-center items-center gap-8 z-50 pointer-events-auto">
+        <button onclick="prevSlide()"
+            class="p-4 bg-white/90 backdrop-blur rounded-full shadow-lg hover:bg-blue-50 text-blue-900 transition-transform hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+                <path
+                    d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z">
+                </path>
+            </svg>
+        </button>
+        <div id="dots" class="flex gap-3"></div>
+        <button onclick="nextSlide()"
+            class="p-4 bg-white/90 backdrop-blur rounded-full shadow-lg hover:bg-blue-50 text-blue-900 transition-transform hover:scale-110">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+                <path
+                    d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z">
+                </path>
+            </svg>
+        </button>
     </div>
 
-    <!-- Script Principal -->
     <script src="public/script.js"></script>
 
 </body>
+
 </html>
