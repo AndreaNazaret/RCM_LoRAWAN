@@ -120,8 +120,8 @@ function startChirpAnimation() {
 
 // --- INFO DISPLAYS (STACK) ---
 const stackData = {
-    lorawan: { title: "Capa MAC (LoRaWAN)", desc: "Protocolo de red. Gestiona seguridad, clases y reglas." },
-    lora: { title: "Capa Física (LoRa)", desc: "Modulación de radio CSS. Solo envía bits, sin lógica de red." }
+    lorawan: { title: "Capa MAC (LoRaWAN)", desc: "La capa MAC de LoRaWAN organiza cómo se envían y reciben los mensajes en la red y aplica las reglas de acceso al canal. Gestiona seguridad, clases de dispositivo y funciones como ADR o confirmaciones. Gracias a esta capa, la red mantiene orden, eficiencia y fiabilidad." },
+    lora: { title: "Capa Física (LoRa)", desc: "La capa física LoRa utiliza una modulación de chirps que permite transmitir a gran distancia con muy bajo consumo. Es muy resistente al ruido y opera en bandas ISM sin licencia. Además, permite ajustar parámetros como el spreading factor para equilibrar alcance y velocidad." }
 };
 function showStackInfo(id) {
     document.getElementById('stack-title').innerText = stackData[id].title;
