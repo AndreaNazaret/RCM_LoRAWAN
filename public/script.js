@@ -157,11 +157,11 @@ const frameData = {
     phdr_crc: { title: "PHDR CRC", desc: "Check de errores de la cabecera.", color: "border-slate-600", layer: "PHY" },
     crc: { title: "CRC", desc: "Check de errores de todo el paquete.", color: "border-slate-500", layer: "PHY" },
 
-    mhdr: { title: "MHDR", desc: "Tipo de mensaje (Join, Data, ACK).", color: "border-yellow-500", layer: "MAC" },
-    mic: { title: "MIC", desc: "Firma de seguridad (NwkSKey).", color: "border-yellow-500", layer: "MAC" },
+    mhdr: { title: "MHDR (1 byte)", desc: "Tipo de mensaje (Join, Data, ACK).", color: "border-yellow-500", layer: "MAC" },
+    mic: { title: "MIC (4 bytes)", desc: "Firma de seguridad (NwkSKey).", color: "border-yellow-500", layer: "MAC" },
 
-    fhdr: { title: "FHDR", desc: "Cabecera de Trama (Dirección, Contador).", color: "border-emerald-600", layer: "FRAME" },
-    fport: { title: "FPort", desc: "Puerto (0=MAC, 1+=App).", color: "border-purple-600", layer: "FRAME" },
+    fhdr: { title: "FHDR (7 a 22 bytes)", desc: "Cabecera de Trama (Dirección, Contador).", color: "border-emerald-600", layer: "FRAME" },
+    fport: { title: "FPort (1 byte)", desc: "Puerto (0=MAC, 1+=App).", color: "border-purple-600", layer: "FRAME" },
     frmpayload: { title: "FRM Payload", desc: "Datos de usuario encriptados (AppSKey).", color: "border-blue-600", layer: "APP" }
 };
 
